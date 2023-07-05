@@ -154,7 +154,7 @@ public class Menu extends JFrame {
         JLabel fondo = new JLabel();
         fondo.setBounds(0, 0, 800, 450);
         Panel.add(fondo);
-    /*/    if (Elementos.Tema == "Oscuro") {
+        /*if (Elementos.Tema == "Oscuro") {
             fondo.setIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/imagen/Fondos/" + Elementos.Tema + "/fondo-Menu.png")));
         } else {
             fondo.setIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/imagen/Fondos/" + Elementos.Tema + "/fondo-Menu.png")));

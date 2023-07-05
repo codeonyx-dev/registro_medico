@@ -62,11 +62,11 @@ public class Elementos {
         return JLabel;
     }
 
-    static ImageIcon fondo = new ImageIcon("/imagen/Fondos/"+Tema+"/fondo-Inicio.png");  
+static ImageIcon fondo = new ImageIcon("/imagen/Fondos/"+Tema+"/fondo-Inicio.png");  
 
 //Imagenes de botones Oscuros
 static ImageIcon bt_gigante_off = new ImageIcon("/imagen/Fondos/"+Tema+"/Botones/bt_gigante_off.png");
-static ImageIcon bt_gigante_on = new ImageIcon("resources/imagen/Fondos/"+Tema+"/Botones/bt_gigante_on.png");
+static ImageIcon bt_gigante_on = new ImageIcon("/imagen/Fondos/"+Tema+"/Botones/bt_gigante_on.png");
 
 static ImageIcon bt_grande_off = new ImageIcon("/imagen/Fondos/"+Tema+"/Botones/bt_grande_off.png");
 static ImageIcon bt_grande_on = new ImageIcon("/imagen/Fondos/"+Tema+"/Botones/bt_grande_on.png");
