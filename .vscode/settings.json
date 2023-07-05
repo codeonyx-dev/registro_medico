@@ -1,0 +1,11 @@
+{
+    "java.project.sourcePaths": [
+        "src"
+    ],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/mysql-connector-java-5.1.23.jar"
+    ],
+    "maven.view": "hierarchical",
+    "java.configuration.updateBuildConfiguration": "interactive",
+}
