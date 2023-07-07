@@ -6,6 +6,7 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.*;
 
 public class Inicio extends JFrame {
+  static String Tema = "Oscuro";
 
   public Inicio() {
     setLayout(null);
@@ -30,7 +31,7 @@ public class Inicio extends JFrame {
     Contrasena.setBorder(BorderFactory.createLineBorder(new Color(73, 176, 213)));
     Panel.add(Contrasena);
 
-    final JLabel Cerrar = Elementos.Cerrar(370, 10, 20, 20);
+    final JLabel Cerrar = Elementos.cerrar(370, 10, 20, 20);
     Panel.add(Cerrar);
 
     Cerrar.addMouseListener(new MouseAdapter() {
@@ -47,7 +48,7 @@ public class Inicio extends JFrame {
       }
     });
 
-    final JLabel Minimizar = Elementos.Minimizar(340, 10, 20, 20);
+    final JLabel Minimizar = Elementos.minimizar(340, 10, 20, 20);
     Panel.add(Minimizar);
     Minimizar.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
@@ -75,30 +76,28 @@ public class Inicio extends JFrame {
       }
     });
 
-    
     final JLabel cambio_tema = Elementos.crearJLabel(10, 10, 40, 40, "", false);
-    cambio_tema.setIcon(new ImageIcon("resources/imagen/Claro.png"));
+    cambio_tema.setIcon(new ImageIcon(getClass().getResource("/imagen/Claro.png")));
     Panel.add(cambio_tema);
 
     final JLabel fondo = Elementos.crearJLabel(0, 0, 400, 425, "", false);
-    fondo.setIcon(new ImageIcon("/imagen/Fondos/" + Elementos.Tema + "/fondo-Inicio.png"));
+    fondo.setIcon((new ImageIcon(Elementos.class.getResource("/imagen/Fondos/"+Inicio.Tema+"/fondo-Inicio.png"))));
     Panel.add(fondo);
 
     cambio_tema.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-
-        if (Elementos.Tema == "Oscuro") {
+        if (Inicio.Tema == "Oscuro") {
           // Cambio a tema oscuro
-          Elementos.Tema = "Claro";
-          fondo.setIcon(new ImageIcon("resources/imagen/Fondos/" + Elementos.Tema + "/fondo-Inicio.png"));
-          cambio_tema.setIcon(new ImageIcon("imagen/Oscuro.png"));
+          Inicio.Tema = "Claro";
+          fondo.setIcon(new ImageIcon(Elementos.class.getResource("/imagen/Fondos/"+Inicio.Tema+"/fondo-Inicio.png")));
+          cambio_tema.setIcon(new ImageIcon(getClass().getResource("/imagen/Oscuro.png")));
           cambio_tema.setBounds(10, 5, 40, 40);
           btnInicio.setBackground(new Color(21, 147, 219));
         } else {
           // Cambio a tema claro
-          Elementos.Tema = "Oscuro";
-          fondo.setIcon(new ImageIcon("resources/imagen/Fondos/" + Elementos.Tema + "/fondo-Inicio.png"));
-          cambio_tema.setIcon(new ImageIcon("imagen/Claro.png"));
+          Inicio.Tema = "Oscuro";
+          fondo.setIcon(new ImageIcon(Elementos.class.getResource("/imagen/Fondos/"+Inicio.Tema+"/fondo-Inicio.png")));
+          cambio_tema.setIcon(new ImageIcon(getClass().getResource("/imagen/Claro.png")));
           cambio_tema.setBounds(10, 10, 40, 40);
           btnInicio.setBackground(new Color(0, 62, 88));
         }

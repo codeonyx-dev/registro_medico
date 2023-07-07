@@ -9,11 +9,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class Elementos {
-    public static String Tema = "Oscuro";
     
-//Crear Crear textfield
+
+    // Crear Crear textfield
     public static JTextField crearJTextField(int x, int y, int ancho, int altura,
-        int tamanoLetra, String tipoLetra, String texto, boolean Bordes) {
+            int tamanoLetra, String tipoLetra, String texto, boolean Bordes) {
 
         JTextField textField = new JTextField();
         textField.setBounds(x, y, ancho, altura);
@@ -24,7 +24,8 @@ public class Elementos {
         }
         return textField;
     }
-//Crear label
+
+    // Crear label
     public static JLabel crearJLabel(int x, int y, int ancho, int altura, String texto, boolean Bordes) {
 
         JLabel JLabel = new JLabel();
@@ -35,15 +36,17 @@ public class Elementos {
         }
         return JLabel;
     }
-//Crear boton
+
+    // Crear boton
     public static JButton crearJButton(int x, int y, int ancho, int altura, String texto) {
         JButton JButton = new JButton();
         JButton.setBounds(x, y, ancho, altura);
         JButton.setText(texto);
         return JButton;
     }
-//Boton para cerrar
-    public static JLabel Cerrar(int x, int y, int ancho, int altura) {
+
+    // Boton para cerrar
+    public static JLabel cerrar(int x, int y, int ancho, int altura) {
         JLabel JLabel = new JLabel();
         JLabel.setFont(new Font("Roboto", 1, 18));
         JLabel.setBounds(x, y, ancho, altura);
@@ -51,8 +54,9 @@ public class Elementos {
         JLabel.setText("X");
         return JLabel;
     }
-//Boton para minimizar
-    public static JLabel Minimizar(int x, int y, int ancho, int altura) {
+
+    // Boton para minimizar
+    public static JLabel minimizar(int x, int y, int ancho, int altura) {
 
         JLabel JLabel = new JLabel();
         JLabel.setFont(new Font("Roboto", 0, 20));
@@ -62,19 +66,52 @@ public class Elementos {
         return JLabel;
     }
 
-static ImageIcon fondo = new ImageIcon("/imagen/Fondos/"+Tema+"/fondo-Inicio.png");  
+    //Imagenes de botones 
+    public static ImageIcon botonImagen(String tema,String modelo){
+        ImageIcon boton = new ImageIcon();
+        switch (modelo) {
+            case "gigante.0":
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_gigante_off.png"));
+                break;
+            case "gigante.1":
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_gigante_on.png"));
+                break;  
+            case "grande.0":
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_grande_off.png"));
+                break;
+            case "grande.1":
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_grande_on.png"));
+                break;      
+            case "mediano.0":
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_mediano_off.png"));
+                break;
+            case "mediano.1":
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_mediano_on.png"));
+                break;
+            case "pequeno.0":
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_pequeno_off.png"));
+                break;
+            case "pequeno.1":
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_pequeno_on.png"));
+                break;           
+                    
+            default:
+                break;
+        }
+        
+        return boton;
+    }
 
-//Imagenes de botones Oscuros
-static ImageIcon bt_gigante_off = new ImageIcon("/imagen/Fondos/"+Tema+"/Botones/bt_gigante_off.png");
-static ImageIcon bt_gigante_on = new ImageIcon("/imagen/Fondos/"+Tema+"/Botones/bt_gigante_on.png");
+    public static Color colores(String tema){
+        Color color = new Color(0,0,0);
 
-static ImageIcon bt_grande_off = new ImageIcon("/imagen/Fondos/"+Tema+"/Botones/bt_grande_off.png");
-static ImageIcon bt_grande_on = new ImageIcon("/imagen/Fondos/"+Tema+"/Botones/bt_grande_on.png");
+        if (tema=="Oscuro") {
+            color = new Color(0, 51, 51);
+        } else {
+            color = new Color(255,255,255);
+        }
 
-static ImageIcon bt_mediano_off = new ImageIcon("/imagen/Fondos/"+Tema+"/Botones/bt_mediano_off.png");
-static ImageIcon bt_mediano_on = new ImageIcon("/imagen/Fondos/"+Tema+"/Botones/bt_mediano_on.png");
-
-static ImageIcon bt_pequeno_off = new ImageIcon("/imagen/Fondos/"+Tema+"/Botones/bt_pequeno_off.png");
-static ImageIcon bt_pequeno_on = new ImageIcon("/imagen/Fondos/"+Tema+"/Botones/bt_pequeno_on.png");
+        return color;
+    }
 
 }

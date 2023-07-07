@@ -21,25 +21,27 @@ public class Menu extends JFrame {
         Panel.setBounds(0, 0, 800, 450);
         this.add(Panel);
 
+        System.out.println(Inicio.Tema);
         // Cerrar ventana
-        final JLabel Cerrar = Elementos.Cerrar(780, 10, 20, 20);
+        final JLabel Cerrar = Elementos.cerrar(780, 10, 20, 20);
         Panel.add(Cerrar);
 
         Cerrar.addMouseListener(new MouseAdapter() {
-        public void mouseClicked(MouseEvent e) {
-            dispose(); // Cierra la ventana
-        }
-        public void mouseEntered(MouseEvent e) {
-            Cerrar.setForeground(Color.red);
-        }
-        public void mouseExited(MouseEvent e){
-            Cerrar.setForeground(Color.white);
-        }
+            public void mouseClicked(MouseEvent e) {
+                dispose(); // Cierra la ventana
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                Cerrar.setForeground(Color.red);
+            }
+
+            public void mouseExited(MouseEvent e) {
+                Cerrar.setForeground(Color.white);
+            }
         });
-        
 
         // Minimizar
-        final JLabel Minimizar = Elementos.Minimizar(760, 10, 20, 20);
+        final JLabel Minimizar = Elementos.minimizar(760, 10, 20, 20);
         Panel.add(Minimizar);
 
         Minimizar.addMouseListener(new MouseAdapter() {
@@ -59,10 +61,10 @@ public class Menu extends JFrame {
         // BOTONES CON JLABEL PARA CREAR HACERLOS DINAMICOS
 
         // Boton Nueva Historia Medica
-        final JLabel nhmButton = new JLabel("NUEVA HISTORIA MEDICA", Elementos.bt_grande_off, SwingConstants.CENTER);
+        final JLabel nhmButton = new JLabel("NUEVA HISTORIA MEDICA", Elementos.botonImagen(Inicio.Tema,"grande.0"), SwingConstants.CENTER);
         nhmButton.setBounds(247, 137, 335, 67);
         nhmButton.setFont(new Font("Roboto Black", 1, 22));
-        nhmButton.setForeground(new Color(0, 51, 51));
+        nhmButton.setForeground(Elementos.colores(Inicio.Tema));
         nhmButton.setVerticalTextPosition(SwingConstants.CENTER);
         nhmButton.setHorizontalTextPosition(SwingConstants.CENTER);
         Panel.add(nhmButton);
@@ -73,19 +75,19 @@ public class Menu extends JFrame {
             }
 
             public void mouseEntered(MouseEvent e) {
-                nhmButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/imagen/Fondos/Oscuro/Botones/bt_grande_on.png")));
+                nhmButton.setIcon(Elementos.botonImagen(Inicio.Tema,"grande.1"));
             }
 
             public void mouseExited(MouseEvent e) {
-                nhmButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/imagen/Fondos/Oscuro/Botones/bt_grande_off.png")));
+                nhmButton.setIcon(Elementos.botonImagen(Inicio.Tema,"grande.0"));
             }
         });
 
         // Boton Busqueda Historia Medica
-        final JLabel bhmButton = new JLabel("BUSCAR HISTORIA MEDICA", Elementos.bt_gigante_off, SwingConstants.CENTER);
+        final JLabel bhmButton = new JLabel("BUSCAR HISTORIA MEDICA", Elementos.botonImagen(Inicio.Tema,"gigante.0"), SwingConstants.CENTER);
         bhmButton.setBounds(234, 208, 354, 67);
         bhmButton.setFont(new Font("Roboto Black", 1, 22));
-        bhmButton.setForeground(new Color(0, 51, 51));
+        bhmButton.setForeground(Elementos.colores(Inicio.Tema));
         bhmButton.setHorizontalTextPosition(SwingConstants.CENTER);
         bhmButton.setVerticalTextPosition(SwingConstants.CENTER);
         Panel.add(bhmButton);
@@ -96,19 +98,19 @@ public class Menu extends JFrame {
             }
 
             public void mouseEntered(MouseEvent e) {
-                bhmButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/imagen/Fondos/Oscuro/Botones/bt_gigante_on.png")));
+                bhmButton.setIcon(Elementos.botonImagen(Inicio.Tema,"gigante.1"));
             }
 
             public void mouseExited(MouseEvent e) {
-                bhmButton.setIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/imagen/Fondos/Oscuro/Botones/bt_gigante_off.png")));
+                bhmButton.setIcon(Elementos.botonImagen(Inicio.Tema,"gigante.0"));
             }
         });
 
         // Boton Gestion de Usuario
-        final JLabel usButton = new JLabel("GESTION DE USUARIO", Elementos.bt_mediano_off, SwingConstants.CENTER);
+        final JLabel usButton = new JLabel("GESTION DE USUARIO", Elementos.botonImagen(Inicio.Tema,"mediano.0"), SwingConstants.CENTER);
         usButton.setBounds(260, 280, 308, 67);
         usButton.setFont(new Font("Roboto Black", 1, 22));
-        usButton.setForeground(new Color(0, 51, 51));
+        usButton.setForeground(Elementos.colores(Inicio.Tema));
         usButton.setVerticalTextPosition(SwingConstants.CENTER);
         usButton.setHorizontalTextPosition(SwingConstants.CENTER);
         Panel.add(usButton);
@@ -119,19 +121,19 @@ public class Menu extends JFrame {
             }
 
             public void mouseEntered(MouseEvent e) {
-                usButton.setIcon(Elementos.bt_mediano_on);
+                usButton.setIcon(Elementos.botonImagen(Inicio.Tema,"mediano.1"));
             }
 
             public void mouseExited(MouseEvent e) {
-                usButton.setIcon(Elementos.bt_mediano_off);
+                usButton.setIcon(Elementos.botonImagen(Inicio.Tema,"mediano.0"));
             }
         });
 
         // Boton Cerrar sesion
-        final JLabel csButton = new JLabel("CERRAR SESION", Elementos.bt_pequeno_off, SwingConstants.CENTER);
+        final JLabel csButton = new JLabel("CERRAR SESION", Elementos.botonImagen(Inicio.Tema,"pequeno.0"), SwingConstants.CENTER);
         csButton.setBounds(280, 350, 280, 67);
         csButton.setFont(new Font("Roboto Black", 1, 22));
-        csButton.setForeground(new Color(0, 51, 51));
+        csButton.setForeground(Elementos.colores(Inicio.Tema));
         csButton.setVerticalTextPosition(SwingConstants.CENTER);
         csButton.setHorizontalTextPosition(SwingConstants.CENTER);
         Panel.add(csButton);
@@ -142,11 +144,11 @@ public class Menu extends JFrame {
             }
 
             public void mouseEntered(MouseEvent e) {
-                csButton.setIcon(Elementos.bt_pequeno_on);
+                csButton.setIcon(Elementos.botonImagen(Inicio.Tema,"pequeno.1"));
             }
 
             public void mouseExited(MouseEvent e) {
-                csButton.setIcon(Elementos.bt_pequeno_off);
+                csButton.setIcon(Elementos.botonImagen(Inicio.Tema,"pequeno.0"));
             }
         });
 
@@ -154,11 +156,11 @@ public class Menu extends JFrame {
         JLabel fondo = new JLabel();
         fondo.setBounds(0, 0, 800, 450);
         Panel.add(fondo);
-        /*if (Elementos.Tema == "Oscuro") {
-            fondo.setIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/imagen/Fondos/" + Elementos.Tema + "/fondo-Menu.png")));
+        if (Inicio.Tema == "Oscuro") {
+            fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Oscuro/fondo-Menu.png")));
         } else {
-            fondo.setIcon(new ImageIcon(getClass().getClassLoader().getResource("resources/imagen/Fondos/" + Elementos.Tema + "/fondo-Menu.png")));
-        }*/
+            fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/fondo-Menu.png")));
+        }
     }
 
 }
