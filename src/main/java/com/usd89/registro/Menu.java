@@ -1,4 +1,4 @@
-package com.usd89.resgitro;
+package com.usd89.registro;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -12,7 +12,6 @@ public class Menu extends JFrame {
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setSize(800, 450);
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 20));
         setLocationRelativeTo(null);
 
@@ -21,11 +20,9 @@ public class Menu extends JFrame {
         Panel.setBounds(0, 0, 800, 450);
         this.add(Panel);
 
-        System.out.println(Inicio.Tema);
         // Cerrar ventana
         final JLabel Cerrar = Elementos.cerrar(780, 10, 20, 20);
         Panel.add(Cerrar);
-
         Cerrar.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 dispose(); // Cierra la ventana
@@ -43,7 +40,6 @@ public class Menu extends JFrame {
         // Minimizar
         final JLabel Minimizar = Elementos.minimizar(760, 10, 20, 20);
         Panel.add(Minimizar);
-
         Minimizar.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 setExtendedState(1);
@@ -113,11 +109,11 @@ public class Menu extends JFrame {
         usButton.setForeground(Elementos.colores(Inicio.Tema));
         usButton.setVerticalTextPosition(SwingConstants.CENTER);
         usButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        Panel.add(usButton);
 
         usButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-
+                GestionUser gestion = new GestionUser();
+                gestion.setVisible(true);
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -128,6 +124,14 @@ public class Menu extends JFrame {
                 usButton.setIcon(Elementos.botonImagen(Inicio.Tema,"mediano.0"));
             }
         });
+
+        if (Inicio.nivel_acceso.equals("administrador")) {
+            Panel.add(usButton);
+        } else {
+            nhmButton.setBounds(247, 208, 335, 67);
+            bhmButton.setBounds(234, 280, 354, 67);
+
+        }
 
         // Boton Cerrar sesion
         final JLabel csButton = new JLabel("CERRAR SESION", Elementos.botonImagen(Inicio.Tema,"pequeno.0"), SwingConstants.CENTER);

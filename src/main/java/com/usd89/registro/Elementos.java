@@ -1,4 +1,4 @@
-package com.usd89.resgitro;
+package com.usd89.registro;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -101,7 +101,7 @@ public class Elementos {
         
         return boton;
     }
-
+    //Colores de letras
     public static Color colores(String tema){
         Color color = new Color(0,0,0);
 

@@ -10,7 +10,6 @@ public class Conexion {
     public static Connection getConexion() {
         Connection conexion = null;
         try {
-            
             String url = "jdbc:mysql://localhost:3306/historia_clinica_integral";
             String usuario = "root";
             String contrasena = "";
