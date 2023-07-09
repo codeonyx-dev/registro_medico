@@ -94,7 +94,12 @@ public class Elementos {
             case "pequeno.1":
                 boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_pequeno_on.png"));
                 break;           
-                    
+            case "muypequeno.0":
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_muypequeno_off.png"));
+                break;           
+            case "muypequeno.1":
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_muypequeno_on.png"));  
+                break;           
             default:
                 break;
         }

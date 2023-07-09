@@ -16,9 +16,6 @@ public class Inicio extends JFrame {
   static String Tema = "Oscuro";
   static String nivel_acceso = "lectura";
 
-  /**
-   * 
-   */
   public Inicio() {
     setLayout(null);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

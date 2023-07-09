@@ -114,6 +114,7 @@ public class Menu extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 GestionUser gestion = new GestionUser();
                 gestion.setVisible(true);
+                dispose();
             }
 
             public void mouseEntered(MouseEvent e) {
