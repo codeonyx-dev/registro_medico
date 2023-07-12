@@ -14,11 +14,12 @@ public class Conexion {
             String usuario = "root";
             String contrasena = "";
             conexion = (Connection) DriverManager.getConnection(url, usuario, contrasena);
-            System.out.println("Conexión exitosa");
-
         } catch (SQLException ex) {
             System.out.println("Error al conectar con la base de datos: " + ex.getMessage());
         }
         return conexion;
+    }
+
+    public static void close() {
     }
 }
