@@ -65,40 +65,44 @@ public class Elementos {
         JLabel.setText("▬");
         return JLabel;
     }
-
+    
+    public static ImageIcon Tema(String Tema){
+        ImageIcon fondo = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Tema + "/fondo-Inicio.png"));
+        return fondo;
+    }
     //Imagenes de botones 
     public static ImageIcon botonImagen(String tema,String modelo){
         ImageIcon boton = new ImageIcon();
         switch (modelo) {
             case "gigante.0":
-                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_gigante_off.png"));
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_gigante_off.png"));
                 break;
             case "gigante.1":
-                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_gigante_on.png"));
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_gigante_on.png"));
                 break;  
             case "grande.0":
-                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_grande_off.png"));
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_grande_off.png"));
                 break;
             case "grande.1":
-                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_grande_on.png"));
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_grande_on.png"));
                 break;      
             case "mediano.0":
-                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_mediano_off.png"));
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_mediano_off.png"));
                 break;
             case "mediano.1":
-                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_mediano_on.png"));
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_mediano_on.png"));
                 break;
             case "pequeno.0":
-                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_pequeno_off.png"));
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_pequeno_off.png"));
                 break;
             case "pequeno.1":
-                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_pequeno_on.png"));
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_pequeno_on.png"));
                 break;           
             case "muypequeno.0":
-                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_muypequeno_off.png"));
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_muypequeno_off.png"));
                 break;           
             case "muypequeno.1":
-                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Inicio.Tema + "/Botones/bt_muypequeno_on.png"));  
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_muypequeno_on.png"));  
                 break;           
             default:
                 break;

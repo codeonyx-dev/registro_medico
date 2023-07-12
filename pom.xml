@@ -46,7 +46,7 @@
       <archive>
         <manifest>
           <addClasspath>true</addClasspath>
-          <mainClass>com.usd89.resgitro.Inicio</mainClass>
+          <mainClass>com.usd89.registro.Inicio</mainClass>
         </manifest>
       </archive>
     </configuration>
