@@ -5,8 +5,15 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import com.usd89.DatabaseConnection.Conexion;
 
 public class GestionUser extends JFrame {
     public GestionUser() {
@@ -57,22 +64,22 @@ public class GestionUser extends JFrame {
         });
 
         // Datos para rellenar
-        JTextField nombreField = Elementos.crearJTextField(14, 76, 260, 29, 15, "Roboto", "", true);
+        final JTextField nombreField = Elementos.crearJTextField(14, 76, 260, 29, 15, "Roboto", "", true);
         Panel.add(nombreField);
 
-        JTextField apellidoField = Elementos.crearJTextField(14, 134, 260, 29, 15, "Roboto", "", true);
+        final JTextField apellidoField = Elementos.crearJTextField(14, 134, 260, 29, 15, "Roboto", "", true);
         Panel.add(apellidoField);
 
-        JTextField cedulaField = Elementos.crearJTextField(14, 194, 260, 29, 15, "Roboto", "", true);
+        final JTextField cedulaField = Elementos.crearJTextField(14, 194, 260, 29, 15, "Roboto", "", true);
         Panel.add(cedulaField);
 
-        JTextField telefonofield = Elementos.crearJTextField(14, 255, 260, 29, 15, "Roboto", "", true);
+        final JTextField telefonofield = Elementos.crearJTextField(14, 255, 260, 29, 15, "Roboto", "", true);
         Panel.add(telefonofield);
 
-        JTextField usuariofield = Elementos.crearJTextField(14, 325, 260, 29, 15, "Roboto", "", true);
+        final JTextField usuariofield = Elementos.crearJTextField(14, 325, 260, 29, 15, "Roboto", "", true);
         Panel.add(usuariofield);
 
-        JTextField contrasenafield = Elementos.crearJTextField(14, 387, 260, 29, 15, "Roboto", "", true);
+        final JTextField contrasenafield = Elementos.crearJTextField(14, 387, 260, 29, 15, "Roboto", "", true);
         Panel.add(contrasenafield);
 
         // TABLA DE DATOS
@@ -83,9 +90,9 @@ public class GestionUser extends JFrame {
         scrollPane.setBounds(291, 52, 380, 375);
         Panel.add(scrollPane);
 
-        //Botones 
-            //VOLVER
-        final JLabel buttonRegresar = Elementos.crearJLabel(240, 500, 210, 60,"REGRESAR", false);
+        // Botones
+        // VOLVER
+        final JLabel buttonRegresar = Elementos.crearJLabel(240, 500, 210, 60, "REGRESAR", false);
         buttonRegresar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
         buttonRegresar.setFont(new Font("Roboto Black", 1, 22));
         buttonRegresar.setForeground(Elementos.colores(Inicio.Tema));
@@ -93,21 +100,23 @@ public class GestionUser extends JFrame {
         buttonRegresar.setVerticalTextPosition(SwingConstants.CENTER);
         Panel.add(buttonRegresar);
         buttonRegresar.addMouseListener(new MouseAdapter() {
-        public void mouseClicked(MouseEvent e) {
-            dispose();
-            Menu menu = new Menu();
-            menu.setVisible(true);
-        }
-        public void mouseEntered(MouseEvent e) {
-            buttonRegresar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.1"));
+            public void mouseClicked(MouseEvent e) {
+                dispose();
+                Menu menu = new Menu();
+                menu.setVisible(true);
+            }
 
-        }
-        public void mouseExited(MouseEvent e){
-            buttonRegresar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
-        }
+            public void mouseEntered(MouseEvent e) {
+                buttonRegresar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.1"));
+
+            }
+
+            public void mouseExited(MouseEvent e) {
+                buttonRegresar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
+            }
         });
-            //Añadir
-        final JLabel buttonAgregar = Elementos.crearJLabel(10, 440, 210, 60,"AGREGAR", false);
+        // Añadir
+        final JLabel buttonAgregar = Elementos.crearJLabel(10, 440, 210, 60, "AGREGAR", false);
         buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
         buttonAgregar.setFont(new Font("Roboto Black", 1, 22));
         buttonAgregar.setForeground(Elementos.colores(Inicio.Tema));
@@ -115,18 +124,42 @@ public class GestionUser extends JFrame {
         buttonAgregar.setVerticalTextPosition(SwingConstants.CENTER);
         Panel.add(buttonAgregar);
         buttonAgregar.addMouseListener(new MouseAdapter() {
-        public void mouseClicked(MouseEvent e) {}
-        public void mouseEntered(MouseEvent e) {
-            buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.1"));
-        }
-        public void mouseExited(MouseEvent e){
-            buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
-        }
-        });
-        
+            public void mouseClicked(MouseEvent e) {
 
-            //Eliminar
-        final JLabel buttonEliminar = Elementos.crearJLabel(240, 440, 210, 60,"ELIMINAR", false);
+                String[] privilegios = { "lectura", "modificacion", "administrador" };
+                String privilegio = JOptionPane.showInputDialog(null, "Selecciones el Privilegio del nuevo usuario",
+                        "Privilegio", JOptionPane.INFORMATION_MESSAGE, null, privilegios, privilegios[0]).toString();
+
+                Connection conexion = Conexion.getConexion();
+                String sql = "INSERT INTO usuarios (nombre_usuario, contrasena, Nombre, Apellido, cedula, telefono, nivel_acceso) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                try {
+                    conexion.prepareStatement(sql);
+                    PreparedStatement consultaStatement = conexion.prepareStatement(sql);
+                    consultaStatement.setString(1, usuariofield.getText().toString());
+                    consultaStatement.setString(2, contrasenafield.getText().toString());
+                    consultaStatement.setString(3, nombreField.getText().toString());
+                    consultaStatement.setString(4, apellidoField.getText().toString());
+                    consultaStatement.setString(5, cedulaField.getText().toString());
+                    consultaStatement.setString(6, telefonofield.getText().toString());
+                    consultaStatement.setString(7, privilegio);
+                    consultaStatement.executeUpdate();
+                    conexion.close();
+                } catch (SQLException ex) {
+                    System.out.println(ex);
+                }
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.1"));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
+            }
+        });
+
+        // Eliminar
+        final JLabel buttonEliminar = Elementos.crearJLabel(240, 440, 210, 60, "ELIMINAR", false);
         buttonEliminar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
         buttonEliminar.setFont(new Font("Roboto Black", 1, 22));
         buttonEliminar.setForeground(Elementos.colores(Inicio.Tema));
@@ -134,18 +167,20 @@ public class GestionUser extends JFrame {
         buttonEliminar.setVerticalTextPosition(SwingConstants.CENTER);
         Panel.add(buttonEliminar);
         buttonEliminar.addMouseListener(new MouseAdapter() {
-        public void mouseClicked(MouseEvent e) {}
-        public void mouseEntered(MouseEvent e) {
-            buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.1"));
-        }
-        public void mouseExited(MouseEvent e){
-            buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
-        }
-        });
-        
+            public void mouseClicked(MouseEvent e) {
+            }
 
-            //Modificar
-        final JLabel buttonModificar = Elementos.crearJLabel(465, 440, 210, 60,"MODIFICAR", false);
+            public void mouseEntered(MouseEvent e) {
+                buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.1"));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
+            }
+        });
+
+        // Modificar
+        final JLabel buttonModificar = Elementos.crearJLabel(465, 440, 210, 60, "MODIFICAR", false);
         buttonModificar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
         buttonModificar.setFont(new Font("Roboto Black", 1, 22));
         buttonModificar.setForeground(Elementos.colores(Inicio.Tema));
@@ -153,15 +188,17 @@ public class GestionUser extends JFrame {
         buttonModificar.setVerticalTextPosition(SwingConstants.CENTER);
         Panel.add(buttonModificar);
         buttonModificar.addMouseListener(new MouseAdapter() {
-        public void mouseClicked(MouseEvent e) {}
-        public void mouseEntered(MouseEvent e) {
-            buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.1"));
-        }
-        public void mouseExited(MouseEvent e){
-            buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
-        }
-        });
+            public void mouseClicked(MouseEvent e) {
+            }
 
+            public void mouseEntered(MouseEvent e) {
+                buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.1"));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
+            }
+        });
 
         // FONDO
         JLabel fondo = new JLabel();
