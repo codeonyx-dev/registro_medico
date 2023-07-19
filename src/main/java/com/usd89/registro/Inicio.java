@@ -29,7 +29,8 @@ public class Inicio extends JFrame {
     Panel.setBounds(0, 0, 400, 425);
     add(Panel);
     // Campo de Usuario
-    final JTextField Usuario = Elementos.crearJTextField(79, 155, 250, 25, 14, "Arial", "admin", true);
+    final JTextField Usuario = Elementos.crearJTextField(79, 155, 250, 25, "admin", true);
+    Usuario.setFont(new Font("Arial",1,14));
     Panel.add(Usuario);
     // Campo de Contraseña
     final JPasswordField Contrasena = new JPasswordField("contrasena3");

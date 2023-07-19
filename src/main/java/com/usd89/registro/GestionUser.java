@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import com.usd89.DatabaseConnection.Conexion;
 
 public class GestionUser extends JFrame {
+    String id;
 
     public DefaultTableModel CargarTabla() {
         String[] columnas = { "Nombre", "Apellido", "Cedula", "Telefono", "Usuario" };
@@ -89,7 +90,7 @@ public class GestionUser extends JFrame {
         });
 
         // Datos para rellenar
-        final JTextField nombreField = Elementos.crearJTextField(14, 76, 260, 29, 15, "Roboto", "", true);
+        final JTextField nombreField = Elementos.crearJTextField(14, 76, 260, 29, "", true);
         Panel.add(nombreField);
         nombreField.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -97,7 +98,7 @@ public class GestionUser extends JFrame {
             }
         });
 
-        final JTextField apellidoField = Elementos.crearJTextField(14, 134, 260, 29, 15, "Roboto", "", true);
+        final JTextField apellidoField = Elementos.crearJTextField(14, 134, 260, 29, "", true);
         Panel.add(apellidoField);
         apellidoField.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -105,7 +106,7 @@ public class GestionUser extends JFrame {
             }
         });
 
-        final JTextField cedulaField = Elementos.crearJTextField(14, 194, 260, 29, 15, "Roboto", "", true);
+        final JTextField cedulaField = Elementos.crearJTextField(14, 194, 260, 29, "", true);
         Panel.add(cedulaField);
         cedulaField.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -113,7 +114,7 @@ public class GestionUser extends JFrame {
             }
         });
 
-        final JTextField telefonofield = Elementos.crearJTextField(14, 255, 260, 29, 15, "Roboto", "", true);
+        final JTextField telefonofield = Elementos.crearJTextField(14, 255, 260, 29, "", true);
         Panel.add(telefonofield);
         telefonofield.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -121,7 +122,7 @@ public class GestionUser extends JFrame {
             }
         });
 
-        final JTextField usuariofield = Elementos.crearJTextField(14, 325, 260, 29, 15, "Roboto", "", true);
+        final JTextField usuariofield = Elementos.crearJTextField(14, 325, 260, 29, "", true);
         Panel.add(usuariofield);
         usuariofield.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -129,7 +130,7 @@ public class GestionUser extends JFrame {
             }
         });
 
-        final JTextField contrasenafield = Elementos.crearJTextField(14, 387, 260, 29, 15, "Roboto", "", true);
+        final JTextField contrasenafield = Elementos.crearJTextField(14, 387, 260, 29,"", true);
         Panel.add(contrasenafield);
         contrasenafield.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -144,6 +145,31 @@ public class GestionUser extends JFrame {
         JScrollPane scrollPane = new JScrollPane(tabla);
         scrollPane.setBounds(291, 52, 380, 375);
         Panel.add(scrollPane);
+        tabla.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                Connection conexion = Conexion.getConexion();
+                int selectedRow = tabla.getSelectedRow();
+                String cedula = CargarTabla().getValueAt(selectedRow, 2).toString();
+                try {
+                    String sql = "SELECT * FROM usuarios WHERE cedula = ?";
+                    PreparedStatement consultasStatement = conexion.prepareStatement(sql);
+                    consultasStatement.setString(1, cedula);
+                    ResultSet resultSet = consultasStatement.executeQuery();
+                    while (resultSet.next()) {
+                        id = resultSet.getString("id");
+                        nombreField.setText(resultSet.getString("Nombre"));
+                        apellidoField.setText(resultSet.getString("Apellido"));
+                        cedulaField.setText(resultSet.getString("cedula"));
+                        telefonofield.setText(resultSet.getString("telefono"));
+                        usuariofield.setText(resultSet.getString("nombre_usuario"));
+                        contrasenafield.setText(resultSet.getString("contrasena"));
+                    }
+                    conexion.close();
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+            }
+        });
 
         // Botones
         // VOLVER
@@ -274,7 +300,7 @@ public class GestionUser extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 int selectedRow = tabla.getSelectedRow();
                 // Obtener los valores de las celdas de la fila seleccionada
-                String usuario = CargarTabla().getValueAt(selectedRow,4).toString();
+                String usuario = CargarTabla().getValueAt(selectedRow, 4).toString();
                 System.out.println(usuario);
                 try {
                     Connection conexion = Conexion.getConexion();
@@ -283,7 +309,7 @@ public class GestionUser extends JFrame {
                     // Crear un objeto PreparedStatement con la sentencia SQL
                     PreparedStatement statement = conexion.prepareStatement(sql);
                     // Establecer el valor del parámetro en la sentencia SQL
-                    statement.setString(1, usuario); 
+                    statement.setString(1, usuario);
                     // Ejecutar la sentencia SQL DELETE
                     int filasAfectadas = statement.executeUpdate();
                     // Mostrar una confirmación si se eliminó el registro
@@ -322,14 +348,37 @@ public class GestionUser extends JFrame {
         Panel.add(buttonModificar);
         buttonModificar.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
+                Connection conexion = Conexion.getConexion();
+                try {
+                    String sql = "UPDATE usuarios SET contrasena=?, Nombre=?, Apellido=?, telefono=? WHERE id=?";
+                    PreparedStatement consultasStatement = conexion.prepareStatement(sql);
+                    consultasStatement.setString(1, contrasenafield.getText());
+                    consultasStatement.setString(2, nombreField.getText());
+                    consultasStatement.setString(3, apellidoField.getText());
+                    consultasStatement.setString(4, telefonofield.getText());
+                    consultasStatement.setString(5, id);
+
+                    int filaActualizada = consultasStatement.executeUpdate();
+
+                    if (filaActualizada > 0) {
+                        JOptionPane.showMessageDialog(null,"Se ha actualizado los datos del Usuario con la cedula " + cedulaField.getText());
+                    } else {
+                        System.out.println("No se encontró ningún cliente con ID " + id);
+                    }
+                    conexion.close();
+                    tabla.setModel(CargarTabla());
+                    tabla.getColumnModel().getColumn(3).setPreferredWidth(100);
+                } catch (SQLException ex) {
+                    System.out.println(ex);
+                }
             }
 
             public void mouseEntered(MouseEvent e) {
-                buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.1"));
+                buttonModificar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.1"));
             }
 
             public void mouseExited(MouseEvent e) {
-                buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
+                buttonModificar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
             }
         });
 
@@ -344,10 +393,5 @@ public class GestionUser extends JFrame {
             fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/Gestion-de-Usuario.png")));
         }
 
-    }
-
-    public static void main(String[] args) {
-        GestionUser gestionUser = new GestionUser();
-        gestionUser.setVisible(true);
     }
 }

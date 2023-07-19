@@ -12,12 +12,11 @@ public class Elementos {
     
 
     // Crear Crear textfield
-    public static JTextField crearJTextField(int x, int y, int ancho, int altura,
-            int tamanoLetra, String tipoLetra, String texto, boolean Bordes) {
+    public static JTextField crearJTextField(int x, int y, int ancho, int altura, String texto, boolean Bordes) {
 
         JTextField textField = new JTextField();
         textField.setBounds(x, y, ancho, altura);
-        textField.setFont(new Font(tipoLetra, 1, tamanoLetra));
+        textField.setFont(new Font("Roboto", 1, 15));
         textField.setText(texto);
         if (Bordes == true) {
             textField.setBorder(BorderFactory.createLineBorder(new Color(73, 176, 213)));
@@ -30,6 +29,7 @@ public class Elementos {
 
         JLabel JLabel = new JLabel();
         JLabel.setBounds(x, y, ancho, altura);
+        JLabel.setFont(new Font("Roboto", 1, 15));
         JLabel.setText(texto);
         if (Bordes == true) {
             JLabel.setBorder(BorderFactory.createLineBorder(new Color(73, 176, 213)));
