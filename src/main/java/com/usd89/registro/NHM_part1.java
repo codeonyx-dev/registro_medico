@@ -9,7 +9,7 @@ import java.awt.geom.RoundRectangle2D;
 
 public class NHM_part1 extends JFrame {
     public NHM_part1() {
-        setSize(1290, 720);
+        setSize(1120, 720);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -18,11 +18,11 @@ public class NHM_part1 extends JFrame {
 
         JPanel Panel = new JPanel();
         Panel.setLayout(null);
-        Panel.setBounds(0, 0, 1290, 720);
+        Panel.setBounds(0, 0, 1120, 720);
         this.add(Panel);
 
         // Cerrar ventana
-        final JLabel Cerrar = Elementos.cerrar(1270, 10, 20, 20);
+        final JLabel Cerrar = Elementos.cerrar(1090, 10, 20, 20);
         Panel.add(Cerrar);
         Cerrar.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -39,7 +39,7 @@ public class NHM_part1 extends JFrame {
         });
 
         // Minimizar
-        final JLabel Minimizar = Elementos.minimizar(1250, 10, 20, 20);
+        final JLabel Minimizar = Elementos.minimizar(1070, 10, 20, 20);
         Panel.add(Minimizar);
         Minimizar.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -313,28 +313,30 @@ public class NHM_part1 extends JFrame {
         fila_x += texto_Representante_Telefono.getWidth();
         Panel.add(texto_Representante_Telefono);
 
-        //  Antecedentes perinatales en menores de 12 años
-        fila_x=36;
-        final JLabel label_CarnetPrenatal = Elementos.crearJLabel(fila_x , 470, 180, 20, "Carnet prenatal:", false);
+        // Antecedentes perinatales en menores de 12 años
+        fila_x = 36;
+        final JLabel label_CarnetPrenatal = Elementos.crearJLabel(fila_x, 470, 180, 20, "Carnet prenatal:", false);
         fila_x += label_CarnetPrenatal.getWidth();
         Panel.add(label_CarnetPrenatal);
-        
-        final JComboBox<String> combo_Carnet_prenatal = new JComboBox<String>(new String[] {"Si","No"});
+
+        final JComboBox<String> combo_Carnet_prenatal = new JComboBox<String>(new String[] { "Si", "No" });
         combo_Carnet_prenatal.setBounds(fila_x + 5, 470, 40, 20);
         fila_x += combo_Carnet_prenatal.getWidth();
         Panel.add(combo_Carnet_prenatal);
 
-        fila_x=36;
-        final JLabel label_patologiaEmbarazo = Elementos.crearJLabel(fila_x , 500, 180, 20, "Patologia embarazo:", false);
+        fila_x = 36;
+        final JLabel label_patologiaEmbarazo = Elementos.crearJLabel(fila_x, 500, 180, 20, "Patologia embarazo:",
+                false);
         fila_x += label_patologiaEmbarazo.getWidth();
         Panel.add(label_patologiaEmbarazo);
-        
-        final JComboBox<String>  combo_patologiaEmbarazo = new JComboBox<String>(new String[] {"Si","No"});
+
+        final JComboBox<String> combo_patologiaEmbarazo = new JComboBox<String>(new String[] { "Si", "No" });
         combo_patologiaEmbarazo.setBounds(fila_x + 5, 500, 40, 20);
         fila_x += combo_patologiaEmbarazo.getWidth();
         Panel.add(combo_patologiaEmbarazo);
 
-        final JLabel label_Hrs_fuera_de_casa = Elementos.crearJLabel(fila_x + 30, 500, 160, 20, "Hrs fuera de casa:", false);
+        final JLabel label_Hrs_fuera_de_casa = Elementos.crearJLabel(fila_x + 30, 500, 160, 20, "Hrs fuera de casa:",
+                false);
         fila_x += label_Hrs_fuera_de_casa.getWidth();
         Panel.add(label_Hrs_fuera_de_casa);
 
@@ -342,77 +344,77 @@ public class NHM_part1 extends JFrame {
         fila_x += texto_Hrs_fuera_de_casa.getWidth();
         Panel.add(texto_Hrs_fuera_de_casa);
 
-        final JLabel label_MadreFamilia = Elementos.crearJLabel(fila_x +40, 500, 80, 20, "Madre:", false);
+        final JLabel label_MadreFamilia = Elementos.crearJLabel(fila_x + 40, 500, 80, 20, "Madre:", false);
         fila_x += label_MadreFamilia.getWidth();
         Panel.add(label_MadreFamilia);
-        
-        final JComboBox<String>  combo_MadreFamilia = new JComboBox<String>(new String[] {"Si","No"});
+
+        final JComboBox<String> combo_MadreFamilia = new JComboBox<String>(new String[] { "Si", "No" });
         combo_MadreFamilia.setBounds(fila_x + 25, 500, 40, 20);
         fila_x += combo_MadreFamilia.getWidth();
         Panel.add(combo_MadreFamilia);
 
-        
-        fila_x=36;
-        final JLabel label_patologiaParto = Elementos.crearJLabel(fila_x , 530, 180, 20, "Patologia parto:", false);
+        fila_x = 36;
+        final JLabel label_patologiaParto = Elementos.crearJLabel(fila_x, 530, 180, 20, "Patologia parto:", false);
         fila_x += label_patologiaParto.getWidth();
         Panel.add(label_patologiaParto);
-        
-        final JComboBox<String> combo_patologiaParto = new JComboBox<String>(new String[] {"Si","No"});
+
+        final JComboBox<String> combo_patologiaParto = new JComboBox<String>(new String[] { "Si", "No" });
         combo_patologiaParto.setBounds(fila_x + 5, 530, 40, 20);
         fila_x += combo_patologiaParto.getWidth();
         Panel.add(combo_patologiaParto);
 
-        final JLabel label_PadreFamilia = Elementos.crearJLabel(fila_x +250, 530, 80, 20, "Padre:", false);
+        final JLabel label_PadreFamilia = Elementos.crearJLabel(fila_x + 250, 530, 80, 20, "Padre:", false);
         fila_x += label_PadreFamilia.getWidth();
         Panel.add(label_PadreFamilia);
-        
-        final JComboBox<String>  combo_PadreFamilia = new JComboBox<String>(new String[] {"Si","No"});
+
+        final JComboBox<String> combo_PadreFamilia = new JComboBox<String>(new String[] { "Si", "No" });
         combo_PadreFamilia.setBounds(fila_x + 225, 530, 40, 20);
         fila_x += combo_PadreFamilia.getWidth();
         Panel.add(combo_PadreFamilia);
 
-        fila_x=36;
-        final JLabel label_patologiaPuerperio = Elementos.crearJLabel(fila_x , 560, 180, 20, "Patologia puerperio:", false);
+        fila_x = 36;
+        final JLabel label_patologiaPuerperio = Elementos.crearJLabel(fila_x, 560, 180, 20, "Patologia puerperio:",
+                false);
         fila_x += label_patologiaPuerperio.getWidth();
         Panel.add(label_patologiaPuerperio);
-        
-        final JComboBox<String> combo_patologiaPuerperio = new JComboBox<String>(new String[] {"Si","No"});
+
+        final JComboBox<String> combo_patologiaPuerperio = new JComboBox<String>(new String[] { "Si", "No" });
         combo_patologiaPuerperio.setBounds(fila_x + 5, 560, 40, 20);
         fila_x += combo_patologiaPuerperio.getWidth();
         Panel.add(combo_patologiaPuerperio);
 
-        final JLabel label_HermanoFamilia = Elementos.crearJLabel(fila_x +250, 560, 80, 20, "Hermano:", false);
+        final JLabel label_HermanoFamilia = Elementos.crearJLabel(fila_x + 250, 560, 80, 20, "Hermano:", false);
         fila_x += label_HermanoFamilia.getWidth();
         Panel.add(label_HermanoFamilia);
-        
-        final JComboBox<String>  combo_HermanoFamilia = new JComboBox<String>(new String[] {"Si","No"});
+
+        final JComboBox<String> combo_HermanoFamilia = new JComboBox<String>(new String[] { "Si", "No" });
         combo_HermanoFamilia.setBounds(fila_x + 245, 560, 40, 20);
         fila_x += combo_HermanoFamilia.getWidth();
         Panel.add(combo_HermanoFamilia);
 
-        fila_x=36;
-        final JLabel texto_NConsultasPrenatales = Elementos.crearJLabel(fila_x , 590, 180, 20, "N~ Consultas prenatales:", false);
+        fila_x = 36;
+        final JLabel texto_NConsultasPrenatales = Elementos.crearJLabel(fila_x, 590, 180, 20,
+                "N~ Consultas prenatales:", false);
         fila_x += texto_NConsultasPrenatales.getWidth();
         Panel.add(texto_NConsultasPrenatales);
-        
-        final JComboBox<String> combo_NConsultasPrenatales = new JComboBox<String>(new String[] {"Si","No"});
+
+        final JComboBox<String> combo_NConsultasPrenatales = new JComboBox<String>(new String[] { "Si", "No" });
         combo_NConsultasPrenatales.setBounds(fila_x + 5, 590, 40, 20);
         fila_x += combo_NConsultasPrenatales.getWidth();
         Panel.add(combo_NConsultasPrenatales);
 
-        final JLabel label_OtrosFamilia = Elementos.crearJLabel(fila_x +250, 590, 80, 20, "Otros:", false);
+        final JLabel label_OtrosFamilia = Elementos.crearJLabel(fila_x + 250, 590, 80, 20, "Otros:", false);
         fila_x += label_OtrosFamilia.getWidth();
         Panel.add(label_OtrosFamilia);
-        
-        final JComboBox<String>  combo_OtrosFamilia = new JComboBox<String>(new String[] {"Si","No"});
+
+        final JComboBox<String> combo_OtrosFamilia = new JComboBox<String>(new String[] { "Si", "No" });
         combo_OtrosFamilia.setBounds(fila_x + 225, 590, 40, 20);
         fila_x += combo_OtrosFamilia.getWidth();
         Panel.add(combo_OtrosFamilia);
 
-
-
-        // Boton Gestion de Usuario
-        final JLabel volverButton = new JLabel("VOLVER AL INICIO", Elementos.botonImagen(Inicio.Tema,"pequeno.0"), SwingConstants.CENTER);
+        // Boton Volver al menu
+        final JLabel volverButton = new JLabel("VOLVER AL INICIO", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
+                SwingConstants.CENTER);
         volverButton.setBounds(20, 650, 308, 67);
         volverButton.setFont(new Font("Roboto Black", 1, 22));
         volverButton.setForeground(Elementos.colores(Inicio.Tema));
@@ -427,17 +429,121 @@ public class NHM_part1 extends JFrame {
             }
 
             public void mouseEntered(MouseEvent e) {
-                volverButton.setIcon(Elementos.botonImagen(Inicio.Tema,"pequeno.1"));
+                volverButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
             }
 
             public void mouseExited(MouseEvent e) {
-                volverButton.setIcon(Elementos.botonImagen(Inicio.Tema,"pequeno.0"));
+                volverButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
             }
         });
         Panel.add(volverButton);
 
+        // Boton Limpiar datos
+        final JLabel limpiarD_Button = new JLabel("LIMPIAR CAMPOS", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
+                SwingConstants.CENTER);
+        limpiarD_Button.setBounds(470, 650, 308, 67);
+        limpiarD_Button.setFont(new Font("Roboto Black", 1, 22));
+        limpiarD_Button.setForeground(Elementos.colores(Inicio.Tema));
+        limpiarD_Button.setVerticalTextPosition(SwingConstants.CENTER);
+        limpiarD_Button.setHorizontalTextPosition(SwingConstants.CENTER);
 
-    /*   JTextField[] textFieldNames = {
+        limpiarD_Button.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                JTextField[] textFieldNames = {
+                        text_apellido_familiar,
+                        text_ci_jefe_familia,
+                        text_Numero_de_Historia,
+                        text_ci,
+                        text_apellido,
+                        text_nombre,
+                        text_Ocupacion,
+                        text_anosAprovados,
+                        text_LugarNacimento,
+                        texto_Estado,
+                        texto_Pais,
+                        texto_Dirrecion,
+                        texto_Telefono,
+                        texto_Religion,
+                        texto_Establecimiento,
+                        texto_Municipio,
+                        texto_Parroquia,
+                        texto_Comunidad,
+                        texto_Madre_N_A,
+                        texto_Madre_Ocupacion,
+                        texto_Padre_N_A,
+                        texto_Padre_Ocupacion,
+                        texto_Representante_N,
+                        texto_Representante_ci,
+                        texto_Representante_Telefono,
+                        texto_Hrs_fuera_de_casa
+                };
+                for (final JTextField JTextField : textFieldNames) {
+                    JTextField.setText("");
+                    ;
+                }
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                limpiarD_Button.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                limpiarD_Button.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
+            }
+        });
+        Panel.add(limpiarD_Button);
+
+        // Boton Siguiente
+        final JLabel seguienteButton = new JLabel("Siguiente", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
+                SwingConstants.CENTER);
+        seguienteButton.setBounds(800, 650, 308, 67);
+        seguienteButton.setFont(new Font("Roboto Black", 1, 22));
+        seguienteButton.setForeground(Elementos.colores(Inicio.Tema));
+        seguienteButton.setVerticalTextPosition(SwingConstants.CENTER);
+        seguienteButton.setHorizontalTextPosition(SwingConstants.CENTER);
+
+        seguienteButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                JTextField[] textFieldNames = {
+                        text_apellido_familiar,
+                        text_ci_jefe_familia,
+                        text_Numero_de_Historia,
+                        text_ci,
+                        text_apellido,
+                        text_nombre,
+                        text_Ocupacion,
+                        text_anosAprovados,
+                        text_LugarNacimento,
+                        texto_Estado,
+                        texto_Pais,
+                        texto_Dirrecion,
+                        texto_Telefono,
+                        texto_Religion,
+                        texto_Establecimiento,
+                        texto_Municipio,
+                        texto_Parroquia,
+                        texto_Comunidad,
+                };
+                int datosfantates = 0;
+                for (final JTextField JTextField : textFieldNames) {
+                    if (JTextField.getText().isEmpty()) {
+                        JTextField.setBackground(Color.red);
+                        datosfantates++;
+                    }
+                }
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                seguienteButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                seguienteButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
+            }
+        });
+        Panel.add(seguienteButton);
+
+        JTextField[] textFieldNames = {
                 text_apellido_familiar,
                 text_ci_jefe_familia,
                 text_Numero_de_Historia,
@@ -462,17 +568,17 @@ public class NHM_part1 extends JFrame {
                 texto_Padre_Ocupacion,
                 texto_Representante_N,
                 texto_Representante_ci,
-                texto_Representante_Telefono
+                texto_Representante_Telefono,
+                texto_Hrs_fuera_de_casa
         };
-        for (final JTextField JTextField : textFieldNames) {
-            JTextField.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                JTextField.setBackground(Color.red);
-            }
-            
+
+        for (final JTextField textField : textFieldNames) {
+            textField.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    textField.setBackground(Color.white);
+                }
             });
-            
-        } */
+        }
 
         // FONDO
         JLabel fondo = new JLabel();
