@@ -547,7 +547,7 @@ public class NHM {
                 for (final JTextField JTextField : textFieldNames) {
                     if (JTextField.getText().isEmpty()) {
                         JTextField.setBackground(Color.red);
-                        datosfantates++;
+                        //datosfantates++;
                     }
                     // if (datosfantates==0) {
                     cardLayout.show(mainPanel, "panel2");
