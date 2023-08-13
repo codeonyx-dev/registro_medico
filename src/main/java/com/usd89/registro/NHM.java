@@ -543,7 +543,7 @@ public class NHM {
                         texto_Parroquia,
                         texto_Comunidad,
                 };
-                int datosfantates = 0;
+                //int datosfantates = 0;
                 for (final JTextField JTextField : textFieldNames) {
                     if (JTextField.getText().isEmpty()) {
                         JTextField.setBackground(Color.red);
