@@ -1,32 +1,51 @@
 package com.usd89.registro;
 
 import javax.swing.*;
-import java.awt.Color;
-import java.awt.Font;
+
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 
-public class NHM_part1 extends JFrame {
-    public NHM_part1() {
-        setSize(1120, 720);
-        setLayout(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setUndecorated(true);
-        setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 20));
-        setLocationRelativeTo(null);
+public class NHM {
+    private JFrame frame;
+    private JPanel mainPanel;
+    private CardLayout cardLayout;
 
+    public NHM() {
+        frame = new JFrame("Expediente Médico");
+        frame.setSize(1120, 720);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setUndecorated(true);
+        frame.setShape(new RoundRectangle2D.Double(0, 0, frame.getWidth(), frame.getHeight(), 30, 20));
+        frame.setLocationRelativeTo(null);
+
+        mainPanel = new JPanel();
+        cardLayout = new CardLayout();
+        mainPanel.setLayout(cardLayout);
+
+        JPanel panel1 = createPanel1();
+        JPanel panel2 = createPanel2();
+
+        mainPanel.add(panel1, "panel1");
+        mainPanel.add(panel2, "panel2");
+
+        frame.add(mainPanel, BorderLayout.CENTER);
+        frame.setVisible(true);
+    }
+
+    private JPanel createPanel1() {
         JPanel Panel = new JPanel();
         Panel.setLayout(null);
         Panel.setBounds(0, 0, 1120, 720);
-        this.add(Panel);
+        frame.add(Panel);
 
         // Cerrar ventana
         final JLabel Cerrar = Elementos.cerrar(1090, 10, 20, 20);
         Panel.add(Cerrar);
         Cerrar.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                dispose(); // Cierra la ventana
+                frame.dispose(); // Cierra la ventana
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -43,7 +62,7 @@ public class NHM_part1 extends JFrame {
         Panel.add(Minimizar);
         Minimizar.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                setExtendedState(1);
+                frame.setExtendedState(1);
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -425,7 +444,7 @@ public class NHM_part1 extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 Menu Menu = new Menu();
                 Menu.setVisible(true);
-                dispose();
+                frame.dispose();
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -530,6 +549,9 @@ public class NHM_part1 extends JFrame {
                         JTextField.setBackground(Color.red);
                         datosfantates++;
                     }
+                    // if (datosfantates==0) {
+                    cardLayout.show(mainPanel, "panel2");
+                    // }
                 }
             }
 
@@ -585,10 +607,186 @@ public class NHM_part1 extends JFrame {
         fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/NHM_part1-claro.png")));
         fondo.setBounds(0, 0, 1290, 720);
         Panel.add(fondo);
+        return Panel;
+    }
+
+    private JPanel createPanel2() {
+        JPanel Panel = new JPanel();
+        Panel.setLayout(null);
+        Panel.setBounds(0, 0, 1120, 720);
+        frame.add(Panel);
+        // Cerrar ventana
+        final JLabel Cerrar = Elementos.cerrar(1090, 10, 20, 20);
+        Panel.add(Cerrar);
+        Cerrar.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose(); // Cierra la ventana
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                Cerrar.setForeground(Color.RED);
+            }
+
+            public void mouseExited(MouseEvent e) {
+                Cerrar.setForeground(Color.WHITE);
+            }
+        });
+
+        // Minimizar
+        final JLabel Minimizar = Elementos.minimizar(1070, 10, 20, 20);
+        Panel.add(Minimizar);
+        Minimizar.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                frame.setExtendedState(1);
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                Minimizar.setForeground(Color.red);
+            }
+
+            public void mouseExited(MouseEvent e) {
+                Minimizar.setForeground(Color.white);
+            }
+        });
+
+        int fila_x=36;
+        final JLabel label_Forceps = Elementos.crearJLabel(fila_x, 65, 80, 20, "Forceps:", false);
+        fila_x += label_Forceps.getWidth();
+        Panel.add(label_Forceps);
+
+        final JComboBox<String> combo_Forceps = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Forceps.setBounds(fila_x+5, 65, 50, 20);
+        fila_x += combo_Forceps.getWidth();
+        Panel.add(combo_Forceps);
+
+        fila_x=36;
+        final JLabel label_Cesarea = Elementos.crearJLabel(fila_x, 95, 80, 20, "Cesarea:", false);
+        fila_x += label_Cesarea.getWidth();
+        Panel.add(label_Cesarea);
+
+        final JComboBox<String> combo_Cesarea = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Cesarea.setBounds(fila_x+5, 95, 50, 20);
+        fila_x += combo_Cesarea.getWidth();
+        Panel.add(combo_Cesarea);
+
+        fila_x=36;
+        final JLabel label_Parto = Elementos.crearJLabel(fila_x, 125, 80, 20, "Parto:", false);
+        fila_x += label_Parto.getWidth();
+        Panel.add(label_Parto);
+
+        final JComboBox<String> combo_Parto = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Parto.setBounds(fila_x+5, 125, 50, 20);
+        fila_x += combo_Parto.getWidth();
+        Panel.add(combo_Parto);
+
+        fila_x=36;
+        final JLabel label_ApgarMin = Elementos.crearJLabel(fila_x, 155, 80, 20, "Apgar min:", false);
+        fila_x += label_ApgarMin.getWidth();
+        Panel.add(label_ApgarMin);
+
+        final JTextField text_ApgarMin = Elementos.crearJTextField(fila_x+ 5, 155, 80, 20, "", true);
+        fila_x += text_ApgarMin.getWidth();
+        Panel.add(text_ApgarMin);
+
+        fila_x=36;
+        final JLabel label_Reanimacion = Elementos.crearJLabel(fila_x, 185, 100, 20, "Reanimacion:", false);
+        fila_x += label_Reanimacion.getWidth();
+        Panel.add(label_Reanimacion);
+
+        final JComboBox<String> combo_Reanimacion = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Reanimacion.setBounds(fila_x+5, 185, 50, 20);
+        fila_x += combo_Reanimacion.getWidth();
+        Panel.add(combo_Reanimacion);
+
+        
+        // Boton Volver al menu
+        final JLabel volverButton = new JLabel("VOLVER AL INICIO", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
+                SwingConstants.CENTER);
+        volverButton.setBounds(20, 650, 308, 67);
+        volverButton.setFont(new Font("Roboto Black", 1, 22));
+        volverButton.setForeground(Elementos.colores(Inicio.Tema));
+        volverButton.setVerticalTextPosition(SwingConstants.CENTER);
+        volverButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        volverButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                cardLayout.show(mainPanel, "panel1");
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                volverButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                volverButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
+            }
+        });
+        Panel.add(volverButton);
+
+        // Boton Limpiar datos
+        final JLabel limpiarD_Button = new JLabel("LIMPIAR CAMPOS", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
+                SwingConstants.CENTER);
+        limpiarD_Button.setBounds(470, 650, 308, 67);
+        limpiarD_Button.setFont(new Font("Roboto Black", 1, 22));
+        limpiarD_Button.setForeground(Elementos.colores(Inicio.Tema));
+        limpiarD_Button.setVerticalTextPosition(SwingConstants.CENTER);
+        limpiarD_Button.setHorizontalTextPosition(SwingConstants.CENTER);
+
+        limpiarD_Button.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                limpiarD_Button.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                limpiarD_Button.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
+            }
+        });
+        Panel.add(limpiarD_Button);
+
+        // Boton Siguiente
+        final JLabel seguienteButton = new JLabel("Siguiente", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
+                SwingConstants.CENTER);
+        seguienteButton.setBounds(800, 650, 308, 67);
+        seguienteButton.setFont(new Font("Roboto Black", 1, 22));
+        seguienteButton.setForeground(Elementos.colores(Inicio.Tema));
+        seguienteButton.setVerticalTextPosition(SwingConstants.CENTER);
+        seguienteButton.setHorizontalTextPosition(SwingConstants.CENTER);
+
+        seguienteButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int datosfantates = 0;
+                if (datosfantates == 0) {
+                }
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                seguienteButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                seguienteButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
+            }
+        });
+        Panel.add(seguienteButton);
+
+        // FONDO
+        JLabel fondo = new JLabel();
+        fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/NHM_part1-claro.png")));
+        fondo.setBounds(0, 0, 1290, 720);
+        Panel.add(fondo);
+        return Panel;
     }
 
     public static void main(String[] args) {
-        NHM_part1 hnm_part1 = new NHM_part1();
-        hnm_part1.setVisible(true);
+        // Ejecutar la aplicación en el subproceso de la interfaz gráfica
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new NHM(); // Crear una instancia de la aplicación
+            }
+        });
     }
 }
