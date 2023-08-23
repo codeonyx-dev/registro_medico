@@ -26,9 +26,11 @@ public class NHM {
 
         JPanel panel1 = createPanel1();
         JPanel panel2 = createPanel2();
+        JPanel panel3 = createPanel3();
 
         mainPanel.add(panel1, "panel1");
         mainPanel.add(panel2, "panel2");
+        mainPanel.add(panel3, "panel3");
 
         frame.add(mainPanel, BorderLayout.CENTER);
         frame.setVisible(true);
@@ -459,7 +461,7 @@ public class NHM {
         // Boton Limpiar datos
         final JLabel limpiarD_Button = new JLabel("LIMPIAR CAMPOS", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
                 SwingConstants.CENTER);
-        limpiarD_Button.setBounds(470, 650, 308, 67);
+        limpiarD_Button.setBounds(400, 650, 308, 67);
         limpiarD_Button.setFont(new Font("Roboto Black", 1, 22));
         limpiarD_Button.setForeground(Elementos.colores(Inicio.Tema));
         limpiarD_Button.setVerticalTextPosition(SwingConstants.CENTER);
@@ -820,224 +822,244 @@ public class NHM {
         fila_x += label_Ablactacion_m.getWidth();
         Panel.add(label_Ablactacion_m);
         
-        //Cuarta linea
-        fila_x=36;
-        final JLabel label_Alergia = Elementos.crearJLabel(fila_x, 250, 60, 20,"Alergia:", false);
+        //Primera fila
+        fila_x=36; int fila_y =250;
+
+        final JLabel label_Alergia = Elementos.crearJLabel(fila_x, fila_y, 100, 20,"Alergia:", false);
         fila_x += label_Alergia.getWidth();
         Panel.add(label_Alergia);
         
         final JComboBox<String> combo_Alergia = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Alergia.setBounds(fila_x ,250, 50, 20);
+        combo_Alergia.setBounds(fila_x,fila_y, 50, 20);
         fila_x += combo_Alergia.getWidth();
         Panel.add(combo_Alergia);
 
-        final JLabel label_Asma = Elementos.crearJLabel(fila_x+30, 250, 50, 20,"Asma:", false);
+        fila_y=290; fila_x=36;
+        final JLabel label_Asma = Elementos.crearJLabel(fila_x, fila_y, 100, 20,"Asma:", false);
         fila_x += label_Asma.getWidth();
         Panel.add(label_Asma);
         
         final JComboBox<String> combo_Asma = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Asma.setBounds(fila_x+30 ,250, 50, 20);
+        combo_Asma.setBounds(fila_x,fila_y, 50, 20);
         fila_x += combo_Asma.getWidth();
         Panel.add(combo_Asma);
 
-        final JLabel label_TBC = Elementos.crearJLabel(fila_x+60, 250, 50, 20,"T.B.C:", false);
+        fila_y=330; fila_x=36;
+        final JLabel label_TBC = Elementos.crearJLabel(fila_x, fila_y, 100, 20,"T.B.C:", false);
         fila_x += label_TBC.getWidth();
         Panel.add(label_TBC);
         
         final JComboBox<String> combo_TBC = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_TBC.setBounds(fila_x+60 ,250, 50, 20);
+        combo_TBC.setBounds(fila_x ,fila_y, 50, 20);
         fila_x += combo_TBC.getWidth();
         Panel.add(combo_TBC);
 
-        final JLabel label_Cardiopatia = Elementos.crearJLabel(fila_x+90, 250, 90, 20,"Cardiopatia:", false);
+        fila_y=370; fila_x=36;
+        final JLabel label_Cardiopatia = Elementos.crearJLabel(fila_x, fila_y, 100, 20,"Cardiopatia:", false);
         fila_x += label_Cardiopatia.getWidth();
         Panel.add(label_Cardiopatia);
         
         final JComboBox<String> combo_Cardiopatia = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Cardiopatia.setBounds(fila_x+90 ,250, 50, 20);
+        combo_Cardiopatia.setBounds(fila_x, fila_y, 50, 20);
         fila_x += combo_Cardiopatia.getWidth();
         Panel.add(combo_Cardiopatia);
 
-        final JLabel label_Hipertension = Elementos.crearJLabel(fila_x+120, 250, 100, 20,"Hipertension:", false);
+        fila_y=410; fila_x=36;
+        final JLabel label_Hipertension = Elementos.crearJLabel(fila_x, fila_y, 100, 20,"Hipertension:", false);
         fila_x += label_Hipertension.getWidth();
         Panel.add(label_Hipertension);
         
         final JComboBox<String> combo_Hipertension = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Hipertension.setBounds(fila_x+120 ,250, 50, 20);
+        combo_Hipertension.setBounds(fila_x, fila_y, 50, 20);
         fila_x += combo_Hipertension.getWidth();
         Panel.add(combo_Hipertension);
 
-        final JLabel label_Varice = Elementos.crearJLabel(fila_x+150, 250, 60, 20,"Varice:", false);
+        fila_y=450; fila_x=36;
+        final JLabel label_Varice = Elementos.crearJLabel(fila_x, fila_y, 100, 20,"Varice:", false);
         fila_x += label_Varice.getWidth();
         Panel.add(label_Varice);
         
         final JComboBox<String> combo_Varice = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Varice.setBounds(fila_x+150 ,250, 50, 20);
+        combo_Varice.setBounds(fila_x, fila_y, 50, 20);
         fila_x += combo_Varice.getWidth();
         Panel.add(combo_Varice);
 
-        //Quinta linea
-        fila_x=36;
-        final JLabel label_Desnutricion = Elementos.crearJLabel(fila_x, 290, 100, 20,"Desnutricion:", false);
+        fila_y=490; fila_x=36; 
+        final JLabel label_Desnutricion = Elementos.crearJLabel(fila_x, fila_y, 100, 20,"Desnutricion:", false);
         fila_x += label_Desnutricion.getWidth();
         Panel.add(label_Desnutricion);
         
         final JComboBox<String> combo_Desnutricion = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Desnutricion.setBounds(fila_x ,290, 50, 20);
+        combo_Desnutricion.setBounds(fila_x ,fila_y, 50, 20);
         fila_x += combo_Desnutricion.getWidth();
         Panel.add(combo_Desnutricion);
 
-        final JLabel label_Diabetes = Elementos.crearJLabel(fila_x+30, 290, 70, 20,"Diabetes:", false);
+        //Segunda fila
+        fila_x=220; fila_y=250;
+        final JLabel label_Diabetes = Elementos.crearJLabel(fila_x, fila_y, 100, 20,"Diabetes:", false);
         fila_x += label_Diabetes.getWidth();
         Panel.add(label_Diabetes);
         
         final JComboBox<String> combo_Diabetes = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Diabetes.setBounds(fila_x+30 ,290, 50, 20);
+        combo_Diabetes.setBounds(fila_x ,fila_y, 50, 20);
         fila_x += combo_Diabetes.getWidth();
         Panel.add(combo_Diabetes);
 
-        final JLabel label_Obesidad = Elementos.crearJLabel(fila_x+60, 290, 80, 20,"Obesidad:", false);
+        fila_x=220; fila_y=290;
+        final JLabel label_Obesidad = Elementos.crearJLabel(fila_x, fila_y, 100, 20,"Obesidad:", false);
         fila_x += label_Obesidad.getWidth();
         Panel.add(label_Obesidad);
         
         final JComboBox<String> combo_Obesidad = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Obesidad.setBounds(fila_x+60 ,290, 50, 20);
+        combo_Obesidad.setBounds(fila_x ,fila_y, 50, 20);
         fila_x += combo_Obesidad.getWidth();
         Panel.add(combo_Obesidad);
 
-        final JLabel label_Gastropatia = Elementos.crearJLabel(fila_x+90, 290, 90, 20,"Gastropatia:", false);
+        fila_x=220; fila_y=330;
+        final JLabel label_Gastropatia = Elementos.crearJLabel(fila_x, fila_y, 100, 20,"Gastropatia:", false);
         fila_x += label_Gastropatia.getWidth();
         Panel.add(label_Gastropatia);
         
         final JComboBox<String> combo_Gastropatia = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Gastropatia.setBounds(fila_x+90 ,290, 50, 20);
+        combo_Gastropatia.setBounds(fila_x ,fila_y, 50, 20);
         fila_x += combo_Gastropatia.getWidth();
         Panel.add(combo_Gastropatia);
 
-        final JLabel label_Neurologiaca = Elementos.crearJLabel(fila_x+120, 290, 100, 20,"Neurologiaca:", false);
+        fila_x=220; fila_y=370;
+        final JLabel label_Neurologiaca = Elementos.crearJLabel(fila_x, fila_y, 100, 20,"Neurologiaca:", false);
         fila_x += label_Neurologiaca.getWidth();
         Panel.add(label_Neurologiaca);
         
         final JComboBox<String> combo_Neurologiaca = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Neurologiaca.setBounds(fila_x+120 ,290, 50, 20);
+        combo_Neurologiaca.setBounds(fila_x ,fila_y, 50, 20);
         fila_x += combo_Neurologiaca.getWidth();
         Panel.add(combo_Neurologiaca);
 
-        final JLabel label_Enf_Renal = Elementos.crearJLabel(fila_x+150, 290, 80, 20,"Enf.Renal:", false);
+        fila_x=220; fila_y=410;
+        final JLabel label_Enf_Renal = Elementos.crearJLabel(fila_x, fila_y, 100, 20,"Enf.Renal:", false);
         fila_x += label_Enf_Renal.getWidth();
         Panel.add(label_Enf_Renal);
         
         final JComboBox<String> combo_Enf_Renal = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Enf_Renal.setBounds(fila_x+150 ,290, 50, 20);
+        combo_Enf_Renal.setBounds(fila_x ,fila_y, 50, 20);
         fila_x += combo_Enf_Renal.getWidth();
         Panel.add(combo_Enf_Renal);
 
-        //Sexta linea
-        fila_x=36;
-        final JLabel label_Cancer = Elementos.crearJLabel(fila_x, 330, 60, 20,"Cancer:", false);
+        fila_x=220; fila_y=450;
+        final JLabel label_Cancer = Elementos.crearJLabel(fila_x, fila_y, 100, 20,"Cancer:", false);
         fila_x += label_Cancer.getWidth();
         Panel.add(label_Cancer);
         
         final JComboBox<String> combo_Cancer = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Cancer.setBounds(fila_x ,330, 50, 20);
+        combo_Cancer.setBounds(fila_x ,fila_y, 50, 20);
         fila_x += combo_Cancer.getWidth();
         Panel.add(combo_Cancer);
 
-        final JLabel label_Alcohol = Elementos.crearJLabel(fila_x+30, 330, 60, 20,"Alcohol:", false);
+        fila_x=220; fila_y=490;
+        final JLabel label_Alcohol = Elementos.crearJLabel(fila_x, fila_y, 100, 20,"Alcohol:", false);
         fila_x += label_Alcohol.getWidth();
         Panel.add(label_Alcohol);
         
         final JComboBox<String> combo_Alcohol = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Alcohol.setBounds(fila_x+30 ,330, 50, 20);
+        combo_Alcohol.setBounds(fila_x ,fila_y, 50, 20);
         fila_x += combo_Alcohol.getWidth();
         Panel.add(combo_Alcohol);
 
-        final JLabel label_Drogas = Elementos.crearJLabel(fila_x+60, 330, 60, 20,"Drogas:", false);
+        //Tercera fila
+        fila_x=400; fila_y=250;
+        final JLabel label_Drogas = Elementos.crearJLabel(fila_x, fila_y, 70, 20,"Drogas:", false);
         fila_x += label_Drogas.getWidth();
         Panel.add(label_Drogas);
         
         final JComboBox<String> combo_Drogas = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Drogas.setBounds(fila_x+60 ,330, 50, 20);
+        combo_Drogas.setBounds(fila_x,fila_y, 50, 20);
         fila_x += combo_Drogas.getWidth();
         Panel.add(combo_Drogas);
 
-        final JLabel label_Sifilis = Elementos.crearJLabel(fila_x+90, 330, 50, 20,"Sifilis:", false);
+        fila_x=400; fila_y=290;
+        final JLabel label_Sifilis = Elementos.crearJLabel(fila_x, fila_y, 70, 20,"Sifilis:", false);
         fila_x += label_Sifilis.getWidth();
         Panel.add(label_Sifilis);
         
         final JComboBox<String> combo_Sifilis = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Sifilis.setBounds(fila_x+90 ,330, 50, 20);
+        combo_Sifilis.setBounds(fila_x ,fila_y, 50, 20);
         fila_x += combo_Sifilis.getWidth();
         Panel.add(combo_Sifilis);
 
-        final JLabel label_SIDA = Elementos.crearJLabel(fila_x+120, 330, 40, 20,"SIDA:", false);
+        fila_x=400; fila_y=330;
+        final JLabel label_SIDA = Elementos.crearJLabel(fila_x, fila_y, 70, 20,"SIDA:", false);
         fila_x += label_SIDA.getWidth();
         Panel.add(label_SIDA);
         
         final JComboBox<String> combo_SIDA = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_SIDA.setBounds(fila_x+120 ,330, 50, 20);
+        combo_SIDA.setBounds(fila_x ,fila_y, 50, 20);
         fila_x += combo_SIDA.getWidth();
         Panel.add(combo_SIDA);
 
-        final JLabel label_Artritis = Elementos.crearJLabel(fila_x+150, 330, 60, 20,"Artritis:", false);
+        fila_x=400; fila_y=370;
+        final JLabel label_Artritis = Elementos.crearJLabel(fila_x, fila_y, 70, 20,"Artritis:", false);
         fila_x += label_Artritis.getWidth();
         Panel.add(label_Artritis);
         
         final JComboBox<String> combo_Artritis = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Artritis.setBounds(fila_x+150 ,330, 50, 20);
+        combo_Artritis.setBounds(fila_x ,fila_y, 50, 20);
         fila_x += combo_Artritis.getWidth();
         Panel.add(combo_Artritis);
 
-        final JLabel label_otros = Elementos.crearJLabel(fila_x+180, 330, 60, 20,"Otros:", false);
+        fila_x=400; fila_y=410;
+        final JLabel label_otros = Elementos.crearJLabel(fila_x, fila_y, 70, 20,"Otros:", false);
         fila_x += label_otros.getWidth();
         Panel.add(label_otros);
         
         final JComboBox<String> combo_otros = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_otros.setBounds(fila_x+180 ,330, 50, 20);
+        combo_otros.setBounds(fila_x ,fila_y, 50, 20);
         fila_x += combo_otros.getWidth();
         Panel.add(combo_otros);
 
-        //septima 
-        fila_x=36;
-        final JLabel label_Padre = Elementos.crearJLabel(fila_x, 370, 50, 20,"Padre:", false);
+        //Cuarta fila 
+        fila_x=600; fila_y=250;
+        final JLabel label_Padre = Elementos.crearJLabel(fila_x, fila_y, 50, 20,"Padre:", false);
         fila_x += label_Padre.getWidth();
         Panel.add(label_Padre);
         
         final JComboBox<String> combo_Padre = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Padre.setBounds(fila_x ,370, 50, 20);
+        combo_Padre.setBounds(fila_x , fila_y, 50, 20);
         fila_x += combo_Padre.getWidth();
         Panel.add(combo_Padre);
 
-        final JLabel label_Madre = Elementos.crearJLabel(fila_x+30, 370, 50, 20,"Madre:", false);
+        fila_x=600; fila_y=290;
+        final JLabel label_Madre = Elementos.crearJLabel(fila_x, fila_y, 50, 20,"Madre:", false);
         fila_x += label_Madre.getWidth();
         Panel.add(label_Madre);
         
         final JComboBox<String> combo_Madre = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Madre.setBounds(fila_x+30 ,370, 50, 20);
+        combo_Madre.setBounds(fila_x ,fila_y, 50, 20);
         fila_x += combo_Madre.getWidth();
         Panel.add(combo_Madre);
 
-        final JLabel label_Hermanos = Elementos.crearJLabel(fila_x+60, 370, 110, 20,"Hermanos(as):", false);
+        fila_x=600; fila_y=330;
+        final JLabel label_Hermanos = Elementos.crearJLabel(fila_x, fila_y, 110, 20,"Hermanos(as):", false);
         fila_x += label_Hermanos.getWidth();
         Panel.add(label_Hermanos);
         
         final JComboBox<String> combo_Hermanos = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Hermanos.setBounds(fila_x+60 ,370, 50, 20);
+        combo_Hermanos.setBounds(fila_x ,fila_y, 50, 20);
         fila_x += combo_Hermanos.getWidth();
         Panel.add(combo_Hermanos);
 
-        final JLabel label_Otros = Elementos.crearJLabel(fila_x+90, 370, 50, 20,"Otros:", false);
+        fila_x=600; fila_y=370;
+        final JLabel label_Otros = Elementos.crearJLabel(fila_x, fila_y, 50, 20,"Otros:", false);
         fila_x += label_Otros.getWidth();
         Panel.add(label_Otros);
         
         final JComboBox<String> combo_Otros = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Otros.setBounds(fila_x+90 ,370, 50, 20);
+        combo_Otros.setBounds(fila_x ,fila_y, 50, 20);
         fila_x += combo_Otros.getWidth();
         Panel.add(combo_Otros);
 
         
 
-        // Boton Volver al menu
+        // Boton Volver
         final JLabel volverButton = new JLabel("VOLVER AL INICIO", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
                 SwingConstants.CENTER);
         volverButton.setBounds(20, 650, 308, 67);
@@ -1060,29 +1082,776 @@ public class NHM {
         });
         Panel.add(volverButton);
 
-        // Boton Limpiar datos
-        final JLabel limpiarD_Button = new JLabel("LIMPIAR CAMPOS", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
+
+        // Boton Siguiente
+        final JLabel seguienteButton = new JLabel("Siguiente", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
                 SwingConstants.CENTER);
-        limpiarD_Button.setBounds(470, 650, 308, 67);
-        limpiarD_Button.setFont(new Font("Roboto Black", 1, 22));
-        limpiarD_Button.setForeground(Elementos.colores(Inicio.Tema));
-        limpiarD_Button.setVerticalTextPosition(SwingConstants.CENTER);
-        limpiarD_Button.setHorizontalTextPosition(SwingConstants.CENTER);
+        seguienteButton.setBounds(800, 650, 308, 67);
+        seguienteButton.setFont(new Font("Roboto Black", 1, 22));
+        seguienteButton.setForeground(Elementos.colores(Inicio.Tema));
+        seguienteButton.setVerticalTextPosition(SwingConstants.CENTER);
+        seguienteButton.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        limpiarD_Button.addMouseListener(new MouseAdapter() {
+        seguienteButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-
+                int datosfantates = 0;
+               // if (datosfantates == 0) {
+                    cardLayout.show(mainPanel, "panel3");
+            //  }
             }
 
             public void mouseEntered(MouseEvent e) {
-                limpiarD_Button.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
+                seguienteButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
             }
 
             public void mouseExited(MouseEvent e) {
-                limpiarD_Button.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
+                seguienteButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
             }
         });
-        Panel.add(limpiarD_Button);
+        Panel.add(seguienteButton);
+
+        // FONDO
+        JLabel fondo = new JLabel();
+        fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/NHM_part2-claro.png")));
+        fondo.setBounds(0, 0, 1290, 720);
+        Panel.add(fondo);
+        return Panel;
+    }
+
+    private JPanel createPanel3() {
+        JPanel Panel = new JPanel();
+        Panel.setLayout(null);
+        Panel.setBounds(0, 0, 1120, 720);
+        frame.add(Panel);
+        // Cerrar ventana
+        final JLabel Cerrar = Elementos.cerrar(1090, 10, 20, 20);
+        Panel.add(Cerrar);
+        Cerrar.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose(); // Cierra la ventana
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                Cerrar.setForeground(Color.RED);
+            }
+
+            public void mouseExited(MouseEvent e) {
+                Cerrar.setForeground(Color.WHITE);
+            }
+        });
+
+        // Minimizar
+        final JLabel Minimizar = Elementos.minimizar(1070, 10, 20, 20);
+        Panel.add(Minimizar);
+        Minimizar.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                frame.setExtendedState(1);
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                Minimizar.setForeground(Color.red);
+            }
+
+            public void mouseExited(MouseEvent e) {
+                Minimizar.setForeground(Color.white);
+            }
+        });
+
+        //Primera fila - Arriba
+        int fila_x = 36;  int fila_y = 50; 
+        final JLabel label_Menarquia = Elementos.crearJLabel(fila_x, fila_y, 90, 20, "Menarquia:", false);
+        fila_x += label_Menarquia.getWidth();
+        Panel.add(label_Menarquia);
+
+        final JTextField texto_Menarquia = Elementos.crearJTextField(fila_x, fila_y, 80, 20, "", true);
+        fila_x += texto_Menarquia.getWidth();
+        Panel.add(texto_Menarquia);
+
+        fila_x = 36; fila_y = 80; 
+        final JLabel label_Cliclo_menstrual = Elementos.crearJLabel(fila_x , fila_y, 120, 20, "Cliclo menstrual:", false);
+        fila_x += label_Cliclo_menstrual.getWidth();
+        Panel.add(label_Cliclo_menstrual);
+
+        final JTextField texto_Cliclo_menstrual = Elementos.crearJTextField(fila_x , fila_y, 50, 20, "", true);
+        fila_x += texto_Cliclo_menstrual.getWidth();
+        Panel.add(texto_Cliclo_menstrual);
+
+        fila_x = 36; fila_y = 110; 
+        final JLabel label_PRSexual = Elementos.crearJLabel(fila_x, fila_y, 100, 20, "P.R. Sexual:", false);
+        fila_x += label_PRSexual.getWidth();
+        Panel.add(label_PRSexual);
+
+        final JTextField texto_PRSexual = Elementos.crearJTextField(fila_x , fila_y, 50, 20, "", true);
+        fila_x += texto_PRSexual.getWidth();
+        Panel.add(texto_PRSexual);
+
+        fila_x = 36; fila_y = 140; 
+        final JLabel label_FrecuenciaRSexual = Elementos.crearJLabel(fila_x, fila_y,160, 20, "Frecuencia R. Sexual:", false);
+        fila_x += label_FrecuenciaRSexual.getWidth();
+        Panel.add(label_FrecuenciaRSexual);
+
+        final JTextField texto_FrecuenciaRSexual = Elementos.crearJTextField(fila_x , fila_y, 50, 20, "", true);
+        fila_x += texto_FrecuenciaRSexual.getWidth();
+        Panel.add(texto_FrecuenciaRSexual);
+
+        fila_x = 36; fila_y = 170; 
+        final JLabel label_N_Parejas = Elementos.crearJLabel(fila_x, fila_y,90, 20, "N~ Parejas:", false);
+        fila_x += label_N_Parejas.getWidth();
+        Panel.add(label_N_Parejas);
+
+        final JTextField texto_N_Parejas = Elementos.crearJTextField(fila_x , fila_y, 50, 20, "", true);
+        fila_x += texto_N_Parejas.getWidth();
+        Panel.add(texto_N_Parejas);
+
+        fila_x = 36; fila_y = 200; 
+        final JLabel label_Dispareunia = Elementos.crearJLabel(fila_x, fila_y,100, 20, "Dispareunia:", false);
+        fila_x += label_Dispareunia.getWidth();
+        Panel.add(label_Dispareunia);
+
+        final JComboBox<String> combo_Dispareunia = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Dispareunia.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Dispareunia.getWidth();
+        Panel.add(combo_Dispareunia);
+
+        //Segunda fila - Arriba
+        fila_x = 280;  fila_y = 50; 
+        final JLabel label_Anticoncepcion = Elementos.crearJLabel(fila_x, fila_y, 120, 20, "Anticoncepcion:", false);
+        fila_x += label_Anticoncepcion.getWidth();
+        Panel.add(label_Anticoncepcion);
+
+        final JComboBox<String> combo_Anticoncepcion = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Anticoncepcion.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Anticoncepcion.getWidth();
+        Panel.add(combo_Anticoncepcion);
+
+        fila_x = 280; fila_y = 80; 
+        final JComboBox<String> combo_AC_DIU = new JComboBox<String>(new String[] {"ACO","DIU","Otros"});
+        combo_AC_DIU.setBounds(fila_x , fila_y, 80, 20);
+        fila_x += combo_AC_DIU.getWidth();
+        Panel.add(combo_AC_DIU);
+
+        fila_x = 280; fila_y = 110; 
+        final JLabel label_Menospausia = Elementos.crearJLabel(fila_x, fila_y, 120, 20, "Menospausia:", false);
+        fila_x += label_Menospausia.getWidth();
+        Panel.add(label_Menospausia);
+
+        final JComboBox<String> combo_Menospausia = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Menospausia.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Menospausia.getWidth();
+        Panel.add(combo_Menospausia);
+
+        fila_x = 280; fila_y = 140; 
+        final JLabel label_Gesta = Elementos.crearJLabel(fila_x, fila_y,120, 20, "Gesta", false);
+        fila_x += label_Gesta.getWidth();
+        Panel.add(label_Gesta);
+
+        final JComboBox<String> combo_Gesta = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Gesta.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Gesta.getWidth();
+        Panel.add(combo_Gesta);
+
+        fila_x = 280; fila_y = 170; 
+        final JLabel label_Partos = Elementos.crearJLabel(fila_x, fila_y,120, 20, "Partos:", false);
+        fila_x += label_Partos.getWidth();
+        Panel.add(label_Partos);
+
+        final JComboBox<String> combo_Partos = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Partos.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Partos.getWidth();
+        Panel.add(combo_Partos);
+
+        fila_x = 280; fila_y = 200; 
+        final JLabel label_Cesarea = Elementos.crearJLabel(fila_x, fila_y,120, 20, "Cesarea:", false);
+        fila_x += label_Cesarea.getWidth();
+        Panel.add(label_Cesarea);
+
+        final JComboBox<String> combo_Cesarea = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Cesarea.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Cesarea.getWidth();
+        Panel.add(combo_Cesarea);
+
+        // tercera fila - Arriba
+        fila_x = 500;  fila_y = 50; 
+        final JLabel label_Aborto = Elementos.crearJLabel(fila_x, fila_y, 100, 20, "Aborto:", false);
+        fila_x += label_Aborto.getWidth();
+        Panel.add(label_Aborto);
+
+        final JComboBox<String> combo_Aborto = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Aborto.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Aborto.getWidth();
+        Panel.add(combo_Aborto);
+
+        fila_x = 500; fila_y = 80; 
+        final JLabel label_E1erparto = Elementos.crearJLabel(fila_x , fila_y, 100, 20, "E 1er parto:", false);
+        fila_x += label_E1erparto.getWidth();
+        Panel.add(label_E1erparto);
+
+        final JTextField texto_E1erparto = Elementos.crearJTextField(fila_x , fila_y, 50, 20, "", true);
+        fila_x += texto_E1erparto.getWidth();
+        Panel.add(texto_E1erparto);
+
+        fila_x = 500; fila_y = 110; 
+        final JLabel label_F_Uparto = Elementos.crearJLabel(fila_x, fila_y, 100, 20, "F.U parto:", false);
+        fila_x += label_F_Uparto.getWidth();
+        Panel.add(label_F_Uparto);
+
+        final JTextField texto_F_Uparto = Elementos.crearJTextField(fila_x , fila_y, 50, 20, "", true);
+        fila_x += texto_F_Uparto.getWidth();
+        Panel.add(texto_F_Uparto);
+
+        fila_x = 500; fila_y = 140; 
+        final JLabel label_F_UAborto = Elementos.crearJLabel(fila_x, fila_y,100, 20, "F.U Aborto:", false);
+        fila_x += label_F_UAborto.getWidth();
+        Panel.add(label_F_UAborto);
+
+        final JTextField texto_F_UAborto = Elementos.crearJTextField(fila_x , fila_y, 50, 20, "", true);
+        fila_x += texto_F_UAborto.getWidth();
+        Panel.add(texto_F_UAborto);
+
+        //Cuarta fila - Arriba
+        fila_x = 700;  fila_y = 50; 
+        final JLabel label_Curetaje = Elementos.crearJLabel(fila_x, fila_y, 80, 20, "Curetaje:", false);
+        fila_x += label_Curetaje.getWidth();
+        Panel.add(label_Curetaje);
+
+        final JTextField combo_Curetaje = Elementos.crearJTextField(fila_x, fila_y, 80, 20, "", true);
+        fila_x += combo_Curetaje.getWidth();
+        Panel.add(combo_Curetaje);
+
+        fila_x = 700; fila_y = 80; 
+        final JLabel label_N_de_Hijos = Elementos.crearJLabel(fila_x , fila_y, 100, 20, "N~ de Hijos:", false);
+        fila_x += label_N_de_Hijos.getWidth();
+        Panel.add(label_N_de_Hijos);
+
+        final JTextField texto_N_de_Hijos = Elementos.crearJTextField(fila_x , fila_y, 50, 20, "", true);
+        fila_x += texto_N_de_Hijos.getWidth();
+        Panel.add(texto_N_de_Hijos);
+
+        fila_x = 700; fila_y = 110; 
+        final JLabel label_Vivos = Elementos.crearJLabel(fila_x, fila_y, 80, 20, "Vivos:", false);
+        fila_x += label_Vivos.getWidth();
+        Panel.add(label_Vivos);
+
+        final JTextField texto_Vivos = Elementos.crearJTextField(fila_x , fila_y, 50, 20, "", true);
+        fila_x += texto_Vivos.getWidth();
+        Panel.add(texto_Vivos);
+
+        fila_x = 700; fila_y = 140; 
+        final JLabel label_Muertos = Elementos.crearJLabel(fila_x, fila_y,80, 20, "Muertos:", false);
+        fila_x += label_Muertos.getWidth();
+        Panel.add(label_Muertos);
+
+        final JTextField texto_Muertos = Elementos.crearJTextField(fila_x , fila_y, 50, 20, "", true);
+        fila_x += texto_Muertos.getWidth();
+        Panel.add(texto_Muertos);
+
+        fila_x = 700; fila_y = 170; 
+        final JLabel label_RN_mayor_peso = Elementos.crearJLabel(fila_x, fila_y,150, 20, "RN de mayor peso:", false);
+        fila_x += label_RN_mayor_peso.getWidth();
+        Panel.add(label_RN_mayor_peso);
+
+        final JTextField combo_RN_de_mayor_peso = Elementos.crearJTextField(fila_x , fila_y, 50, 20, "", true);
+        fila_x += combo_RN_de_mayor_peso.getWidth();
+        Panel.add(combo_RN_de_mayor_peso);
+
+        final JLabel combo_RN_de_mayor_peso_gr = Elementos.crearJLabel(fila_x+10, fila_y,20, 20, "gr:", false);
+        fila_x += combo_RN_de_mayor_peso_gr.getWidth();
+        Panel.add(combo_RN_de_mayor_peso_gr);
+
+        //Primera fila - abajo
+        fila_x = 36;  fila_y = 270; 
+        final JLabel label_Alergia = Elementos.crearJLabel(fila_x, fila_y, 100, 20, "Alergia:", false);
+        fila_x += label_Alergia.getWidth();
+        Panel.add(label_Alergia);
+
+        final JComboBox<String> combo_Alergia = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Alergia.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Alergia.getWidth();
+        Panel.add(combo_Alergia);
+
+        fila_x = 36; fila_y = 300; 
+        final JLabel label_Asma = Elementos.crearJLabel(fila_x, fila_y, 100, 20, "Asma:", false);
+        fila_x += label_Asma.getWidth();
+        Panel.add(label_Asma);
+
+        final JComboBox<String> combo_Asma = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Asma.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Asma.getWidth();
+        Panel.add(combo_Asma);
+
+        fila_x = 36; fila_y = 330; 
+        final JLabel label_Neumonia = Elementos.crearJLabel(fila_x, fila_y,100, 20, "Neumonia", false);
+        fila_x += label_Neumonia.getWidth();
+        Panel.add(label_Neumonia);
+
+        final JComboBox<String> combo_Neumonia = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Neumonia.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Neumonia.getWidth();
+        Panel.add(combo_Neumonia);
+
+        fila_x = 36; fila_y = 360; 
+        final JLabel label_TBC = Elementos.crearJLabel(fila_x, fila_y,100, 20, "T.B.C:", false);
+        fila_x += label_TBC.getWidth();
+        Panel.add(label_TBC);
+
+        final JComboBox<String> combo_TBC = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_TBC.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_TBC.getWidth();
+        Panel.add(combo_TBC);
+
+        fila_x = 36; fila_y = 390; 
+        final JLabel label_Cardiopatia = Elementos.crearJLabel(fila_x, fila_y,100, 20, "Cardiopatia:", false);
+        fila_x += label_Cardiopatia.getWidth();
+        Panel.add(label_Cardiopatia);
+
+        final JComboBox<String> combo_Cardiopatia = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Cardiopatia.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Cardiopatia.getWidth();
+        Panel.add(combo_Cardiopatia);
+
+        fila_x = 36; fila_y = 420; 
+        final JLabel label_Hipertension = Elementos.crearJLabel(fila_x, fila_y,100, 20, "Hipertension:", false);
+        fila_x += label_Hipertension.getWidth();
+        Panel.add(label_Hipertension);
+
+        final JComboBox<String> combo_Hipertension = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Hipertension.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Hipertension.getWidth();
+        Panel.add(combo_Hipertension);
+
+        fila_x = 36; fila_y = 450; 
+        final JLabel label_Hiperlipidemias = Elementos.crearJLabel(fila_x, fila_y,120, 20, "Hiperlipidemias:", false);
+        fila_x += label_Hiperlipidemias.getWidth();
+        Panel.add(label_Hiperlipidemias);
+
+        final JComboBox<String> combo_Hiperlipidemias = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Hiperlipidemias.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Hiperlipidemias.getWidth();
+        Panel.add(combo_Hiperlipidemias);
+
+        fila_x = 36; fila_y = 480; 
+        final JLabel label_Varices = Elementos.crearJLabel(fila_x, fila_y,100, 20, "Varices:", false);
+        fila_x += label_Varices.getWidth();
+        Panel.add(label_Varices);
+
+        final JComboBox<String> combo_Varices = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Varices.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Varices.getWidth();
+        Panel.add(combo_Varices);
+
+        //Segunda fila - abajo
+        fila_x = 280;  fila_y = 270; 
+        final JLabel label_Hepatopatia = Elementos.crearJLabel(fila_x, fila_y, 100, 20, "Hepatopatia:", false);
+        fila_x += label_Hepatopatia.getWidth();
+        Panel.add(label_Hepatopatia);
+
+        final JComboBox<String> combo_Hepatopatia = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Hepatopatia.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Hepatopatia.getWidth();
+        Panel.add(combo_Hepatopatia);
+
+        fila_x = 280; fila_y = 300; 
+        final JLabel label_Desnutricion = Elementos.crearJLabel(fila_x, fila_y, 100, 20, "Desnutricion:", false);
+        fila_x += label_Desnutricion.getWidth();
+        Panel.add(label_Desnutricion);
+
+        final JComboBox<String> combo_Desnutricion = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Desnutricion.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Desnutricion.getWidth();
+        Panel.add(combo_Desnutricion);
+
+        fila_x = 280; fila_y = 330; 
+        final JLabel label_Diabetes = Elementos.crearJLabel(fila_x, fila_y,100, 20, "Diabetes", false);
+        fila_x += label_Diabetes.getWidth();
+        Panel.add(label_Diabetes);
+
+        final JComboBox<String> combo_Diabetes = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Diabetes.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Diabetes.getWidth();
+        Panel.add(combo_Diabetes);
+
+        fila_x = 280; fila_y = 360; 
+        final JLabel label_Obesidad = Elementos.crearJLabel(fila_x, fila_y,100, 20, "Obesidad:", false);
+        fila_x += label_Obesidad.getWidth();
+        Panel.add(label_Obesidad);
+
+        final JComboBox<String> combo_Obesidad = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Obesidad.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Obesidad.getWidth();
+        Panel.add(combo_Obesidad);
+
+        fila_x = 280; fila_y = 390; 
+        final JLabel label_Gastroenteritis = Elementos.crearJLabel(fila_x, fila_y,120, 20, "Gastroenteritis:", false);
+        fila_x += label_Gastroenteritis.getWidth();
+        Panel.add(label_Gastroenteritis);
+
+        final JComboBox<String> combo_Gastroenteritis = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Gastroenteritis.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Gastroenteritis.getWidth();
+        Panel.add(combo_Gastroenteritis);
+
+        fila_x = 280; fila_y = 420; 
+        final JLabel label_Encoprexis = Elementos.crearJLabel(fila_x, fila_y,100, 20, "Encoprexis:", false);
+        fila_x += label_Encoprexis.getWidth();
+        Panel.add(label_Encoprexis);
+
+        final JComboBox<String> combo_Encoprexis = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Encoprexis.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Encoprexis.getWidth();
+        Panel.add(combo_Encoprexis);
+
+        fila_x = 280; fila_y = 450; 
+        final JLabel label_Enf_Renal = Elementos.crearJLabel(fila_x, fila_y,100, 20, "Enf. Renal:", false);
+        fila_x += label_Enf_Renal.getWidth();
+        Panel.add(label_Enf_Renal);
+
+        final JComboBox<String> combo_Enf_Renal = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Enf_Renal.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Enf_Renal.getWidth();
+        Panel.add(combo_Enf_Renal);
+
+        fila_x = 280; fila_y = 480; 
+        final JLabel label_Enuresis = Elementos.crearJLabel(fila_x, fila_y,100, 20, "Enuresis:", false);
+        fila_x += label_Enuresis.getWidth();
+        Panel.add(label_Enuresis);
+
+        final JComboBox<String> combo_Enuresis = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Enuresis.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Enuresis.getWidth();
+        Panel.add(combo_Enuresis);
+
+        //Tercera fila - abajo
+        fila_x = 500;  fila_y = 270; 
+        final JLabel label_Cancer = Elementos.crearJLabel(fila_x, fila_y, 130, 20, "Cancer:", false);
+        fila_x += label_Cancer.getWidth();
+        Panel.add(label_Cancer);
+
+        final JComboBox<String> combo_Cancer = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Cancer.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Cancer.getWidth();
+        Panel.add(combo_Cancer);
+
+        fila_x = 500; fila_y = 300; 
+        final JLabel label_Tromboembolica = Elementos.crearJLabel(fila_x, fila_y, 130, 20, "Tromboembolica:", false);
+        fila_x += label_Tromboembolica.getWidth();
+        Panel.add(label_Tromboembolica);
+
+        final JComboBox<String> combo_Tromboembolica = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Tromboembolica.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Tromboembolica.getWidth();
+        Panel.add(combo_Tromboembolica);
+
+        fila_x = 500; fila_y = 320; 
+        final JLabel label_Tumor_Mamario = Elementos.crearJLabel(fila_x, fila_y,130, 20, "Tumor Mamario:", false);
+        fila_x += label_Tumor_Mamario.getWidth();
+        Panel.add(label_Tumor_Mamario);
+
+        final JComboBox<String> combo_Tumor_Mamario = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Tumor_Mamario.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Tumor_Mamario.getWidth();
+        Panel.add(combo_Tumor_Mamario);
+
+        fila_x = 500; fila_y = 360; 
+        final JLabel label_Meningitis = Elementos.crearJLabel(fila_x, fila_y,130, 20, "Meningitis:", false);
+        fila_x += label_Meningitis.getWidth();
+        Panel.add(label_Meningitis);
+
+        final JComboBox<String> combo_Meningitis = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Meningitis.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Meningitis.getWidth();
+        Panel.add(combo_Meningitis);
+
+        fila_x = 500; fila_y = 390; 
+        final JLabel label_TCraneoencefal = Elementos.crearJLabel(fila_x, fila_y,130, 20, "T Craneoencefal:", false);
+        fila_x += label_TCraneoencefal.getWidth();
+        Panel.add(label_TCraneoencefal);
+
+        final JComboBox<String> combo_TCraneoencefal = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_TCraneoencefal.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_TCraneoencefal.getWidth();
+        Panel.add(combo_TCraneoencefal);
+
+        fila_x = 500; fila_y = 420; 
+        final JLabel label_Enf_Eruptivas = Elementos.crearJLabel(fila_x, fila_y,130, 20, "Enf.Eruptivas:", false);
+        fila_x += label_Enf_Eruptivas.getWidth();
+        Panel.add(label_Enf_Eruptivas);
+
+        final JComboBox<String> combo_Enf_Eruptivas = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Enf_Eruptivas.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Enf_Eruptivas.getWidth();
+        Panel.add(combo_Enf_Eruptivas);
+
+        fila_x = 500; fila_y = 450; 
+        final JLabel label_Dengue = Elementos.crearJLabel(fila_x, fila_y,130, 20, "Dengue:", false);
+        fila_x += label_Dengue.getWidth();
+        Panel.add(label_Dengue);
+
+        final JComboBox<String> combo_Dengue = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Dengue.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Dengue.getWidth();
+        Panel.add(combo_Dengue);
+
+        fila_x = 500; fila_y = 480; 
+        final JLabel label_Hospitalizacion = Elementos.crearJLabel(fila_x, fila_y,130, 20, "Hospitalizacion:", false);
+        fila_x += label_Hospitalizacion.getWidth();
+        Panel.add(label_Hospitalizacion);
+
+        final JComboBox<String> combo_Hospitalizacion = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Hospitalizacion.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Hospitalizacion.getWidth();
+        Panel.add(combo_Hospitalizacion);
+
+        //Cuarta fila - abajo
+        fila_x = 750;  fila_y = 270; 
+        final JLabel label_Interv_Quirugica = Elementos.crearJLabel(fila_x, fila_y, 130, 20, "Interv. Quirugica:", false);
+        fila_x += label_Interv_Quirugica.getWidth();
+        Panel.add(label_Interv_Quirugica);
+
+        final JComboBox<String> combo_Interv_Quirugica = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Interv_Quirugica.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Interv_Quirugica.getWidth();
+        Panel.add(combo_Interv_Quirugica);
+
+        fila_x = 750; fila_y = 300; 
+        final JLabel label_Accidentes = Elementos.crearJLabel(fila_x, fila_y, 130, 20, "Accidentes:", false);
+        fila_x += label_Accidentes.getWidth();
+        Panel.add(label_Accidentes);
+
+        final JComboBox<String> combo_Accidentes = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Accidentes.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Accidentes.getWidth();
+        Panel.add(combo_Accidentes);
+
+        fila_x = 750; fila_y = 330; 
+        final JLabel label_Artritis = Elementos.crearJLabel(fila_x, fila_y,130, 20, "Artritis:", false);
+        fila_x += label_Artritis.getWidth();
+        Panel.add(label_Artritis);
+
+        final JComboBox<String> combo_Artritis = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Artritis.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Artritis.getWidth();
+        Panel.add(combo_Artritis);
+
+        fila_x =750; fila_y = 360; 
+        final JLabel label_Enf_TS = Elementos.crearJLabel(fila_x, fila_y,130, 20, "Enf. T.S:", false);
+        fila_x += label_Enf_TS.getWidth();
+        Panel.add(label_Enf_TS);
+
+        final JComboBox<String> combo_Enf_TS = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Enf_TS.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Enf_TS.getWidth();
+        Panel.add(combo_Enf_TS);
+
+        fila_x = 750; fila_y = 390; 
+        final JLabel label_Enf_Infec_Tran = Elementos.crearJLabel(fila_x, fila_y,130, 20, "Enf. Infec y Tran:", false);
+        fila_x += label_Enf_Infec_Tran.getWidth();
+        Panel.add(label_Enf_Infec_Tran);
+
+        final JComboBox<String> combo_Enf_Infec_Tran = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Enf_Infec_Tran.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Enf_Infec_Tran.getWidth();
+        Panel.add(combo_Enf_Infec_Tran);
+
+        fila_x = 750; fila_y = 420; 
+        final JLabel label_Enf_Laboral = Elementos.crearJLabel(fila_x, fila_y,130, 20, "Enf. Laboral:", false);
+        fila_x += label_Enf_Laboral.getWidth();
+        Panel.add(label_Enf_Laboral);
+
+        final JComboBox<String> combo_Enf_Laboral = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Enf_Laboral.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Enf_Laboral.getWidth();
+        Panel.add(combo_Enf_Laboral);
+
+        fila_x = 750; fila_y = 450; 
+        final JLabel label_Otros = Elementos.crearJLabel(fila_x, fila_y,130, 20, "Otros:", false);
+        fila_x += label_Otros.getWidth();
+        Panel.add(label_Otros);
+
+        final JTextField text_Otros = Elementos.crearJTextField(fila_x , fila_y, 100, 20, "", true);
+        fila_x += text_Otros.getWidth();
+        Panel.add(text_Otros);
+
+        //Primera fila - Factores de riesgo
+        fila_x = 36;  fila_y = 540; 
+        final JLabel label_Alcohol = Elementos.crearJLabel(fila_x, fila_y, 100, 20, "Alcohol:", false);
+        fila_x += label_Alcohol.getWidth();
+        Panel.add(label_Alcohol);
+
+        final JComboBox<String> combo_Alcohol = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Alcohol.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Alcohol.getWidth();
+        Panel.add(combo_Alcohol);
+
+        fila_x = 36; fila_y = 570; 
+        final JLabel label_Drogas = Elementos.crearJLabel(fila_x, fila_y, 100, 20, "Drogas:", false);
+        fila_x += label_Drogas.getWidth();
+        Panel.add(label_Drogas);
+
+        final JComboBox<String> combo_Drogas = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Drogas.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Drogas.getWidth();
+        Panel.add(combo_Drogas);
+
+        fila_x = 36; fila_y = 600; 
+        final JLabel label_Insecticidas = Elementos.crearJLabel(fila_x, fila_y,100, 20, "Insecticidas:", false);
+        fila_x += label_Insecticidas.getWidth();
+        Panel.add(label_Insecticidas);
+
+        final JComboBox<String> combo_Insecticidas = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Insecticidas.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Insecticidas.getWidth();
+        Panel.add(combo_Insecticidas);
+
+        fila_x = 36; fila_y = 630; 
+        final JLabel label_Deoirtes = Elementos.crearJLabel(fila_x, fila_y,100, 20, "Deoirtes:", false);
+        fila_x += label_Deoirtes.getWidth();
+        Panel.add(label_Deoirtes);
+
+        final JComboBox<String> combo_Deoirtes = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Deoirtes.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Deoirtes.getWidth();
+        Panel.add(combo_Deoirtes);
+
+        //segunda fila - Factores de riesgo
+        fila_x = 280;  fila_y = 540; 
+        final JLabel label_Sedentarismo = Elementos.crearJLabel(fila_x, fila_y, 120, 20, "Sedentarismo:", false);
+        fila_x += label_Sedentarismo.getWidth();
+        Panel.add(label_Sedentarismo);
+
+        final JComboBox<String> combo_Sedentarismo = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Sedentarismo.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Sedentarismo.getWidth();
+        Panel.add(combo_Sedentarismo);
+
+        fila_x = 280; fila_y = 570; 
+        final JLabel label_Sueno = Elementos.crearJLabel(fila_x, fila_y, 100, 20, "Sueño:", false);
+        fila_x += label_Sueno.getWidth();
+        Panel.add(label_Sueno);
+
+        final JComboBox<String> combo_Sueno = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Sueno.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Sueno.getWidth();
+        Panel.add(combo_Sueno);
+
+        fila_x = 280; fila_y = 600; 
+        final JLabel label_ChuparDedo = Elementos.crearJLabel(fila_x, fila_y,100, 20, "Chupar Dedo:", false);
+        fila_x += label_ChuparDedo.getWidth();
+        Panel.add(label_ChuparDedo);
+
+        final JComboBox<String> combo_ChuparDedo = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_ChuparDedo.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_ChuparDedo.getWidth();
+        Panel.add(combo_ChuparDedo);
+
+        fila_x = 280; fila_y = 630; 
+        final JLabel label_Onicofagia = Elementos.crearJLabel(fila_x, fila_y,100, 20, "Onicofagia:", false);
+        fila_x += label_Onicofagia.getWidth();
+        Panel.add(label_Onicofagia);
+
+        final JComboBox<String> combo_Onicofagia = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Onicofagia.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Onicofagia.getWidth();
+        Panel.add(combo_Onicofagia);
+
+        //Tercera fila - Factores de riesgo
+        fila_x = 500;  fila_y = 540; 
+        final JLabel label_Micciones = Elementos.crearJLabel(fila_x, fila_y, 100, 20, "Micciones:", false);
+        fila_x += label_Micciones.getWidth();
+        Panel.add(label_Micciones);
+
+        final JComboBox<String> combo_Micciones = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Micciones.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Micciones.getWidth();
+        Panel.add(combo_Micciones);
+
+        fila_x = 500; fila_y = 570; 
+        final JLabel label_Evacuaciones = Elementos.crearJLabel(fila_x, fila_y, 120, 20, "Evacuaciones:", false);
+        fila_x += label_Evacuaciones.getWidth();
+        Panel.add(label_Evacuaciones);
+
+        final JComboBox<String> combo_Evacuaciones = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Evacuaciones.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Evacuaciones.getWidth();
+        Panel.add(combo_Evacuaciones);
+
+        fila_x = 500; fila_y = 600; 
+        final JLabel label_Stres = Elementos.crearJLabel(fila_x, fila_y,100, 20, "Stres:", false);
+        fila_x += label_Stres.getWidth();
+        Panel.add(label_Stres);
+
+        final JComboBox<String> combo_Stres = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Stres.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Stres.getWidth();
+        Panel.add(combo_Stres);
+
+        fila_x = 500; fila_y = 630; 
+        final JLabel label_Metales_Pensados = Elementos.crearJLabel(fila_x, fila_y,140, 20, "Metales Pensados:", false);
+        fila_x += label_Metales_Pensados.getWidth();
+        Panel.add(label_Metales_Pensados);
+
+        final JComboBox<String> combo_Metales_Pensados = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Metales_Pensados.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Metales_Pensados.getWidth();
+        Panel.add(combo_Metales_Pensados);
+
+        //cuarta fila - Factores de riesgo
+        fila_x = 750;  fila_y = 540; 
+        final JLabel label_Alimentacion = Elementos.crearJLabel(fila_x, fila_y, 100, 20, "Alimentacion:", false);
+        fila_x += label_Alimentacion.getWidth();
+        Panel.add(label_Alimentacion);
+
+        final JComboBox<String> combo_Alimentacion = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Alimentacion.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Alimentacion.getWidth();
+        Panel.add(combo_Alimentacion);
+
+        fila_x = 750; fila_y = 570; 
+        final JLabel label_Fuma = Elementos.crearJLabel(fila_x, fila_y, 100, 20, "Fuma:", false);
+        fila_x += label_Fuma.getWidth();
+        Panel.add(label_Fuma);
+
+        final JComboBox<String> combo_Fuma = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Fuma.setBounds(fila_x , fila_y, 50, 20);
+        fila_x += combo_Fuma.getWidth();
+        Panel.add(combo_Fuma);
+
+        fila_x = 750; fila_y = 600; 
+        final JLabel label_NCigarrillos_diarios = Elementos.crearJLabel(fila_x, fila_y,160, 20, "N~ Cigarrillos diarios:", false);
+        fila_x += label_NCigarrillos_diarios.getWidth();
+        Panel.add(label_NCigarrillos_diarios);
+
+        final JTextField texto_NCigarrillos_diarios = Elementos.crearJTextField(fila_x , fila_y, 100, 20, "", true);
+        fila_x += texto_NCigarrillos_diarios.getWidth();
+        Panel.add(texto_NCigarrillos_diarios);
+
+
+        
+        
+        
+        // Boton Volver 
+        final JLabel volverButton = new JLabel("VOLVER AL INICIO", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
+                SwingConstants.CENTER);
+        volverButton.setBounds(20, 650, 308, 67);
+        volverButton.setFont(new Font("Roboto Black", 1, 22));
+        volverButton.setForeground(Elementos.colores(Inicio.Tema));
+        volverButton.setVerticalTextPosition(SwingConstants.CENTER);
+        volverButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        volverButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                cardLayout.show(mainPanel, "panel2");
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                volverButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                volverButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
+            }
+        });
+        Panel.add(volverButton);
+
+        
 
         // Boton Siguiente
         final JLabel seguienteButton = new JLabel("Siguiente", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
@@ -1112,7 +1881,7 @@ public class NHM {
 
         // FONDO
         JLabel fondo = new JLabel();
-        fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/NHM_part2-claro.png")));
+        fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/NHM_part3-claro.png")));
         fondo.setBounds(0, 0, 1290, 720);
         Panel.add(fondo);
         return Panel;
