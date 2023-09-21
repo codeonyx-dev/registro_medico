@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class NHM {
@@ -2136,30 +2135,45 @@ public class NHM {
                         texto_NCigarrillos_diarios
                 };
 
-                String sql = "INSERT INTO datospersonales (apellido_familiar, ci_jefe_familia, Numero_de_Historia, ci_tipo, Ci_cedula, apellido, nombre, " +
-                "estadoCivil, Ocupacion, estudio, anosAprovados, Analfabeta, sexo, NDia, NMes, NaAno, LugarNacimento, Estado, Pais, Dirrecion, " +
-                "Telefono, Religion, Establecimiento, Municipio, Parroquia, Comunidad, Madre_N_A, Madre_Ocupacion, Padre_N_A, Padre_Ocupacion, " +
-                "Representante, Representante_N, Representante_tipo_ci, Representante_ci, Representante_Telefono, Carnet_prenatal, patologiaEmbarazo, " +
-                "patologiaParto, patologiaPuerperio, NConsultasPrenatales, Hrs_fuera_de_casa, MadreFamilia, PadreFamilia, HermanoFamilia, " +
-                "OtrosFamilia, Edad_Gestacional, sem, Forceps, Cesarea, Parto, ApgarMin, Reanimacion, EngresoRN, Exclusiva, Mixta, Ablactacion, " +
-                "Peso_al_nacer, Talla, Circunferencia, Asfixia, PatologiasRN, Alergia, Asma, TBC, Cardiopatia, Hipertension, Varice, Desnutricion, " +
-                "Diabetes, Obesidad, Gastropatia, Neurologiaca, Enf_Renal, Cancer, Alcohol, Drogas, Sifilis, SIDA, Artritis, otros_1, Padre, Madre, " +
-                "Hermanos, Otros_2, Menarquia, Cliclo_menstrual, PRSexual, FrecuenciaRSexual, N_Parejas, Dispareunia, Anticoncepcion, AC_DIU, " +
-                "Menospausia, Gesta, Partos, Cesarea2, Aborto, E1erparto, F_Uparto, F_UAborto, Curetaje, N_de_Hijos, Vivos, Muertos, RN_de_mayor_peso, " +
-                "Alergia2, Asma2, Neumonia, TBC2, Cardiopatia2, Hipertension2, Hiperlipidemias, Varices, Hepatopatia, Desnutricion2, Diabetes2, " +
-                "Obesidad2, Gastroenteritis, Encoprexis, Enf_Renal2, Enuresis, Cancer2, Tromboembolica, Tumor_Mamario, Meningitis, TCraneoencefal, " +
-                "Enf_Eruptivas, Dengue, Hospitalizacion, Interv_Quirugica, Accidentes, Artritis2, Enf_TS, Enf_Infec_Tran, Enf_Laboral, Otros_3, " +
-                "Alcohol2, Drogas2, Insecticidas, Deoirtes, Sedentarismo, Sueno, ChuparDedo, Onicofagia, Micciones, Evacuaciones, Stres, " +
-                "Metales_Pensados, Alimentacion, Fuma, NCigarrillos_diarios) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                
+                String sql = "INSERT INTO datospersonales (apellido_familiar, ci_jefe_familia, Numero_de_Historia, ci_tipo, Ci_cedula, apellido, nombre, "
+                        +
+                        "estadoCivil, Ocupacion, estudio, anosAprovados, Analfabeta, sexo, NDia, NMes, NaAno, LugarNacimento, Estado, Pais, Dirrecion, "
+                        +
+                        "Telefono, Religion, Establecimiento, Municipio, Parroquia, Comunidad, Madre_N_A, Madre_Ocupacion, Padre_N_A, Padre_Ocupacion, "
+                        +
+                        "Representante, Representante_N, Representante_tipo_ci, Representante_ci, Representante_Telefono, Carnet_prenatal, patologiaEmbarazo, "
+                        +
+                        "patologiaParto, patologiaPuerperio, NConsultasPrenatales, Hrs_fuera_de_casa, MadreFamilia, PadreFamilia, HermanoFamilia, "
+                        +
+                        "OtrosFamilia, Edad_Gestacional, sem, Forceps, Cesarea, Parto, ApgarMin, Reanimacion, EngresoRN, Exclusiva, Mixta, Ablactacion, "
+                        +
+                        "Peso_al_nacer, Talla, Circunferencia, Asfixia, PatologiasRN, Alergia, Asma, TBC, Cardiopatia, Hipertension, Varice, Desnutricion, "
+                        +
+                        "Diabetes, Obesidad, Gastropatia, Neurologiaca, Enf_Renal, Cancer, Alcohol, Drogas, Sifilis, SIDA, Artritis, otros_1, Padre, Madre, "
+                        +
+                        "Hermanos, Otros_2, Menarquia, Cliclo_menstrual, PRSexual, FrecuenciaRSexual, N_Parejas, Dispareunia, Anticoncepcion, AC_DIU, "
+                        +
+                        "Menospausia, Gesta, Partos, Cesarea2, Aborto, E1erparto, F_Uparto, F_UAborto, Curetaje, N_de_Hijos, Vivos, Muertos, RN_de_mayor_peso, "
+                        +
+                        "Alergia2, Asma2, Neumonia, TBC2, Cardiopatia2, Hipertension2, Hiperlipidemias, Varices, Hepatopatia, Desnutricion2, Diabetes2, "
+                        +
+                        "Obesidad2, Gastroenteritis, Encoprexis, Enf_Renal2, Enuresis, Cancer2, Tromboembolica, Tumor_Mamario, Meningitis, TCraneoencefal, "
+                        +
+                        "Enf_Eruptivas, Dengue, Hospitalizacion, Interv_Quirugica, Accidentes, Artritis2, Enf_TS, Enf_Infec_Tran, Enf_Laboral, Otros_3, "
+                        +
+                        "Alcohol2, Drogas2, Insecticidas, Deoirtes, Sedentarismo, Sueno, ChuparDedo, Onicofagia, Micciones, Evacuaciones, Stres, "
+                        +
+                        "Metales_Pensados, Alimentacion, Fuma, NCigarrillos_diarios) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
+                        +
+                        "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
                 Connection conexion = Conexion.getConexion();
                 try {
                     PreparedStatement statement;
                     statement = conexion.prepareStatement(sql);
 
-                    int index = 1; // Índice para los marcadores de posición
+                    int index = 1; // indice para los marcadores de posición
                     for (JComponent componente : componentes) {
                         if (componente instanceof JTextField) {
                             String valor = ((JTextField) componente).getText();
@@ -2177,6 +2191,18 @@ public class NHM {
                     statement.executeUpdate();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
+                }
+
+                int numComponentes = componentes.length;
+                String[] camposEnSql = sql.split(",");
+                int numCamposEnSql = camposEnSql.length;
+
+                if (numComponentes == numCamposEnSql) {
+                    System.out.println("La cantidad de datos en componentes y en la cadena SQL es la misma.");
+                } else {
+                    System.out.println("La cantidad de datos en componentes y en la cadena SQL no es la misma.");
+                    System.out.println("Numero de componentes: " + numComponentes);
+                    System.out.println("Numero de campos en SQL: " + numCamposEnSql);
                 }
             }
 
