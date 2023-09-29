@@ -12,8 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
 
-public class NHM {
-    private JFrame frame;
+public class NHM extends JFrame {
 
     // Función para generar un número aleatorio único
     public String generarNumeroHistoriaUnico() {
@@ -50,12 +49,12 @@ public class NHM {
     }
 
     public NHM() {
-        frame = new JFrame("Expediente Médico");
-        frame.setSize(1120, 720);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setUndecorated(true);
-        frame.setShape(new RoundRectangle2D.Double(0, 0, frame.getWidth(), frame.getHeight(), 30, 20));
-        frame.setLocationRelativeTo(null);
+        setTitle("Expediente Médico");
+        setSize(1120, 720);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 20));
+        setLocationRelativeTo(null);
 
         final JPanel contentPane = new JPanel();
         final CardLayout cardLayout = new CardLayout();
@@ -66,19 +65,19 @@ public class NHM {
         JPanel Panel2 = new JPanel();
         JPanel Panel3 = new JPanel();
 
-        frame.add(contentPane, BorderLayout.CENTER);
-        frame.setVisible(true);
+        add(contentPane, BorderLayout.CENTER);
+        setVisible(true);
 
         Panel1.setLayout(null);
         Panel1.setBounds(0, 0, 1120, 720);
-        frame.add(Panel1);
+        add(Panel1);
 
         // Cerrar ventana
         final JLabel Cerrar = Elementos.cerrar(1090, 10, 20, 20);
         Panel1.add(Cerrar);
         Cerrar.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                frame.dispose(); // Cierra la ventana
+                dispose(); // Cierra la ventana
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -95,7 +94,7 @@ public class NHM {
         Panel1.add(Minimizar);
         Minimizar.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                frame.setExtendedState(1);
+                setExtendedState(1);
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -478,7 +477,7 @@ public class NHM {
             public void mouseClicked(MouseEvent e) {
                 Menu Menu = new Menu();
                 Menu.setVisible(true);
-                frame.dispose();
+                dispose();
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -635,7 +634,11 @@ public class NHM {
 
         // FONDO
         JLabel fondo = new JLabel();
-        fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/NHM_part1-claro.png")));
+        if (Inicio.Tema == "Oscuro") {
+            fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Oscuro/NHM_part1-Oscuro.png")));
+        } else {
+            fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/NHM_part1-claro.png")));
+        }
         fondo.setBounds(0, 0, 1290, 720);
         Panel1.add(fondo);
         contentPane.add(Panel1, "panel1");
@@ -644,13 +647,13 @@ public class NHM {
 
         Panel2.setLayout(null);
         Panel2.setBounds(0, 0, 1120, 720);
-        frame.add(Panel2);
+        add(Panel2);
         // Cerrar ventana
         final JLabel cerrar2 = Elementos.cerrar(1090, 10, 20, 20);
         Panel2.add(cerrar2);
         cerrar2.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                frame.dispose(); // Cierra la ventana
+                dispose(); // Cierra la ventana
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -667,7 +670,7 @@ public class NHM {
         Panel2.add(Minimizar2);
         Minimizar2.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                frame.setExtendedState(1);
+                setExtendedState(1);
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -1161,7 +1164,12 @@ public class NHM {
 
         // FONDO
         JLabel fondo2 = new JLabel();
-        fondo2.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/NHM_part2-claro.png")));
+        if (Inicio.Tema == "Oscuro") {
+            fondo2.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Oscuro/NHM_part2-Oscuro.png")));
+        } else {
+            fondo2.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/NHM_part2-claro.png")));
+        }
+        
         fondo2.setBounds(0, 0, 1290, 720);
         Panel2.add(fondo2);
 
@@ -1169,13 +1177,13 @@ public class NHM {
 
         Panel3.setLayout(null);
         Panel3.setBounds(0, 0, 1120, 720);
-        frame.add(Panel3);
+        add(Panel3);
         // Cerrar ventana
         final JLabel Cerrar3 = Elementos.cerrar(1090, 10, 20, 20);
         Panel3.add(Cerrar3);
         Cerrar3.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                frame.dispose(); // Cierra la ventana
+                dispose(); // Cierra la ventana
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -1192,7 +1200,7 @@ public class NHM {
         Panel3.add(Minimizar3);
         Minimizar3.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                frame.setExtendedState(1);
+                setExtendedState(1);
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -2135,38 +2143,9 @@ public class NHM {
                         texto_NCigarrillos_diarios
                 };
 
-                String sql = "INSERT INTO datospersonales (apellido_familiar, ci_jefe_familia, Numero_de_Historia, ci_tipo, Ci_cedula, apellido, nombre, "
+                String sql = "INSERT INTO datospersonales (apellido_familiar, ci_jefe_familia, Numero_de_Historia, ci_tipo, Ci_cedula, apellido, nombre, estadoCivil, Ocupacion, estudio, anosAprovados, Analfabeta, sexo, NDia, NMes, NaAno, LugarNacimento, Estado, Pais, Dirrecion, Telefono, Religion, Establecimiento, Municipio, Parroquia, Comunidad, Madre_N_A, Madre_Ocupacion, Padre_N_A, Padre_Ocupacion, Representante, Representante_N, Representante_tipo_ci, Representante_ci, Representante_Telefono, Carnet_prenatal, patologiaEmbarazo, patologiaParto, patologiaPuerperio, NConsultasPrenatales, Hrs_fuera_de_casa, MadreFamilia, PadreFamilia, HermanoFamilia, OtrosFamilia, Edad_Gestacional, sem, Forceps, Cesarea, Parto, ApgarMin, Reanimacion, EngresoRN, Exclusiva, Mixta, Ablactacion, Peso_al_nacer, Talla, Circunferencia, Asfixia, PatologiasRN, Alergia, Asma, TBC, Cardiopatia, Hipertension, Varice, Desnutricion, Diabetes, Obesidad, Gastropatia, Neurologiaca, Enf_Renal, Cancer, Alcohol, Drogas, Sifilis, SIDA, Artritis, otros_1, Padre, Madre, Hermanos, Otros_2, Menarquia, Cliclo_menstrual, PRSexual, FrecuenciaRSexual, N_Parejas, Dispareunia, Anticoncepcion, AC_DIU, Menospausia, Gesta, Partos, Cesarea2, Aborto, E1erparto, F_Uparto, F_UAborto, Curetaje, N_de_Hijos, Vivos, Muertos, RN_de_mayor_peso, Alergia2, Asma2, Neumonia, TBC2, Cardiopatia2, Hipertension2, Hiperlipidemias, Varices, Hepatopatia, Desnutricion2, Diabetes2, Obesidad2, Gastroenteritis, Encoprexis, Enf_Renal2, Enuresis, Cancer2, Tromboembolica, Tumor_Mamario, Meningitis, TCraneoencefal, Enf_Eruptivas, Dengue, Hospitalizacion, Interv_Quirugica, Accidentes, Artritis2, Enf_TS, Enf_Infec_Tran, Enf_Laboral, Otros_3, Alcohol2, Drogas2, Insecticidas, Deoirtes, Sedentarismo, Sueno, ChuparDedo, Onicofagia, Micciones, Evacuaciones, Stres, Metales_Pensados, Alimentacion, Fuma, NCigarrillos_diarios)"
                         +
-                        "estadoCivil, Ocupacion, estudio, anosAprovados, Analfabeta, sexo, NDia, NMes, NaAno, LugarNacimento, Estado, Pais, Dirrecion, "
-                        +
-                        "Telefono, Religion, Establecimiento, Municipio, Parroquia, Comunidad, Madre_N_A, Madre_Ocupacion, Padre_N_A, Padre_Ocupacion, "
-                        +
-                        "Representante, Representante_N, Representante_tipo_ci, Representante_ci, Representante_Telefono, Carnet_prenatal, patologiaEmbarazo, "
-                        +
-                        "patologiaParto, patologiaPuerperio, NConsultasPrenatales, Hrs_fuera_de_casa, MadreFamilia, PadreFamilia, HermanoFamilia, "
-                        +
-                        "OtrosFamilia, Edad_Gestacional, sem, Forceps, Cesarea, Parto, ApgarMin, Reanimacion, EngresoRN, Exclusiva, Mixta, Ablactacion, "
-                        +
-                        "Peso_al_nacer, Talla, Circunferencia, Asfixia, PatologiasRN, Alergia, Asma, TBC, Cardiopatia, Hipertension, Varice, Desnutricion, "
-                        +
-                        "Diabetes, Obesidad, Gastropatia, Neurologiaca, Enf_Renal, Cancer, Alcohol, Drogas, Sifilis, SIDA, Artritis, otros_1, Padre, Madre, "
-                        +
-                        "Hermanos, Otros_2, Menarquia, Cliclo_menstrual, PRSexual, FrecuenciaRSexual, N_Parejas, Dispareunia, Anticoncepcion, AC_DIU, "
-                        +
-                        "Menospausia, Gesta, Partos, Cesarea2, Aborto, E1erparto, F_Uparto, F_UAborto, Curetaje, N_de_Hijos, Vivos, Muertos, RN_de_mayor_peso, "
-                        +
-                        "Alergia2, Asma2, Neumonia, TBC2, Cardiopatia2, Hipertension2, Hiperlipidemias, Varices, Hepatopatia, Desnutricion2, Diabetes2, "
-                        +
-                        "Obesidad2, Gastroenteritis, Encoprexis, Enf_Renal2, Enuresis, Cancer2, Tromboembolica, Tumor_Mamario, Meningitis, TCraneoencefal, "
-                        +
-                        "Enf_Eruptivas, Dengue, Hospitalizacion, Interv_Quirugica, Accidentes, Artritis2, Enf_TS, Enf_Infec_Tran, Enf_Laboral, Otros_3, "
-                        +
-                        "Alcohol2, Drogas2, Insecticidas, Deoirtes, Sedentarismo, Sueno, ChuparDedo, Onicofagia, Micciones, Evacuaciones, Stres, "
-                        +
-                        "Metales_Pensados, Alimentacion, Fuma, NCigarrillos_diarios) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, "
-                        +
-                        "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
                 Connection conexion = Conexion.getConexion();
                 try {
@@ -2176,7 +2155,7 @@ public class NHM {
                     int index = 1; // indice para los marcadores de posición
                     for (JComponent componente : componentes) {
                         if (componente instanceof JTextField) {
-                            String valor = ((JTextField) componente).getText();
+                            String valor = ((JTextField) componente).getText().toString();
                             statement.setString(index, valor);
                             index++;
                         } else if (componente instanceof JComboBox<?>) {
@@ -2189,20 +2168,12 @@ public class NHM {
                         }
                     }
                     statement.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Se a guardado con exito", "Completado",
+                            JOptionPane.INFORMATION_MESSAGE, null);
                 } catch (SQLException e1) {
+                    JOptionPane.showMessageDialog(null, "Se a producido un error /n" + "Codigo de error:" + e1, "ERROR",
+                            JOptionPane.ERROR_MESSAGE, null);
                     e1.printStackTrace();
-                }
-
-                int numComponentes = componentes.length;
-                String[] camposEnSql = sql.split(",");
-                int numCamposEnSql = camposEnSql.length;
-
-                if (numComponentes == numCamposEnSql) {
-                    System.out.println("La cantidad de datos en componentes y en la cadena SQL es la misma.");
-                } else {
-                    System.out.println("La cantidad de datos en componentes y en la cadena SQL no es la misma.");
-                    System.out.println("Numero de componentes: " + numComponentes);
-                    System.out.println("Numero de campos en SQL: " + numCamposEnSql);
                 }
             }
 
@@ -2218,12 +2189,177 @@ public class NHM {
 
         // FONDO
         JLabel fondo3 = new JLabel();
-        fondo3.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/NHM_part3-claro.png")));
+        if (Inicio.Tema == "Oscuro") {
+            fondo3.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Oscuro/NHM_part3-Oscuro.png")));
+        JComponent[] componentesLabel ={
+            label_apellido_familiar,
+            label_ci_jefe_familia,
+            Label_Numero_de_Historia,
+            Label_ci,
+            label_apellido,
+            label_nombre,
+            label_estadoCivil,
+            label_Ocupacion,
+            label_Estudios,
+            label_anosAprovados,
+            label_Analfabeta,
+            label_Sexo,
+            label_fechaNacimiento,
+            label_LugarNacimento,
+            label_Estado,
+            label_Pais,
+            label_Dirrecion,
+            label_Telefono,
+            label_Religion,
+            label_Establecimiento,
+            label_Municipio,
+            label_Parroquia,
+            label_Comunidad,
+            label_Madre_N_A,
+            label_Madre_Ocupacion,
+            label_Padre_N_A,
+            label_Padre_Ocupacion,
+            label_Representante,
+            label_Representante_N,
+            label_Representante_ci,
+            label_Representante_Telefono,
+            label_CarnetPrenatal,
+            label_patologiaEmbarazo,
+            label_Hrs_fuera_de_casa,
+            label_MadreFamilia,
+            label_patologiaParto,
+            label_PadreFamilia,
+            label_patologiaPuerperio,
+            label_HermanoFamilia,
+            NConsultasPrenatales,
+            label_OtrosFamilia,
+            label_Edad_Gestacional,
+            label_sem,
+            label_Forceps,
+            label_Cesarea,
+            label_Parto,
+            label_Peso_Al_Nacer,
+            label_Peso_Al_Nacer_gr,
+            label_Talla,
+            label_Talla_cm,
+            label_Circunferencia,
+            label_Circunferencia_cm,
+            label_ApgarMin,
+            label_Asfixia,
+            label_Reanimacion,
+            label_PatologiasRN,
+            label_EngresoRN,
+            label_lamtancia,
+            label_Exclusiva,
+            label_Exclusiva_m,
+            label_Mixta,
+            label_Mixta_m,
+            label_Ablactacion,
+            label_Ablactacion_m,
+            label_Alergia,
+            label_Asma,
+            label_TBC,
+            label_Cardiopatia,
+            label_Hipertension,
+            label_Varice,
+            label_Desnutricion,
+            label_Diabetes,
+            label_Obesidad,
+            label_Gastropatia,
+            label_Neurologiaca,
+            label_Enf_Renal,
+            label_Cancer,
+            label_Alcohol,
+            label_Drogas,
+            label_Sifilis,
+            label_SIDA,
+            label_Artritis,
+            label_otros,
+            label_Padre,
+            label_Madre,
+            label_Hermanos,
+            label_Otros,
+            label_Menarquia,
+            label_Cliclo_menstrual,
+            label_PRSexual,
+            label_FrecuenciaRSexual,
+            label_N_Parejas,
+            label_Dispareunia,
+            label_Anticoncepcion,
+            label_Menospausia,
+            label_Gesta,
+            label_Partos,
+            label_Cesarea2,
+            label_Aborto,
+            label_E1erparto,
+            label_F_Uparto,
+            label_F_UAborto,
+            label_Curetaje,
+            label_N_de_Hijos,
+            label_Vivos,
+            label_Muertos,
+            label_RN_mayor_peso,
+            label_RN_de_mayor_peso_gr,
+            label_Alergia2,
+            label_Asma2,
+            label_Neumonia,
+            label_TBC2,
+            label_Cardiopatia2,
+            label_Hipertension2,
+            label_Hiperlipidemias,
+            label_Varices,
+            label_Hepatopatia,
+            label_Desnutricion2,
+            label_Diabetes2,
+            label_Obesidad2,
+            label_Gastroenteritis,
+            label_Encoprexis,
+            label_Enf_Renal2,
+            label_Enuresis,
+            label_Cancer2,
+            label_Tromboembolica,
+            label_Tumor_Mamario,
+            label_Meningitis,
+            label_TCraneoencefal,
+            label_Enf_Eruptivas,
+            label_Dengue,
+            label_Hospitalizacion,
+            label_Interv_Quirugica,
+            label_Accidentes,
+            label_Artritis2,
+            label_Enf_TS,
+            label_Enf_Infec_Tran,
+            label_Enf_Laboral,
+            label_Otros2,
+            label_Alcohol2,
+            label_Drogas2,
+            label_Insecticidas,
+            label_Deoirtes,
+            label_Sedentarismo,
+            label_Sueno,
+            label_ChuparDedo,
+            label_Onicofagia,
+            label_Micciones,
+            label_Evacuaciones,
+            label_Stres,
+            label_Metales_Pensados,
+            label_Alimentacion,
+            label_Fuma,
+            label_NCigarrillos_diarios
+            };
+            for (JComponent componetLabel : componentesLabel) {
+                componetLabel.setForeground(Color.white);
+            }
+        } else {
+            fondo3.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/NHM_part3-claro.png")));
+        }
         fondo3.setBounds(0, 0, 1290, 720);
         Panel3.add(fondo3);
         contentPane.add(Panel3, "panel3");
 
-        frame.setContentPane(contentPane);
+        setContentPane(contentPane);
+        //Cambiar el color de las letras dependiento del tema
+
 
     }
 

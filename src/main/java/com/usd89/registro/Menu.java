@@ -67,7 +67,9 @@ public class Menu extends JFrame {
 
         nhmButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-
+                NHM ngm = new NHM();
+                ngm.setVisible(true);
+                dispose();
             }
 
             public void mouseEntered(MouseEvent e) {
