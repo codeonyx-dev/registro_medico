@@ -2168,6 +2168,8 @@ public class NHM extends JFrame {
                         }
                     }
                     statement.executeUpdate();
+                    new Menu().setVisible(true);
+                    dispose();
                     JOptionPane.showMessageDialog(null, "Se a guardado con exito", "Completado",
                             JOptionPane.INFORMATION_MESSAGE, null);
                 } catch (SQLException e1) {

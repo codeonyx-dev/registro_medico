@@ -92,7 +92,8 @@ public class Menu extends JFrame {
 
         bhmButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-
+                new Buscador().setVisible(true);
+                dispose();
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -133,7 +134,6 @@ public class Menu extends JFrame {
         } else {
             nhmButton.setBounds(247, 208, 335, 67);
             bhmButton.setBounds(234, 280, 354, 67);
-
         }
 
         // Boton Cerrar sesion
