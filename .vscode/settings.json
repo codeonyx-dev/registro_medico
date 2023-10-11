@@ -9,4 +9,19 @@
     "maven.view": "hierarchical",
     "java.configuration.updateBuildConfiguration": "interactive",
     "java.debug.settings.onBuildFailureProceed": true,
+    "cSpell.language": "es,es",
+    "cSpell.words": [
+        "Cancer",
+        "Direccion",
+        "Dispareunia",
+        "Gestacion",
+        "Menarquia",
+        "Neurologica",
+        "Ocupacion",
+        "Pais",
+        "patologia",
+        "Patologias",
+        "Religion",
+        "Telefono"
+    ],
 }

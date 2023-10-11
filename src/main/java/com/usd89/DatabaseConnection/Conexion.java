@@ -16,7 +16,7 @@ public class Conexion {
             String contrasena = "";
             conexion = (Connection) DriverManager.getConnection(url, usuario, contrasena);
         } catch (SQLException ex) {
-         JOptionPane.showMessageDialog(null, "Se a producido un error \n"+"Codigo de error: "+ex.getMessage(), "ERROR",JOptionPane.ERROR_MESSAGE, null);
+        JOptionPane.showMessageDialog(null, "Se a producido un error \n"+"Codigo de error: "+ex.getMessage(), "ERROR",JOptionPane.ERROR_MESSAGE, null);
         }
         return conexion;
     }

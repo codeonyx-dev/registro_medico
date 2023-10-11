@@ -16,18 +16,18 @@ import javax.swing.table.DefaultTableModel;
 
 import com.usd89.DatabaseConnection.Conexion;
 
-public class GestionUser extends JFrame {
+public class GestionUsuarios extends JFrame {
     String id;
 
     public DefaultTableModel CargarTabla() {
-        String[] columnas = { "Nombre", "Apellido", "Cedula", "Telefono", "Usuario" };
+        String[] columnas = { "Nombre", "Apellido", "Cédula", "Telefono", "Usuario" };
         DefaultTableModel modeloTable = new DefaultTableModel(null, columnas);
         Connection conectar = Conexion.getConexion();
         try {
             String sql = "SELECT * FROM usuarios";
             Statement statement = conectar.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
-            // Nombre, Apellido, cedula, telefono, nombre_usuario
+            // Nombre, Apellido, cédula, Telefono, nombre_usuario
             while (resultSet.next()) {
                 String nombre = resultSet.getString("Nombre");
                 String apellido = resultSet.getString("Apellido");
@@ -42,7 +42,7 @@ public class GestionUser extends JFrame {
         return modeloTable;
     }
 
-    public GestionUser() {
+    public GestionUsuarios() {
         setSize(680, 560);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

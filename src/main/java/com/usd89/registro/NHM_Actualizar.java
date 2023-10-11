@@ -76,16 +76,16 @@ public class NHM_Actualizar extends JFrame {
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 20));
         setLocationRelativeTo(null);
 
-        final JPanel contentPane = new JPanel();
+        final JPanel contentPanel = new JPanel();
         final CardLayout cardLayout = new CardLayout();
 
-        contentPane.setLayout(cardLayout);
+        contentPanel.setLayout(cardLayout);
 
         JPanel Panel1 = new JPanel();
         JPanel Panel2 = new JPanel();
         JPanel Panel3 = new JPanel();
 
-        add(contentPane, BorderLayout.CENTER);
+        add(contentPanel, BorderLayout.CENTER);
         setVisible(true);
 
         Panel1.setLayout(null);
@@ -191,7 +191,6 @@ public class NHM_Actualizar extends JFrame {
         final JTextField text_Ocupacion = Elementos.crearJTextField(943, 95, 100, 20, "", true);
         Panel1.add(text_Ocupacion);
 
-        // Tercera linea
         final JLabel label_Estudios = Elementos.crearJLabel(36, 125, 80, 20, "Estudios:", false);
         Panel1.add(label_Estudios);
 
@@ -199,11 +198,11 @@ public class NHM_Actualizar extends JFrame {
         combo_estudio.setBounds(110, 125, 50, 20);
         Panel1.add(combo_estudio);
 
-        final JLabel label_anosAprovados = Elementos.crearJLabel(170, 125, 120, 20, "Años aprovados:", false);
-        Panel1.add(label_anosAprovados);
+        final JLabel label_anosAprobados = Elementos.crearJLabel(170, 125, 120, 20, "Años aprobados:", false);
+        Panel1.add(label_anosAprobados);
 
-        final JTextField text_anosAprovados = Elementos.crearJTextField(295, 125, 80, 20, "", true);
-        Panel1.add(text_anosAprovados);
+        final JTextField text_anosAprobados = Elementos.crearJTextField(295, 125, 80, 20, "", true);
+        Panel1.add(text_anosAprobados);
 
         final JLabel label_Analfabeta = Elementos.crearJLabel(380, 125, 80, 20, "Analfabeta:", false);
         Panel1.add(label_Analfabeta);
@@ -230,11 +229,11 @@ public class NHM_Actualizar extends JFrame {
         Panel1.add(text_NMes);
         Panel1.add(text_NaAno);
 
-        final JLabel label_LugarNacimento = Elementos.crearJLabel(36, 175, 150, 20, "Lugar de nacimiento:", false);
-        Panel1.add(label_LugarNacimento);
+        final JLabel label_LugarNacimiento = Elementos.crearJLabel(36, 175, 150, 20, "Lugar de nacimiento:", false);
+        Panel1.add(label_LugarNacimiento);
 
-        final JTextField text_LugarNacimento = Elementos.crearJTextField(190, 175, 150, 20, "", true);
-        Panel1.add(text_LugarNacimento);
+        final JTextField text_LugarNacimiento = Elementos.crearJTextField(190, 175, 150, 20, "", true);
+        Panel1.add(text_LugarNacimiento);
 
         final JLabel label_Estado = Elementos.crearJLabel(345, 175, 80, 20, "Estado:", false);
         Panel1.add(label_Estado);
@@ -248,11 +247,11 @@ public class NHM_Actualizar extends JFrame {
         final JTextField texto_Pais = Elementos.crearJTextField(545, 175, 100, 20, "", true);
         Panel1.add(texto_Pais);
 
-        final JLabel label_Dirrecion = Elementos.crearJLabel(650, 175, 80, 20, "Dirrecion:", false);
-        Panel1.add(label_Dirrecion);
+        final JLabel label_Direccion = Elementos.crearJLabel(650, 175, 80, 20, "Direccion:", false);
+        Panel1.add(label_Direccion);
 
-        final JTextField texto_Dirrecion = Elementos.crearJTextField(725, 175, 325, 20, "", true);
-        Panel1.add(texto_Dirrecion);
+        final JTextField texto_Direccion = Elementos.crearJTextField(725, 175, 325, 20, "", true);
+        Panel1.add(texto_Direccion);
 
         // Cuarta linea
         fila_x = 36;
@@ -307,7 +306,7 @@ public class NHM_Actualizar extends JFrame {
         fila_x += texto_Comunidad.getWidth();
         Panel1.add(texto_Comunidad);
 
-        // Sextima linea
+        // Séptima linea
         fila_x = 36;
         final JLabel label_Madre_N_A = Elementos.crearJLabel(fila_x, 310, 220, 20, "Nombre y apellido de la madre:",
                 false);
@@ -326,7 +325,7 @@ public class NHM_Actualizar extends JFrame {
         fila_x += texto_Madre_Ocupacion.getWidth();
         Panel1.add(texto_Madre_Ocupacion);
 
-        // Octaba linea
+        // Octava linea
         fila_x = 36;
         final JLabel label_Padre_N_A = Elementos.crearJLabel(fila_x, 335, 220, 20, "Nombre y apellido de la padre:",
                 false);
@@ -345,7 +344,7 @@ public class NHM_Actualizar extends JFrame {
         fila_x += texto_Padre_Ocupacion.getWidth();
         Panel1.add(texto_Padre_Ocupacion);
 
-        // Nobena linea
+        // Novena linea
         fila_x = 36;
         final JLabel label_Representante = Elementos.crearJLabel(fila_x, 360, 110, 20, "Representante:", false);
         fila_x += label_Representante.getWidth();
@@ -364,7 +363,7 @@ public class NHM_Actualizar extends JFrame {
         fila_x += texto_Representante_N.getWidth();
         Panel1.add(texto_Representante_N);
 
-        final JLabel label_Representante_ci = Elementos.crearJLabel(fila_x + 20, 360, 60, 20, "Cedula:", false);
+        final JLabel label_Representante_ci = Elementos.crearJLabel(fila_x + 20, 360, 60, 20, "Cédula:", false);
         fila_x += label_Representante_ci.getWidth();
         Panel1.add(label_Representante_ci);
 
@@ -483,7 +482,7 @@ public class NHM_Actualizar extends JFrame {
         fila_x += text_OtrosFamilia.getWidth();
         Panel1.add(text_OtrosFamilia);
 
-        // Boton Volver al menu
+        // Botón Volver al menu
         final JLabel volverButton = new JLabel("VOLVER AL INICIO", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
                 SwingConstants.CENTER);
         volverButton.setBounds(20, 650, 308, 67);
@@ -508,7 +507,7 @@ public class NHM_Actualizar extends JFrame {
         });
         Panel1.add(volverButton);
 
-        // Boton Limpiar datos
+        // Botón Limpiar datos
         final JLabel limpiarD_Button = new JLabel("LIMPIAR CAMPOS", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
                 SwingConstants.CENTER);
         limpiarD_Button.setBounds(400, 650, 308, 67);
@@ -526,11 +525,11 @@ public class NHM_Actualizar extends JFrame {
                         text_apellido,
                         text_nombre,
                         text_Ocupacion,
-                        text_anosAprovados,
-                        text_LugarNacimento,
+                        text_anosAprobados,
+                        text_LugarNacimiento,
                         texto_Estado,
                         texto_Pais,
-                        texto_Dirrecion,
+                        texto_Direccion,
                         texto_Telefono,
                         texto_Religion,
                         texto_Establecimiento,
@@ -561,16 +560,16 @@ public class NHM_Actualizar extends JFrame {
         });
         Panel1.add(limpiarD_Button);
 
-        // Boton Siguiente
-        final JLabel seguienteButton = new JLabel("SIGUIENTE", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
+        // Botón Siguiente
+        final JLabel siguienteButton = new JLabel("SIGUIENTE", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
                 SwingConstants.CENTER);
-        seguienteButton.setBounds(800, 650, 308, 67);
-        seguienteButton.setFont(new Font("Roboto Black", 1, 22));
-        seguienteButton.setForeground(Elementos.colores(Inicio.Tema));
-        seguienteButton.setVerticalTextPosition(SwingConstants.CENTER);
-        seguienteButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        siguienteButton.setBounds(800, 650, 308, 67);
+        siguienteButton.setFont(new Font("Roboto Black", 1, 22));
+        siguienteButton.setForeground(Elementos.colores(Inicio.Tema));
+        siguienteButton.setVerticalTextPosition(SwingConstants.CENTER);
+        siguienteButton.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        seguienteButton.addMouseListener(new MouseAdapter() {
+        siguienteButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 JTextField[] textFieldNames = {
                         text_apellido_familiar,
@@ -580,11 +579,11 @@ public class NHM_Actualizar extends JFrame {
                         text_apellido,
                         text_nombre,
                         text_Ocupacion,
-                        text_anosAprovados,
-                        text_LugarNacimento,
+                        text_anosAprobados,
+                        text_LugarNacimiento,
                         texto_Estado,
                         texto_Pais,
-                        texto_Dirrecion,
+                        texto_Direccion,
                         texto_Telefono,
                         texto_Religion,
                         texto_Establecimiento,
@@ -592,27 +591,27 @@ public class NHM_Actualizar extends JFrame {
                         texto_Parroquia,
                         texto_Comunidad,
                 };
-                int datosfantates = 0;
+                int datosFaltantes = 0;
                 for (final JTextField JTextField : textFieldNames) {
                     if (JTextField.getText().isEmpty()) {
                         JTextField.setBackground(Color.red);
-                        datosfantates++;
+                        datosFaltantes++;
                     }
-                    if (datosfantates == 0) {
-                        cardLayout.show(contentPane, "panel2");
+                    if (datosFaltantes == 0) {
+                        cardLayout.show(contentPanel, "panel2");
                     }
                 }
             }
 
             public void mouseEntered(MouseEvent e) {
-                seguienteButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
+                siguienteButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
             }
 
             public void mouseExited(MouseEvent e) {
-                seguienteButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
+                siguienteButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
             }
         });
-        Panel1.add(seguienteButton);
+        Panel1.add(siguienteButton);
 
         JTextField[] textFieldNames = {
                 text_apellido_familiar,
@@ -622,11 +621,11 @@ public class NHM_Actualizar extends JFrame {
                 text_apellido,
                 text_nombre,
                 text_Ocupacion,
-                text_anosAprovados,
-                text_LugarNacimento,
+                text_anosAprobados,
+                text_LugarNacimiento,
                 texto_Estado,
                 texto_Pais,
-                texto_Dirrecion,
+                texto_Direccion,
                 texto_Telefono,
                 texto_Religion,
                 texto_Establecimiento,
@@ -659,7 +658,7 @@ public class NHM_Actualizar extends JFrame {
         }
         fondo.setBounds(0, 0, 1290, 720);
         Panel1.add(fondo);
-        contentPane.add(Panel1, "panel1");
+        contentPanel.add(Panel1, "panel1");
 
         // Segundo Panel
 
@@ -700,16 +699,16 @@ public class NHM_Actualizar extends JFrame {
             }
         });
 
-        // Edad_Gestacional *edad - Semanas
+        // Edad_Gestacion *edad - Semanas
 
         int fila_x2 = 36;
-        final JLabel label_Edad_Gestacional = Elementos.crearJLabel(fila_x2, 65, 130, 20, "Edad Gestacional:", false);
-        fila_x2 += label_Edad_Gestacional.getWidth();
-        Panel2.add(label_Edad_Gestacional);
+        final JLabel label_Edad_Gestacion = Elementos.crearJLabel(fila_x2, 65, 130, 20, "Edad Gestacional:", false);
+        fila_x2 += label_Edad_Gestacion.getWidth();
+        Panel2.add(label_Edad_Gestacion);
 
-        final JTextField text_Edad_Gestacional = Elementos.crearJTextField(fila_x2 + 5, 65, 50, 20, "", true);
-        fila_x2 += text_Edad_Gestacional.getWidth();
-        Panel2.add(text_Edad_Gestacional);
+        final JTextField text_Edad_Gestacion = Elementos.crearJTextField(fila_x2 + 5, 65, 50, 20, "", true);
+        fila_x2 += text_Edad_Gestacion.getWidth();
+        Panel2.add(text_Edad_Gestacion);
 
         final JLabel label_sem = Elementos.crearJLabel(fila_x2 + 10, 65, 80, 20, "Semanas:", false);
         fila_x2 += label_sem.getWidth();
@@ -720,14 +719,14 @@ public class NHM_Actualizar extends JFrame {
         Panel2.add(text_sem);
 
         fila_x2 = 36;
-        final JLabel label_Forceps = Elementos.crearJLabel(fila_x2, 95, 65, 20, "Forceps:", false);
-        fila_x2 += label_Forceps.getWidth();
-        Panel2.add(label_Forceps);
+        final JLabel label_Forces = Elementos.crearJLabel(fila_x2, 95, 65, 20, "Forceps:", false);
+        fila_x2 += label_Forces.getWidth();
+        Panel2.add(label_Forces);
 
-        final JComboBox<String> combo_Forceps = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Forceps.setBounds(fila_x2 + 5, 95, 50, 20);
-        fila_x2 += combo_Forceps.getWidth();
-        Panel2.add(combo_Forceps);
+        final JComboBox<String> combo_Forces = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Forces.setBounds(fila_x2 + 5, 95, 50, 20);
+        fila_x2 += combo_Forces.getWidth();
+        Panel2.add(combo_Forces);
 
         final JLabel label_Cesarea = Elementos.crearJLabel(fila_x2 + 35, 95, 70, 20, "Cesarea:", false);
         fila_x2 += label_Cesarea.getWidth();
@@ -772,7 +771,7 @@ public class NHM_Actualizar extends JFrame {
         Panel2.add(label_Talla_cm);
 
         final JLabel label_Circunferencia = Elementos.crearJLabel(fila_x2 + 150, 95, 170, 20,
-                "Circunferencia cefalica:",
+                "Circunferencia cefálica:",
                 false);
         fila_x2 += label_Circunferencia.getWidth();
         Panel2.add(label_Circunferencia);
@@ -804,7 +803,7 @@ public class NHM_Actualizar extends JFrame {
         fila_x2 += combo_Asfixia.getWidth();
         Panel2.add(combo_Asfixia);
 
-        final JLabel label_Reanimacion = Elementos.crearJLabel(fila_x2 + 65, 125, 100, 20, "Reanimacion:", false);
+        final JLabel label_Reanimacion = Elementos.crearJLabel(fila_x2 + 65, 125, 100, 20, "Reanimación:", false);
         fila_x2 += label_Reanimacion.getWidth();
         Panel2.add(label_Reanimacion);
 
@@ -822,20 +821,20 @@ public class NHM_Actualizar extends JFrame {
         fila_x2 += combo_PatologiasRN.getWidth();
         Panel2.add(combo_PatologiasRN);
 
-        final JLabel label_EngresoRN = Elementos.crearJLabel(fila_x2 + 125, 125, 100, 20, "Engreso RN:", false);
-        fila_x2 += label_EngresoRN.getWidth();
-        Panel2.add(label_EngresoRN);
+        final JLabel label_EgresoRN = Elementos.crearJLabel(fila_x2 + 125, 125, 100, 20, "Egreso RN:", false);
+        fila_x2 += label_EgresoRN.getWidth();
+        Panel2.add(label_EgresoRN);
 
-        final JComboBox<String> combo_EngresoRN = new JComboBox<String>(new String[] { "Sanos", "Patologico" });
-        combo_EngresoRN.setBounds(fila_x2 + 125, 125, 95, 20);
-        fila_x2 += combo_EngresoRN.getWidth();
-        Panel2.add(combo_EngresoRN);
+        final JComboBox<String> combo_EgresoRN = new JComboBox<String>(new String[] { "Sanos", "Patológico" });
+        combo_EgresoRN.setBounds(fila_x2 + 125, 125, 95, 20);
+        fila_x2 += combo_EgresoRN.getWidth();
+        Panel2.add(combo_EgresoRN);
 
         // tercera linea
         fila_x2 = 36;
-        final JLabel label_lamtancia = Elementos.crearJLabel(fila_x2, 160, 80, 20, "Lamtancia:", false);
-        fila_x2 += label_lamtancia.getWidth();
-        Panel2.add(label_lamtancia);
+        final JLabel label_lactancia = Elementos.crearJLabel(fila_x2, 160, 80, 20, "Lactancia:", false);
+        fila_x2 += label_lactancia.getWidth();
+        Panel2.add(label_lactancia);
 
         final JLabel label_Exclusiva = Elementos.crearJLabel(fila_x2 + 30, 160, 80, 20, "Exclusiva:", false);
         fila_x2 += label_Exclusiva.getWidth();
@@ -921,7 +920,7 @@ public class NHM_Actualizar extends JFrame {
 
         fila_y = 410;
         fila_x2 = 36;
-        final JLabel label_Hipertension = Elementos.crearJLabel(fila_x2, fila_y, 100, 20, "Hipertension:", false);
+        final JLabel label_Hipertension = Elementos.crearJLabel(fila_x2, fila_y, 100, 20, "Hipertensión:", false);
         fila_x2 += label_Hipertension.getWidth();
         Panel2.add(label_Hipertension);
 
@@ -932,7 +931,7 @@ public class NHM_Actualizar extends JFrame {
 
         fila_y = 450;
         fila_x2 = 36;
-        final JLabel label_Varice = Elementos.crearJLabel(fila_x2, fila_y, 100, 20, "Varice:", false);
+        final JLabel label_Varice = Elementos.crearJLabel(fila_x2, fila_y, 100, 20, "Varices:", false);
         fila_x2 += label_Varice.getWidth();
         Panel2.add(label_Varice);
 
@@ -943,7 +942,7 @@ public class NHM_Actualizar extends JFrame {
 
         fila_y = 490;
         fila_x2 = 36;
-        final JLabel label_Desnutricion = Elementos.crearJLabel(fila_x2, fila_y, 100, 20, "Desnutricion:", false);
+        final JLabel label_Desnutricion = Elementos.crearJLabel(fila_x2, fila_y, 100, 20, "Desnutrición:", false);
         fila_x2 += label_Desnutricion.getWidth();
         Panel2.add(label_Desnutricion);
 
@@ -988,14 +987,14 @@ public class NHM_Actualizar extends JFrame {
 
         fila_x2 = 220;
         fila_y = 370;
-        final JLabel label_Neurologiaca = Elementos.crearJLabel(fila_x2, fila_y, 100, 20, "Neurologiaca:", false);
-        fila_x2 += label_Neurologiaca.getWidth();
-        Panel2.add(label_Neurologiaca);
+        final JLabel label_Neurologica = Elementos.crearJLabel(fila_x2, fila_y, 100, 20, "Neurologica:", false);
+        fila_x2 += label_Neurologica.getWidth();
+        Panel2.add(label_Neurologica);
 
-        final JComboBox<String> combo_Neurologiaca = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Neurologiaca.setBounds(fila_x2, fila_y, 50, 20);
-        fila_x2 += combo_Neurologiaca.getWidth();
-        Panel2.add(combo_Neurologiaca);
+        final JComboBox<String> combo_Neurologica = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Neurologica.setBounds(fila_x2, fila_y, 50, 20);
+        fila_x2 += combo_Neurologica.getWidth();
+        Panel2.add(combo_Neurologica);
 
         fila_x2 = 220;
         fila_y = 410;
@@ -1044,14 +1043,14 @@ public class NHM_Actualizar extends JFrame {
 
         fila_x2 = 400;
         fila_y = 290;
-        final JLabel label_Sifilis = Elementos.crearJLabel(fila_x2, fila_y, 70, 20, "Sifilis:", false);
-        fila_x2 += label_Sifilis.getWidth();
-        Panel2.add(label_Sifilis);
+        final JLabel label_Sífilis = Elementos.crearJLabel(fila_x2, fila_y, 70, 20, "Sífilis:", false);
+        fila_x2 += label_Sífilis.getWidth();
+        Panel2.add(label_Sífilis);
 
-        final JComboBox<String> combo_Sifilis = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Sifilis.setBounds(fila_x2, fila_y, 50, 20);
-        fila_x2 += combo_Sifilis.getWidth();
-        Panel2.add(combo_Sifilis);
+        final JComboBox<String> combo_Sífilis = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Sífilis.setBounds(fila_x2, fila_y, 50, 20);
+        fila_x2 += combo_Sífilis.getWidth();
+        Panel2.add(combo_Sífilis);
 
         fila_x2 = 400;
         fila_y = 330;
@@ -1131,7 +1130,7 @@ public class NHM_Actualizar extends JFrame {
         fila_x2 += combo_Otros.getWidth();
         Panel2.add(combo_Otros);
 
-        // Boton Volver
+        // Botón Volver
         final JLabel volverButton2 = new JLabel("VOLVER", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
                 SwingConstants.CENTER);
         volverButton2.setBounds(20, 650, 308, 67);
@@ -1141,7 +1140,7 @@ public class NHM_Actualizar extends JFrame {
         volverButton2.setHorizontalTextPosition(SwingConstants.CENTER);
         volverButton2.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                cardLayout.show(contentPane, "panel1");
+                cardLayout.show(contentPanel, "panel1");
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -1154,31 +1153,31 @@ public class NHM_Actualizar extends JFrame {
         });
         Panel2.add(volverButton2);
 
-        contentPane.add(Panel2, "panel2");
+        contentPanel.add(Panel2, "panel2");
 
-        // Boton Siguiente
-        final JLabel seguienteButton2 = new JLabel("SIGUIENTE", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
+        // Botón Siguiente
+        final JLabel siguienteButton2 = new JLabel("SIGUIENTE", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
                 SwingConstants.CENTER);
-        seguienteButton2.setBounds(800, 650, 308, 67);
-        seguienteButton2.setFont(new Font("Roboto Black", 1, 22));
-        seguienteButton2.setForeground(Elementos.colores(Inicio.Tema));
-        seguienteButton2.setVerticalTextPosition(SwingConstants.CENTER);
-        seguienteButton2.setHorizontalTextPosition(SwingConstants.CENTER);
+        siguienteButton2.setBounds(800, 650, 308, 67);
+        siguienteButton2.setFont(new Font("Roboto Black", 1, 22));
+        siguienteButton2.setForeground(Elementos.colores(Inicio.Tema));
+        siguienteButton2.setVerticalTextPosition(SwingConstants.CENTER);
+        siguienteButton2.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        seguienteButton2.addMouseListener(new MouseAdapter() {
+        siguienteButton2.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                cardLayout.show(contentPane, "panel3");
+                cardLayout.show(contentPanel, "panel3");
             }
 
             public void mouseEntered(MouseEvent e) {
-                seguienteButton2.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
+                siguienteButton2.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
             }
 
             public void mouseExited(MouseEvent e) {
-                seguienteButton2.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
+                siguienteButton2.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
             }
         });
-        Panel2.add(seguienteButton2);
+        Panel2.add(siguienteButton2);
 
         // FONDO
         JLabel fondo2 = new JLabel();
@@ -1243,14 +1242,14 @@ public class NHM_Actualizar extends JFrame {
 
         fila_x3 = 36;
         fila_y3 = 80;
-        final JLabel label_Cliclo_menstrual = Elementos.crearJLabel(fila_x3, fila_y3, 120, 20, "Cliclo menstrual:",
+        final JLabel label_Ciclo_menstrual = Elementos.crearJLabel(fila_x3, fila_y3, 120, 20, "Ciclo menstrual:",
                 false);
-        fila_x3 += label_Cliclo_menstrual.getWidth();
-        Panel3.add(label_Cliclo_menstrual);
+        fila_x3 += label_Ciclo_menstrual.getWidth();
+        Panel3.add(label_Ciclo_menstrual);
 
-        final JTextField texto_Cliclo_menstrual = Elementos.crearJTextField(fila_x3, fila_y3, 50, 20, "", true);
-        fila_x3 += texto_Cliclo_menstrual.getWidth();
-        Panel3.add(texto_Cliclo_menstrual);
+        final JTextField texto_Ciclo_menstrual = Elementos.crearJTextField(fila_x3, fila_y3, 50, 20, "", true);
+        fila_x3 += texto_Ciclo_menstrual.getWidth();
+        Panel3.add(texto_Ciclo_menstrual);
 
         fila_x3 = 36;
         fila_y3 = 110;
@@ -1297,7 +1296,7 @@ public class NHM_Actualizar extends JFrame {
         // Segunda fila - Arriba
         fila_x3 = 280;
         fila_y3 = 50;
-        final JLabel label_Anticoncepcion = Elementos.crearJLabel(fila_x3, fila_y3, 120, 20, "Anticoncepcion:", false);
+        final JLabel label_Anticoncepcion = Elementos.crearJLabel(fila_x3, fila_y3, 120, 20, "Anticonceptivo:", false);
         fila_x3 += label_Anticoncepcion.getWidth();
         Panel3.add(label_Anticoncepcion);
 
@@ -1315,14 +1314,14 @@ public class NHM_Actualizar extends JFrame {
 
         fila_x3 = 280;
         fila_y3 = 110;
-        final JLabel label_Menospausia = Elementos.crearJLabel(fila_x3, fila_y3, 120, 20, "Menospausia:", false);
-        fila_x3 += label_Menospausia.getWidth();
-        Panel3.add(label_Menospausia);
+        final JLabel label_Menopausia = Elementos.crearJLabel(fila_x3, fila_y3, 120, 20, "Menopausia:", false);
+        fila_x3 += label_Menopausia.getWidth();
+        Panel3.add(label_Menopausia);
 
-        final JComboBox<String> combo_Menospausia = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Menospausia.setBounds(fila_x3, fila_y3, 50, 20);
-        fila_x3 += combo_Menospausia.getWidth();
-        Panel3.add(combo_Menospausia);
+        final JComboBox<String> combo_Menopausia = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Menopausia.setBounds(fila_x3, fila_y3, 50, 20);
+        fila_x3 += combo_Menopausia.getWidth();
+        Panel3.add(combo_Menopausia);
 
         fila_x3 = 280;
         fila_y3 = 140;
@@ -1371,23 +1370,23 @@ public class NHM_Actualizar extends JFrame {
 
         fila_x3 = 500;
         fila_y3 = 80;
-        final JLabel label_E1erparto = Elementos.crearJLabel(fila_x3, fila_y3, 100, 20, "E 1er parto:", false);
-        fila_x3 += label_E1erparto.getWidth();
-        Panel3.add(label_E1erparto);
+        final JLabel label_E1erParto = Elementos.crearJLabel(fila_x3, fila_y3, 100, 20, "E 1er parto:", false);
+        fila_x3 += label_E1erParto.getWidth();
+        Panel3.add(label_E1erParto);
 
-        final JTextField texto_E1erparto = Elementos.crearJTextField(fila_x3, fila_y3, 50, 20, "", true);
-        fila_x3 += texto_E1erparto.getWidth();
-        Panel3.add(texto_E1erparto);
+        final JTextField texto_E1erParto = Elementos.crearJTextField(fila_x3, fila_y3, 50, 20, "", true);
+        fila_x3 += texto_E1erParto.getWidth();
+        Panel3.add(texto_E1erParto);
 
         fila_x3 = 500;
         fila_y3 = 110;
-        final JLabel label_F_Uparto = Elementos.crearJLabel(fila_x3, fila_y3, 100, 20, "F.U parto:", false);
-        fila_x3 += label_F_Uparto.getWidth();
-        Panel3.add(label_F_Uparto);
+        final JLabel label_F_U_parto = Elementos.crearJLabel(fila_x3, fila_y3, 100, 20, "F.U parto:", false);
+        fila_x3 += label_F_U_parto.getWidth();
+        Panel3.add(label_F_U_parto);
 
-        final JTextField texto_F_Uparto = Elementos.crearJTextField(fila_x3, fila_y3, 50, 20, "", true);
-        fila_x3 += texto_F_Uparto.getWidth();
-        Panel3.add(texto_F_Uparto);
+        final JTextField texto_F_U_parto = Elementos.crearJTextField(fila_x3, fila_y3, 50, 20, "", true);
+        fila_x3 += texto_F_U_parto.getWidth();
+        Panel3.add(texto_F_U_parto);
 
         fila_x3 = 500;
         fila_y3 = 140;
@@ -1479,7 +1478,7 @@ public class NHM_Actualizar extends JFrame {
 
         fila_x3 = 36;
         fila_y3 = 330;
-        final JLabel label_Neumonia = Elementos.crearJLabel(fila_x3, fila_y3, 100, 20, "Neumonia", false);
+        final JLabel label_Neumonia = Elementos.crearJLabel(fila_x3, fila_y3, 100, 20, "Neumonía", false);
         fila_x3 += label_Neumonia.getWidth();
         Panel3.add(label_Neumonia);
 
@@ -1983,7 +1982,7 @@ public class NHM_Actualizar extends JFrame {
         volverButton3.setHorizontalTextPosition(SwingConstants.CENTER);
         volverButton3.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                cardLayout.show(contentPane, "panel2");
+                cardLayout.show(contentPanel, "panel2");
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -2017,16 +2016,16 @@ public class NHM_Actualizar extends JFrame {
                         ComboBox_estadoCivil,
                         text_Ocupacion,
                         combo_estudio,
-                        text_anosAprovados,
+                        text_anosAprobados,
                         combo_Analfabeta,
                         combo_sexo,
                         text_NDia,
                         text_NMes,
                         text_NaAno,
-                        text_LugarNacimento,
+                        text_LugarNacimiento,
                         texto_Estado,
                         texto_Pais,
-                        texto_Dirrecion,
+                        texto_Direccion,
                         texto_Telefono,
                         texto_Religion,
                         texto_Establecimiento,
@@ -2052,14 +2051,14 @@ public class NHM_Actualizar extends JFrame {
                         combo_PadreFamilia,
                         combo_HermanoFamilia,
                         text_OtrosFamilia,
-                        text_Edad_Gestacional,
+                        text_Edad_Gestacion,
                         text_sem,
-                        combo_Forceps,
+                        combo_Forces,
                         combo_Cesarea,
                         combo_Parto,
                         text_ApgarMin,
                         combo_Reanimacion,
-                        combo_EngresoRN,
+                        combo_EgresoRN,
                         text_Exclusiva,
                         text_Mixta,
                         text_Ablactacion,
@@ -2078,12 +2077,12 @@ public class NHM_Actualizar extends JFrame {
                         combo_Diabetes,
                         combo_Obesidad,
                         combo_Gastropatia,
-                        combo_Neurologiaca,
+                        combo_Neurologica,
                         combo_Enf_Renal,
                         combo_Cancer,
                         combo_Alcohol,
                         combo_Drogas,
-                        combo_Sifilis,
+                        combo_Sífilis,
                         combo_SIDA,
                         combo_Artritis,
                         combo_otros,
@@ -2092,20 +2091,20 @@ public class NHM_Actualizar extends JFrame {
                         combo_Hermanos,
                         combo_Otros,
                         texto_Menarquia,
-                        texto_Cliclo_menstrual,
+                        texto_Ciclo_menstrual,
                         texto_PRSexual,
                         texto_FrecuenciaRSexual,
                         texto_N_Parejas,
                         combo_Dispareunia,
                         combo_Anticoncepcion,
                         combo_AC_DIU,
-                        combo_Menospausia,
+                        combo_Menopausia,
                         combo_Gesta,
                         combo_Partos,
                         combo_Cesarea2,
                         combo_Aborto,
-                        texto_E1erparto,
-                        texto_F_Uparto,
+                        texto_E1erParto,
+                        texto_F_U_parto,
                         texto_F_UAborto,
                         combo_Curetaje,
                         texto_N_de_Hijos,
@@ -2257,40 +2256,58 @@ public class NHM_Actualizar extends JFrame {
 
                     // Datos del usuario
                     Paragraph Line1 = new Paragraph(
-                            "Apellido de tu familia: "+ text_apellido_familiar.getText() +" C.I Jeje de familia: "+ text_ci_jefe_familia.getText() + " Numero de Historia: "+ text_Numero_de_Historia.getText());
+                            "Apellido de tu familia: " + text_apellido_familiar.getText() + " C.I Jeje de familia: "
+                                    + text_ci_jefe_familia.getText() + " Numero de Historia: "
+                                    + text_Numero_de_Historia.getText());
                     document.add(Line1);
                     Paragraph Line2 = new Paragraph(
-                            "C.I: "+ ci_ComboBox.getSelectedItem() +" "+ text_ci.getText() +" Apellido: "+ text_apellido.getText() + " Nombre: "+ text_nombre.getText() + " Estado Civil: "+ ComboBox_estadoCivil.getSelectedItem()+" Ocupacion: "+ text_Ocupacion.getText());
+                            "C.I: " + ci_ComboBox.getSelectedItem() + " " + text_ci.getText() + " Apellido: "
+                                    + text_apellido.getText() + " Nombre: " + text_nombre.getText() + " Estado Civil: "
+                                    + ComboBox_estadoCivil.getSelectedItem() + " Ocupacion: "
+                                    + text_Ocupacion.getText());
                     document.add(Line2);
 
                     Paragraph Line3 = new Paragraph(
-                            "Estudios: "+ combo_estudio.getSelectedItem() +" Años aprovados: "+ text_anosAprovados.getText() + " Analfabeta: "+ combo_Analfabeta.getSelectedItem() + " Sexo: " + combo_sexo.getSelectedItem() +" Fecha de nacimiento: "+ text_NDia.getText()+"/"+text_NMes.getText()+"/"+text_NaAno.getText());
+                            "Estudios: " + combo_estudio.getSelectedItem() + " Años aprovados: "
+                                    + text_anosAprobados.getText() + " Analfabeta: "
+                                    + combo_Analfabeta.getSelectedItem() + " Sexo: " + combo_sexo.getSelectedItem()
+                                    + " Fecha de nacimiento: " + text_NDia.getText() + "/" + text_NMes.getText() + "/"
+                                    + text_NaAno.getText());
                     document.add(Line3);
 
                     Paragraph Line4 = new Paragraph();
                     document.add(Line4);
 
                     Paragraph Line5 = new Paragraph(
-                            "Lugar de nacimiento: "+ text_LugarNacimento.getText() +" Estado: "+ texto_Estado.getText() + " Pais: "+ texto_Pais.getText() + " Dirrecion: " + texto_Dirrecion.getText());
+                            "Lugar de nacimiento: " + text_LugarNacimiento.getText() + " Estado: "
+                                    + texto_Estado.getText() + " Pais: " + texto_Pais.getText() + " Dirrecion: "
+                                    + texto_Direccion.getText());
                     document.add(Line5);
 
                     Paragraph Line6 = new Paragraph(
-                            "Telefono: "+ texto_Telefono.getText() +" Religion: "+ texto_Religion.getText() + " Establecimiento: "+ texto_Establecimiento.getText() + " Municipio: " + texto_Municipio.getText()+ " Parroquia: "+ texto_Parroquia.getText()+" Comunidad: "+texto_Comunidad.getText());
+                            "Telefono: " + texto_Telefono.getText() + " Religion: " + texto_Religion.getText()
+                                    + " Establecimiento: " + texto_Establecimiento.getText() + " Municipio: "
+                                    + texto_Municipio.getText() + " Parroquia: " + texto_Parroquia.getText()
+                                    + " Comunidad: " + texto_Comunidad.getText());
                     document.add(Line6);
 
                     Paragraph titulo2 = new Paragraph("Datos del Padre y de la madre");
                     document.add(titulo2);
 
                     Paragraph Line7 = new Paragraph(
-                            "Nombre y apellido de la madre: "+ texto_Madre_N_A.getText()+" Ocupacion: "+ texto_Madre_Ocupacion.getText());
+                            "Nombre y apellido de la madre: " + texto_Madre_N_A.getText() + " Ocupacion: "
+                                    + texto_Madre_Ocupacion.getText());
                     document.add(Line7);
                     Paragraph Line8 = new Paragraph(
-                            "Nombre y apellido de la padre: "+ texto_Padre_N_A.getText()+" Ocupacion: "+ texto_Padre_Ocupacion.getText());
+                            "Nombre y apellido de la padre: " + texto_Padre_N_A.getText() + " Ocupacion: "
+                                    + texto_Padre_Ocupacion.getText());
                     document.add(Line8);
                     Paragraph Line9 = new Paragraph(
-                            "Representante: "+ combo_Representante.getSelectedItem() +" Nombre: "+ texto_Representante_N.getText()+ " Cedula:"+ combo__Representante_ci.getSelectedItem()+" "+texto_Representante_ci.getText()+" Telefono: "+texto_Telefono);
+                            "Representante: " + combo_Representante.getSelectedItem() + " Nombre: "
+                                    + texto_Representante_N.getText() + " Cedula:"
+                                    + combo__Representante_ci.getSelectedItem() + " " + texto_Representante_ci.getText()
+                                    + " Telefono: " + texto_Telefono);
                     document.add(Line9);
-
 
                     document.close();
                     System.out.println("PDF creado exitosamente.");
@@ -2323,14 +2340,14 @@ public class NHM_Actualizar extends JFrame {
                     label_estadoCivil,
                     label_Ocupacion,
                     label_Estudios,
-                    label_anosAprovados,
+                    label_anosAprobados,
                     label_Analfabeta,
                     label_Sexo,
                     label_fechaNacimiento,
-                    label_LugarNacimento,
+                    label_LugarNacimiento,
                     label_Estado,
                     label_Pais,
-                    label_Dirrecion,
+                    label_Direccion,
                     label_Telefono,
                     label_Religion,
                     label_Establecimiento,
@@ -2355,9 +2372,9 @@ public class NHM_Actualizar extends JFrame {
                     label_HermanoFamilia,
                     NConsultasPrenatales,
                     label_OtrosFamilia,
-                    label_Edad_Gestacional,
+                    label_Edad_Gestacion,
                     label_sem,
-                    label_Forceps,
+                    label_Forces,
                     label_Cesarea,
                     label_Parto,
                     label_Peso_Al_Nacer,
@@ -2370,8 +2387,8 @@ public class NHM_Actualizar extends JFrame {
                     label_Asfixia,
                     label_Reanimacion,
                     label_PatologiasRN,
-                    label_EngresoRN,
-                    label_lamtancia,
+                    label_EgresoRN,
+                    label_lactancia,
                     label_Exclusiva,
                     label_Exclusiva_m,
                     label_Mixta,
@@ -2388,12 +2405,12 @@ public class NHM_Actualizar extends JFrame {
                     label_Diabetes,
                     label_Obesidad,
                     label_Gastropatia,
-                    label_Neurologiaca,
+                    label_Neurologica,
                     label_Enf_Renal,
                     label_Cancer,
                     label_Alcohol,
                     label_Drogas,
-                    label_Sifilis,
+                    label_Sífilis,
                     label_SIDA,
                     label_Artritis,
                     label_otros,
@@ -2402,19 +2419,19 @@ public class NHM_Actualizar extends JFrame {
                     label_Hermanos,
                     label_Otros,
                     label_Menarquia,
-                    label_Cliclo_menstrual,
+                    label_Ciclo_menstrual,
                     label_PRSexual,
                     label_FrecuenciaRSexual,
                     label_N_Parejas,
                     label_Dispareunia,
                     label_Anticoncepcion,
-                    label_Menospausia,
+                    label_Menopausia,
                     label_Gesta,
                     label_Partos,
                     label_Cesarea2,
                     label_Aborto,
-                    label_E1erparto,
-                    label_F_Uparto,
+                    label_E1erParto,
+                    label_F_U_parto,
                     label_F_UAborto,
                     label_Curetaje,
                     label_N_de_Hijos,
@@ -2477,9 +2494,9 @@ public class NHM_Actualizar extends JFrame {
         }
         fondo3.setBounds(0, 0, 1290, 720);
         Panel3.add(fondo3);
-        contentPane.add(Panel3, "panel3");
+        contentPanel.add(Panel3, "panel3");
 
-        setContentPane(contentPane);
+        setContentPane(contentPanel);
         // Cambiar el color de las letras dependiento del tema
 
         JComponent[] componentes = {
@@ -2493,16 +2510,16 @@ public class NHM_Actualizar extends JFrame {
                 ComboBox_estadoCivil,
                 text_Ocupacion,
                 combo_estudio,
-                text_anosAprovados,
+                text_anosAprobados,
                 combo_Analfabeta,
                 combo_sexo,
                 text_NDia,
                 text_NMes,
                 text_NaAno,
-                text_LugarNacimento,
+                text_LugarNacimiento,
                 texto_Estado,
                 texto_Pais,
-                texto_Dirrecion,
+                texto_Direccion,
                 texto_Telefono,
                 texto_Religion,
                 texto_Establecimiento,
@@ -2528,14 +2545,14 @@ public class NHM_Actualizar extends JFrame {
                 combo_PadreFamilia,
                 combo_HermanoFamilia,
                 text_OtrosFamilia,
-                text_Edad_Gestacional,
+                text_Edad_Gestacion,
                 text_sem,
-                combo_Forceps,
+                combo_Forces,
                 combo_Cesarea,
                 combo_Parto,
                 text_ApgarMin,
                 combo_Reanimacion,
-                combo_EngresoRN,
+                combo_EgresoRN,
                 text_Exclusiva,
                 text_Mixta,
                 text_Ablactacion,
@@ -2554,12 +2571,12 @@ public class NHM_Actualizar extends JFrame {
                 combo_Diabetes,
                 combo_Obesidad,
                 combo_Gastropatia,
-                combo_Neurologiaca,
+                combo_Neurologica,
                 combo_Enf_Renal,
                 combo_Cancer,
                 combo_Alcohol,
                 combo_Drogas,
-                combo_Sifilis,
+                combo_Sífilis,
                 combo_SIDA,
                 combo_Artritis,
                 combo_otros,
@@ -2568,20 +2585,20 @@ public class NHM_Actualizar extends JFrame {
                 combo_Hermanos,
                 combo_Otros,
                 texto_Menarquia,
-                texto_Cliclo_menstrual,
+                texto_Ciclo_menstrual,
                 texto_PRSexual,
                 texto_FrecuenciaRSexual,
                 texto_N_Parejas,
                 combo_Dispareunia,
                 combo_Anticoncepcion,
                 combo_AC_DIU,
-                combo_Menospausia,
+                combo_Menopausia,
                 combo_Gesta,
                 combo_Partos,
                 combo_Cesarea2,
                 combo_Aborto,
-                texto_E1erparto,
-                texto_F_Uparto,
+                texto_E1erParto,
+                texto_F_U_parto,
                 texto_F_UAborto,
                 combo_Curetaje,
                 texto_N_de_Hijos,

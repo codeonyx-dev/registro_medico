@@ -25,22 +25,22 @@ public class Buscador extends JFrame {
     public void buscar() {
         String campo = BuscadorText.getText();
         String where = "";
-        String Buscarpor = BuscarPor.getSelectedItem().toString().toUpperCase();
+        String buscarPor = BuscarPor.getSelectedItem().toString().toUpperCase();
 
-        if (Buscarpor.equalsIgnoreCase("NOMBRE")) {
-            Buscarpor = "nombre";
-        } else if (Buscarpor.equalsIgnoreCase("N° de historia medica")) {
-            Buscarpor = "Numero_de_Historia";
-        } else if (Buscarpor.equalsIgnoreCase("Cedula del paciente")) {
-            Buscarpor = "Ci_cedula";
-        } else if (Buscarpor.equalsIgnoreCase("ESTADO")) {
-            Buscarpor = "Estado";
-        } else if (Buscarpor.equalsIgnoreCase("Telefono")) {
-            Buscarpor = "Telefono";
+        if (buscarPor.equalsIgnoreCase("NOMBRE")) {
+            buscarPor = "nombre";
+        } else if (buscarPor.equalsIgnoreCase("N° de historia medica")) {
+            buscarPor = "Numero_de_Historia";
+        } else if (buscarPor.equalsIgnoreCase("Cedula del paciente")) {
+            buscarPor = "Ci_cedula";
+        } else if (buscarPor.equalsIgnoreCase("ESTADO")) {
+            buscarPor = "Estado";
+        } else if (buscarPor.equalsIgnoreCase("Telefono")) {
+            buscarPor = "Telefono";
         }
 
         if (!"".equals(campo)) {
-            where = "WHERE " + Buscarpor + " LIKE '" + campo + "%'";
+            where = "WHERE " + buscarPor + " LIKE '" + campo + "%'";
         }
 
         try {
@@ -126,9 +126,9 @@ public class Buscador extends JFrame {
         Font headerFont = new Font("Arial", Font.BOLD, 16);
         header.setFont(headerFont);
 
-        JScrollPane scrollPane = new JScrollPane(lista);
-        scrollPane.setBounds(40, 130, 1046, 500);
-        Panel.add(scrollPane);
+        JScrollPane scrollerPanel = new JScrollPane(lista);
+        scrollerPanel.setBounds(40, 130, 1046, 500);
+        Panel.add(scrollerPanel);
 
         BuscarPor.setBounds(40, 55, 250, 35);
         BuscarPor.setFont(new Font("Arial", Font.BOLD, 16));
@@ -143,13 +143,6 @@ public class Buscador extends JFrame {
                 if (BuscadorText.getText().equals("Buscar...")) {
                     BuscadorText.setText("");
                 }
-
-            }
-
-            public void mouseReleased(MouseEvent e) {
-            }
-
-            public void mouseEntered(MouseEvent e) {
             }
 
             public void mouseExited(MouseEvent e) {
@@ -195,7 +188,7 @@ public class Buscador extends JFrame {
 
         // Botones
 
-        // Boton volver
+        // Botón volver
         final JLabel volverButton = new JLabel("VOLVER AL INICIO", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
                 SwingConstants.CENTER);
         volverButton.setBounds(120, 640, 250, 67);
@@ -221,16 +214,16 @@ public class Buscador extends JFrame {
             }
         });
 
-        // Boton Elimnar Registro
-        final JLabel ElimanarButton = new JLabel("ELIMINAR REGISTRO", Elementos.botonImagen(Inicio.Tema, "mediano.0"),
+        // Botón Eliminar Registro
+        final JLabel EliminarButton = new JLabel("ELIMINAR REGISTRO", Elementos.botonImagen(Inicio.Tema, "mediano.0"),
                 SwingConstants.CENTER);
-        ElimanarButton.setBounds(375, 640, 320, 67);
-        ElimanarButton.setFont(new Font("Roboto Black", 1, 22));
-        ElimanarButton.setForeground(Elementos.colores(Inicio.Tema));
-        ElimanarButton.setVerticalTextPosition(SwingConstants.CENTER);
-        ElimanarButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        Panel.add(ElimanarButton);
-        ElimanarButton.addMouseListener(new MouseAdapter() {
+        EliminarButton.setBounds(375, 640, 320, 67);
+        EliminarButton.setFont(new Font("Roboto Black", 1, 22));
+        EliminarButton.setForeground(Elementos.colores(Inicio.Tema));
+        EliminarButton.setVerticalTextPosition(SwingConstants.CENTER);
+        EliminarButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        Panel.add(EliminarButton);
+        EliminarButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (Inicio.nivel_acceso.equals("administrador")) {
                     int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas eliminar este dato?",
@@ -262,22 +255,22 @@ public class Buscador extends JFrame {
                         System.out.println("Eliminación cancelada.");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "No tiene el permiso para eliminar datos","Error",
+                    JOptionPane.showMessageDialog(null, "No tiene el permiso para eliminar datos", "Error",
                             JOptionPane.ERROR_MESSAGE, null);
                 }
 
             }
 
             public void mouseEntered(MouseEvent e) {
-                ElimanarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "mediano.1"));
+                EliminarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "mediano.1"));
             }
 
             public void mouseExited(MouseEvent e) {
-                ElimanarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "mediano.0"));
+                EliminarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "mediano.0"));
             }
         });
 
-        // Boton Actualizar Registro
+        // Botón Actualizar Registro
         final JLabel ActualizarButton = new JLabel("ACTUALIZAR DATOS", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
                 SwingConstants.CENTER);
         ActualizarButton.setBounds(700, 640, 250, 67);
@@ -305,7 +298,7 @@ public class Buscador extends JFrame {
             }
         });
 
-        // Boton Buscar Registro
+        // Botón Buscar Registro
         final JLabel BuscarButton = new JLabel("BUSCAR", Elementos.botonImagen(Inicio.Tema, "muypequeno.0"),
                 SwingConstants.CENTER);
         BuscarButton.setBounds(850, 40, 250, 67);

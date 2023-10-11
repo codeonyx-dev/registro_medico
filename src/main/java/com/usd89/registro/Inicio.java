@@ -71,23 +71,23 @@ public class Inicio extends JFrame {
       }
     });
     // Mostrar contraseña
-    final JLabel btnMostra = Elementos.crearJLabel(79, 260, 150, 30, "Estado: Oculto", false);
-    btnMostra.setFont(new Font("Roboto", 1, 10));
-    btnMostra.setForeground(Color.white);
-    Panel.add(btnMostra);
-    btnMostra.addMouseListener(new MouseAdapter() {
+    final JLabel btnMostrar = Elementos.crearJLabel(79, 260, 150, 30, "Estado: Oculto", false);
+    btnMostrar.setFont(new Font("Roboto", 1, 10));
+    btnMostrar.setForeground(Color.white);
+    Panel.add(btnMostrar);
+    btnMostrar.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        if (btnMostra.getText().equals("Estado: Oculto")) {
+        if (btnMostrar.getText().equals("Estado: Oculto")) {
           Contrasena.setEchoChar((char) 0);
-          btnMostra.setText("Estado: Visible");
+          btnMostrar.setText("Estado: Visible");
         } else {
           Contrasena.setEchoChar(('•'));
-          btnMostra.setText("Estado: Oculto");
+          btnMostrar.setText("Estado: Oculto");
         }
       }
     });
 
-    // Boton Inicio de Sesion
+    // Botón Inicio de Sesión
     final JButton btnInicio = Elementos.crearJButton(150, 370, 100, 30, "Inicio");
     btnInicio.setFont(new Font("Roboto", 1, 20));
     btnInicio.setBackground(new Color(0, 62, 88));
@@ -98,7 +98,7 @@ public class Inicio extends JFrame {
         String usuario = Usuario.getText();
         String clave = new String(Contrasena.getPassword());
 
-        // Validacion de datos de usuario
+        // Validación de datos de usuario
         // Se conecta la bdd
         if (Conexion.getConexion() != null) {
           Connection conexion = Conexion.getConexion();
@@ -124,7 +124,7 @@ public class Inicio extends JFrame {
             } else {
               JOptionPane.showMessageDialog(null, "Rellene todos los campos", "Informacion", JOptionPane.ERROR_MESSAGE);
             }
-            // Cierra la conexion de la bdd
+            // Cierra la conexión de la bdd
             conexion.close();
           } catch (SQLException ex) {
             System.out.println(ex);
@@ -136,7 +136,7 @@ public class Inicio extends JFrame {
       }
     });
 
-    // Boton cambio de Tema
+    // Botón cambio de Tema
     final JLabel cambio_tema = Elementos.crearJLabel(10, 10, 40, 40, "", false);
     cambio_tema.setIcon(new ImageIcon(getClass().getResource("/imagen/Claro.png")));
     Panel.add(cambio_tema);
@@ -154,7 +154,7 @@ public class Inicio extends JFrame {
           cambio_tema.setIcon(new ImageIcon(getClass().getResource("/imagen/Oscuro.png")));
           cambio_tema.setBounds(10, 5, 40, 40);
           btnInicio.setBackground(new Color(21, 147, 219));
-          btnMostra.setForeground(new Color(45, 158, 212));
+          btnMostrar.setForeground(new Color(45, 158, 212));
         } else {
           // Cambio a tema claro
           Inicio.Tema = "Oscuro";
