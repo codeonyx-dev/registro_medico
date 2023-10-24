@@ -54,9 +54,9 @@ public class Menu extends JFrame {
             }
         });
 
-        // BOTONES CON JLABEL PARA CREAR HACERLOS DINAMICOS
+        // BOTONES CON JLabel PARA CREAR HACERLOS DINÁMICOS
 
-        // Boton Nueva Historia Medica
+        // Botón Nueva Historia Medica
         final JLabel nhmButton = new JLabel("NUEVA HISTORIA MEDICA", Elementos.botonImagen(Inicio.Tema,"grande.0"), SwingConstants.CENTER);
         nhmButton.setBounds(247, 137, 335, 67);
         nhmButton.setFont(new Font("Roboto Black", 1, 22));
@@ -67,7 +67,9 @@ public class Menu extends JFrame {
 
         nhmButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-
+                NHM ngm = new NHM();
+                ngm.setVisible(true);
+                dispose();
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -79,7 +81,7 @@ public class Menu extends JFrame {
             }
         });
 
-        // Boton Busqueda Historia Medica
+        // Botón Búsqueda Historia Medica
         final JLabel bhmButton = new JLabel("BUSCAR HISTORIA MEDICA", Elementos.botonImagen(Inicio.Tema,"gigante.0"), SwingConstants.CENTER);
         bhmButton.setBounds(234, 208, 354, 67);
         bhmButton.setFont(new Font("Roboto Black", 1, 22));
@@ -90,7 +92,8 @@ public class Menu extends JFrame {
 
         bhmButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-
+                new Buscador().setVisible(true);
+                dispose();
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -102,7 +105,7 @@ public class Menu extends JFrame {
             }
         });
 
-        // Boton Gestion de Usuario
+        // Botón Gestión de Usuario
         final JLabel usButton = new JLabel("GESTION DE USUARIO", Elementos.botonImagen(Inicio.Tema,"mediano.0"), SwingConstants.CENTER);
         usButton.setBounds(260, 280, 308, 67);
         usButton.setFont(new Font("Roboto Black", 1, 22));
@@ -112,8 +115,8 @@ public class Menu extends JFrame {
 
         usButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                GestionUser gestion = new GestionUser();
-                gestion.setVisible(true);
+                GestionUsuarios Gestion = new GestionUsuarios();
+                Gestion.setVisible(true);
                 dispose();
             }
 
@@ -131,11 +134,10 @@ public class Menu extends JFrame {
         } else {
             nhmButton.setBounds(247, 208, 335, 67);
             bhmButton.setBounds(234, 280, 354, 67);
-
         }
 
-        // Boton Cerrar sesion
-        final JLabel csButton = new JLabel("CERRAR SESION", Elementos.botonImagen(Inicio.Tema,"pequeno.0"), SwingConstants.CENTER);
+        // Botón Cerrar sesión
+        final JLabel csButton = new JLabel("CERRAR SESIÓN", Elementos.botonImagen(Inicio.Tema,"pequeno.0"), SwingConstants.CENTER);
         csButton.setBounds(280, 350, 280, 67);
         csButton.setFont(new Font("Roboto Black", 1, 22));
         csButton.setForeground(Elementos.colores(Inicio.Tema));
@@ -145,7 +147,12 @@ public class Menu extends JFrame {
 
         csButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-
+                Inicio.nivel_acceso="lectura";
+                Inicio.Usuario.setText("");
+                Inicio.Contraseña.setText("");
+                dispose();
+                new Inicio().setVisible(true);
+                
             }
 
             public void mouseEntered(MouseEvent e) {

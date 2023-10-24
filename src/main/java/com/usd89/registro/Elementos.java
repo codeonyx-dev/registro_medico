@@ -37,7 +37,7 @@ public class Elementos {
         return JLabel;
     }
 
-    // Crear boton
+    // Crear botón
     public static JButton crearJButton(int x, int y, int ancho, int altura, String texto) {
         JButton JButton = new JButton();
         JButton.setBounds(x, y, ancho, altura);
@@ -45,7 +45,7 @@ public class Elementos {
         return JButton;
     }
 
-    // Boton para cerrar
+    // Botón para cerrar
     public static JLabel cerrar(int x, int y, int ancho, int altura) {
         JLabel JLabel = new JLabel();
         JLabel.setFont(new Font("Roboto", 1, 18));
@@ -55,7 +55,7 @@ public class Elementos {
         return JLabel;
     }
 
-    // Boton para minimizar
+    // Botón para minimizar
     public static JLabel minimizar(int x, int y, int ancho, int altura) {
 
         JLabel JLabel = new JLabel();
@@ -64,13 +64,14 @@ public class Elementos {
         JLabel.setForeground(Color.white);
         JLabel.setText("▬");
         return JLabel;
+        
     }
     
     public static ImageIcon Tema(String Tema){
         ImageIcon fondo = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + Tema + "/fondo-Inicio.png"));
         return fondo;
     }
-    //Imagenes de botones 
+    //Imágenes de botones 
     public static ImageIcon botonImagen(String tema,String modelo){
         ImageIcon boton = new ImageIcon();
         switch (modelo) {
