@@ -64,6 +64,7 @@ public class Elementos {
         JLabel.setForeground(Color.white);
         JLabel.setText("▬");
         return JLabel;
+        
     }
     
     public static ImageIcon Tema(String Tema){

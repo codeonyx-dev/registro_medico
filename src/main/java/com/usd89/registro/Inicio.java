@@ -4,16 +4,22 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.usd89.DatabaseConnection.Conexion;
 
 public class Inicio extends JFrame {
   static String Tema = "Oscuro";
   static String nivel_acceso = "lectura";
+  static JTextField Usuario;
+  static JPasswordField Contraseña;
 
   public Inicio() {
     setLayout(null);
@@ -29,15 +35,63 @@ public class Inicio extends JFrame {
     Panel.setBounds(0, 0, 400, 425);
     add(Panel);
     // Campo de Usuario
-    final JTextField Usuario = Elementos.crearJTextField(79, 155, 250, 25, "admin", true);
-    Usuario.setFont(new Font("Arial",1,14));
+    JLabel BotonImportar = new JLabel("..");
+    BotonImportar.setFont(new Font("Arial", 2, 20));
+    BotonImportar.setForeground(Color.RED);
+    BotonImportar.setBounds(190, 390, 40, 40);
+    Panel.add(BotonImportar);
+
+    BotonImportar.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent e) {
+        String rutaArchivo;
+        System.out.println(e.getClickCount());
+        if (e.getClickCount() == 3) {
+          String sql = "CREATE DATABASE IF NOT EXISTS historia_clinica_integral";
+          try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/", "root", "");
+            Statement stmt = con.createStatement();
+            stmt.execute(sql);
+            JFileChooser ch = new JFileChooser();
+            FileNameExtensionFilter fil = new FileNameExtensionFilter("SQL", "sql");
+            ch.setFileFilter(fil);
+            int se = ch.showOpenDialog(null);
+            if (se == JFileChooser.APPROVE_OPTION) {
+              String ruta = ch.getSelectedFile().getPath();
+              rutaArchivo = ruta;
+              if (!rutaArchivo.isEmpty()) {
+                String backus = "";
+                if (rutaArchivo.trim().length() != 0) {
+                  try {
+                    backus = "cmd /c C:/xampp/mysql/bin/mysql.exe -u " + "root" + " historia_clinica_integral" + " < "
+                        + rutaArchivo;
+                    Runtime rt = Runtime.getRuntime();
+                    rt.exec(backus);
+                    System.out.println(rutaArchivo);
+                    JOptionPane.showMessageDialog(null, "Backus Importado: " + rutaArchivo);
+                  } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                  }
+                }
+              }
+            }
+          } catch (SQLException eve) {
+            eve.printStackTrace();
+          }
+
+        }
+      }
+
+    });
+
+    Usuario = Elementos.crearJTextField(79, 155, 250, 25, "", true);
+    Usuario.setFont(new Font("Arial", 1, 14));
     Panel.add(Usuario);
     // Campo de Contraseña
-    final JPasswordField Contrasena = new JPasswordField("contrasena3");
-    Contrasena.setBounds(79, 230, 250, 25);
-    Contrasena.setFont(new Font("Arial", 1, 14));
-    Contrasena.setBorder(BorderFactory.createLineBorder(new Color(73, 176, 213)));
-    Panel.add(Contrasena);
+    Contraseña = new JPasswordField("");
+    Contraseña.setBounds(79, 230, 250, 25);
+    Contraseña.setFont(new Font("Arial", 1, 14));
+    Contraseña.setBorder(BorderFactory.createLineBorder(new Color(73, 176, 213)));
+    Panel.add(Contraseña);
     // Cerrar
     final JLabel Cerrar = Elementos.cerrar(370, 10, 20, 20);
     Panel.add(Cerrar);
@@ -78,10 +132,10 @@ public class Inicio extends JFrame {
     btnMostrar.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         if (btnMostrar.getText().equals("Estado: Oculto")) {
-          Contrasena.setEchoChar((char) 0);
+          Contraseña.setEchoChar((char) 0);
           btnMostrar.setText("Estado: Visible");
         } else {
-          Contrasena.setEchoChar(('•'));
+          Contraseña.setEchoChar(('•'));
           btnMostrar.setText("Estado: Oculto");
         }
       }
@@ -96,7 +150,7 @@ public class Inicio extends JFrame {
     btnInicio.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         String usuario = Usuario.getText();
-        String clave = new String(Contrasena.getPassword());
+        String clave = new String(Contraseña.getPassword());
 
         // Validación de datos de usuario
         // Se conecta la bdd
@@ -118,11 +172,11 @@ public class Inicio extends JFrame {
                 dispose();
               } else {
                 Usuario.setText("");
-                Contrasena.setText("");
-                JOptionPane.showMessageDialog(null, "Usuario o clave invilido", "Error", JOptionPane.ERROR_MESSAGE);
+                Contraseña.setText("");
+                JOptionPane.showMessageDialog(null, "Usuario o clave inválido", "Error", JOptionPane.ERROR_MESSAGE);
               }
             } else {
-              JOptionPane.showMessageDialog(null, "Rellene todos los campos", "Informacion", JOptionPane.ERROR_MESSAGE);
+              JOptionPane.showMessageDialog(null, "Rellene todos los campos", "Información", JOptionPane.ERROR_MESSAGE);
             }
             // Cierra la conexión de la bdd
             conexion.close();

@@ -19,7 +19,7 @@ public class Buscador extends JFrame {
     JTable lista = new JTable();
     JTextField BuscadorText = new JTextField();
     JComboBox<String> BuscarPor = new JComboBox<String>(
-            new String[] { "Nombre", "N° de historia medica", "Cedula del paciente", "Estado", "Telefono" });
+            new String[] { "Nombre", "N° de historia medica", "Cédula del paciente", "Estado", "Telefono" });
     static String ID;
 
     public void buscar() {
@@ -31,7 +31,7 @@ public class Buscador extends JFrame {
             buscarPor = "nombre";
         } else if (buscarPor.equalsIgnoreCase("N° de historia medica")) {
             buscarPor = "Numero_de_Historia";
-        } else if (buscarPor.equalsIgnoreCase("Cedula del paciente")) {
+        } else if (buscarPor.equalsIgnoreCase("Cédula del paciente")) {
             buscarPor = "Ci_cedula";
         } else if (buscarPor.equalsIgnoreCase("ESTADO")) {
             buscarPor = "Estado";
@@ -135,7 +135,7 @@ public class Buscador extends JFrame {
         Panel.add(BuscarPor);
 
         BuscadorText = Elementos.crearJTextField(330, 55, 540, 35, "Buscar...", true);
-        BuscadorText.setFont(new Font("Arail", 1, 20));
+        BuscadorText.setFont(new Font("Arial", 1, 20));
         BuscadorText.setForeground(Color.GRAY);
         Panel.add(BuscadorText);
         BuscadorText.addMouseListener(new MouseAdapter() {
@@ -324,15 +324,10 @@ public class Buscador extends JFrame {
         JLabel Fondo = new JLabel();
         Fondo.setBounds(0, 0, 1120, 720);
         Panel.add(Fondo);
-        Fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Oscuro/Buscador.png")));
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Buscador(); // Crear una instancia de la aplicación
-            }
-        });
+        if (Inicio.Tema == "Oscuro") {
+            Fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Oscuro/Buscador.png")));
+        } else {
+            Fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/Buscador.png")));
+        }
     }
 }

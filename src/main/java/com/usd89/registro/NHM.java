@@ -3,6 +3,8 @@ package com.usd89.registro;
 import javax.swing.*;
 import com.usd89.DatabaseConnection.Conexion;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
@@ -125,6 +127,15 @@ public class NHM extends JFrame {
         final JTextField text_ci_jefe_familia = Elementos.crearJTextField(fila_x + 15, 65, 150, 20, "", true);
         fila_x += text_ci_jefe_familia.getWidth();
         Panel1.add(text_ci_jefe_familia);
+        text_ci_jefe_familia.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel Label_Numero_de_Historia = Elementos.crearJLabel(fila_x + 25, 65, 150, 20, "Numero de Historia:",
                 false);
@@ -186,6 +197,15 @@ public class NHM extends JFrame {
 
         final JTextField text_anosAprobados = Elementos.crearJTextField(295, 125, 80, 20, "", true);
         Panel1.add(text_anosAprobados);
+        text_anosAprobados.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_Analfabeta = Elementos.crearJLabel(380, 125, 80, 20, "Analfabeta:", false);
         Panel1.add(label_Analfabeta);
@@ -212,6 +232,36 @@ public class NHM extends JFrame {
         Panel1.add(text_NMes);
         Panel1.add(text_NaAno);
 
+        text_NDia.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) && (text_NDia.getText().length()<2)) {
+                    evt.consume();
+                }
+            }
+        });
+
+        text_NMes.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) && (text_NDia.getText().length()<2)) {
+                    evt.consume();
+                }
+            }
+        });
+
+        text_NaAno.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) && (text_NDia.getText().length()<4)) {
+                    evt.consume();
+                }
+            }
+        });
+        
         final JLabel label_LugarNacimiento = Elementos.crearJLabel(36, 175, 150, 20, "Lugar de nacimiento:", false);
         Panel1.add(label_LugarNacimiento);
 
@@ -245,6 +295,15 @@ public class NHM extends JFrame {
         final JTextField texto_Telefono = Elementos.crearJTextField(fila_x + 5, 205, 100, 20, "", true);
         fila_x += texto_Telefono.getWidth();
         Panel1.add(texto_Telefono);
+        texto_Telefono.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_Religion = Elementos.crearJLabel(fila_x + 15, 205, 70, 20, "Religion:", false);
         fila_x += label_Religion.getWidth();
@@ -358,6 +417,15 @@ public class NHM extends JFrame {
         final JTextField texto_Representante_ci = Elementos.crearJTextField(fila_x + 25, 360, 100, 20, "", true);
         fila_x += texto_Representante_ci.getWidth();
         Panel1.add(texto_Representante_ci);
+        texto_Representante_ci.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_Representante_Telefono = Elementos.crearJLabel(fila_x + 35, 360, 70, 20, "Telefono:", false);
         fila_x += label_Representante_Telefono.getWidth();
@@ -366,7 +434,15 @@ public class NHM extends JFrame {
         final JTextField texto_Representante_Telefono = Elementos.crearJTextField(fila_x + 35, 360, 100, 20, "", true);
         fila_x += texto_Representante_Telefono.getWidth();
         Panel1.add(texto_Representante_Telefono);
-
+        texto_Representante_Telefono.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
         // Antecedentes prenatales en menores de 12 años
         fila_x = 36;
         final JLabel label_CarnetPrenatal = Elementos.crearJLabel(fila_x, 470, 180, 20, "Carnet prenatal:", false);
@@ -397,6 +473,15 @@ public class NHM extends JFrame {
         final JTextField texto_Hrs_fuera_de_casa = Elementos.crearJTextField(fila_x + 5, 500, 50, 20, "", true);
         fila_x += texto_Hrs_fuera_de_casa.getWidth();
         Panel1.add(texto_Hrs_fuera_de_casa);
+        texto_Hrs_fuera_de_casa.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_MadreFamilia = Elementos.crearJLabel(fila_x + 40, 500, 80, 20, "Madre:", false);
         fila_x += label_MadreFamilia.getWidth();
@@ -451,7 +536,7 @@ public class NHM extends JFrame {
                 "N~ Consultas prenatales:", false);
         fila_x += NConsultasPrenatales.getWidth();
         Panel1.add(NConsultasPrenatales);
-
+        
         final JComboBox<String> combo_NConsultasPrenatales = new JComboBox<String>(new String[] { "Si", "No" });
         combo_NConsultasPrenatales.setBounds(fila_x + 5, 590, 40, 20);
         fila_x += combo_NConsultasPrenatales.getWidth();
@@ -692,6 +777,15 @@ public class NHM extends JFrame {
         final JTextField text_Edad_Gestacion = Elementos.crearJTextField(fila_x2 + 5, 65, 50, 20, "", true);
         fila_x2 += text_Edad_Gestacion.getWidth();
         Panel2.add(text_Edad_Gestacion);
+        text_Edad_Gestacion.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_sem = Elementos.crearJLabel(fila_x2 + 10, 65, 80, 20, "Semanas:", false);
         fila_x2 += label_sem.getWidth();
@@ -700,7 +794,16 @@ public class NHM extends JFrame {
         final JTextField text_sem = Elementos.crearJTextField(fila_x2 + 15, 65, 50, 20, "", true);
         fila_x2 += text_sem.getWidth();
         Panel2.add(text_sem);
-
+        text_sem.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
+        
         fila_x2 = 36;
         final JLabel label_Forces = Elementos.crearJLabel(fila_x2, 95, 65, 20, "Forces:", false);
         fila_x2 += label_Forces.getWidth();
@@ -736,6 +839,15 @@ public class NHM extends JFrame {
         final JTextField text_Peso_al_nacer = Elementos.crearJTextField(fila_x2 + 95, 95, 50, 20, "", true);
         fila_x2 += text_Peso_al_nacer.getWidth();
         Panel2.add(text_Peso_al_nacer);
+        text_Peso_al_nacer.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_Peso_Al_Nacer_gr = Elementos.crearJLabel(fila_x2 + 100, 95, 20, 20, "gr", false);
         fila_x2 += label_Peso_Al_Nacer_gr.getWidth();
@@ -748,6 +860,15 @@ public class NHM extends JFrame {
         final JTextField text_Talla = Elementos.crearJTextField(fila_x2 + 120, 95, 50, 20, "", true);
         fila_x2 += text_Talla.getWidth();
         Panel2.add(text_Talla);
+        text_Talla.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_Talla_cm = Elementos.crearJLabel(fila_x2 + 125, 95, 20, 20, "cm", false);
         fila_x2 += label_Talla_cm.getWidth();
@@ -762,6 +883,15 @@ public class NHM extends JFrame {
         final JTextField text_Circunferencia = Elementos.crearJTextField(fila_x2 + 150, 95, 50, 20, "", true);
         fila_x2 += text_Circunferencia.getWidth();
         Panel2.add(text_Circunferencia);
+        text_Circunferencia.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_Circunferencia_cm = Elementos.crearJLabel(fila_x2 + 155, 95, 20, 20, "cm", false);
         fila_x2 += label_Circunferencia_cm.getWidth();
@@ -776,6 +906,16 @@ public class NHM extends JFrame {
         final JTextField text_ApgarMin = Elementos.crearJTextField(fila_x2 + 5, 125, 80, 20, "", true);
         fila_x2 += text_ApgarMin.getWidth();
         Panel2.add(text_ApgarMin);
+        text_ApgarMin.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
+
 
         final JLabel label_Asfixia = Elementos.crearJLabel(fila_x2 + 35, 125, 60, 25, "Asfixia:", false);
         fila_x2 += label_Asfixia.getWidth();
@@ -1225,7 +1365,7 @@ public class NHM extends JFrame {
 
         fila_x3 = 36;
         fila_y3 = 80;
-        final JLabel label_Ciclo_menstrual = Elementos.crearJLabel(fila_x3, fila_y3, 120, 20, "Cliclo menstrual:",
+        final JLabel label_Ciclo_menstrual = Elementos.crearJLabel(fila_x3, fila_y3, 120, 20, "Ciclo menstrual:",
                 false);
         fila_x3 += label_Ciclo_menstrual.getWidth();
         Panel3.add(label_Ciclo_menstrual);
@@ -1264,6 +1404,16 @@ public class NHM extends JFrame {
         final JTextField texto_N_Parejas = Elementos.crearJTextField(fila_x3, fila_y3, 50, 20, "", true);
         fila_x3 += texto_N_Parejas.getWidth();
         Panel3.add(texto_N_Parejas);
+        texto_N_Parejas.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
+
 
         fila_x3 = 36;
         fila_y3 = 200;
@@ -1297,7 +1447,7 @@ public class NHM extends JFrame {
 
         fila_x3 = 280;
         fila_y3 = 110;
-        final JLabel label_Menopausia = Elementos.crearJLabel(fila_x3, fila_y3, 120, 20, "Menospausia:", false);
+        final JLabel label_Menopausia = Elementos.crearJLabel(fila_x3, fila_y3, 120, 20, "Menopausia:", false);
         fila_x3 += label_Menopausia.getWidth();
         Panel3.add(label_Menopausia);
 
@@ -1401,6 +1551,15 @@ public class NHM extends JFrame {
         final JTextField texto_N_de_Hijos = Elementos.crearJTextField(fila_x3, fila_y3, 50, 20, "", true);
         fila_x3 += texto_N_de_Hijos.getWidth();
         Panel3.add(texto_N_de_Hijos);
+        texto_N_de_Hijos.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         fila_x3 = 700;
         fila_y3 = 110;
@@ -1431,6 +1590,15 @@ public class NHM extends JFrame {
         final JTextField text_RN_de_mayor_peso = Elementos.crearJTextField(fila_x3, fila_y3, 50, 20, "", true);
         fila_x3 += text_RN_de_mayor_peso.getWidth();
         Panel3.add(text_RN_de_mayor_peso);
+        text_RN_de_mayor_peso.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_RN_de_mayor_peso_gr = Elementos.crearJLabel(fila_x3 + 10, fila_y3, 20, 20, "gr:", false);
         fila_x3 += label_RN_de_mayor_peso_gr.getWidth();
@@ -1709,15 +1877,15 @@ public class NHM extends JFrame {
         // Cuarta fila - abajo
         fila_x3 = 750;
         fila_y3 = 270;
-        final JLabel label_Interv_Quirugica = Elementos.crearJLabel(fila_x3, fila_y3, 130, 20, "Interv. Quirugica:",
+        final JLabel label_Interv_Quirurgica = Elementos.crearJLabel(fila_x3, fila_y3, 130, 20, "Interv. Quirurgica:",
                 false);
-        fila_x3 += label_Interv_Quirugica.getWidth();
-        Panel3.add(label_Interv_Quirugica);
+        fila_x3 += label_Interv_Quirurgica.getWidth();
+        Panel3.add(label_Interv_Quirurgica);
 
-        final JComboBox<String> combo_Interv_Quirugica = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Interv_Quirugica.setBounds(fila_x3, fila_y3, 50, 20);
-        fila_x3 += combo_Interv_Quirugica.getWidth();
-        Panel3.add(combo_Interv_Quirugica);
+        final JComboBox<String> combo_Interv_Quirurgica = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Interv_Quirurgica.setBounds(fila_x3, fila_y3, 50, 20);
+        fila_x3 += combo_Interv_Quirurgica.getWidth();
+        Panel3.add(combo_Interv_Quirurgica);
 
         fila_x3 = 750;
         fila_y3 = 300;
@@ -1821,14 +1989,14 @@ public class NHM extends JFrame {
 
         fila_x3 = 36;
         fila_y3 = 630;
-        final JLabel label_Deoirtes = Elementos.crearJLabel(fila_x3, fila_y3, 100, 20, "Deoirtes:", false);
-        fila_x3 += label_Deoirtes.getWidth();
-        Panel3.add(label_Deoirtes);
+        final JLabel label_Deporte = Elementos.crearJLabel(fila_x3, fila_y3, 100, 20, "Deporte:", false);
+        fila_x3 += label_Deporte.getWidth();
+        Panel3.add(label_Deporte);
 
-        final JComboBox<String> combo_Deoirtes = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Deoirtes.setBounds(fila_x3, fila_y3, 50, 20);
-        fila_x3 += combo_Deoirtes.getWidth();
-        Panel3.add(combo_Deoirtes);
+        final JComboBox<String> combo_Deporte = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Deporte.setBounds(fila_x3, fila_y3, 50, 20);
+        fila_x3 += combo_Deporte.getWidth();
+        Panel3.add(combo_Deporte);
 
         // segunda fila - Factores de riesgo
         fila_x3 = 280;
@@ -1900,14 +2068,14 @@ public class NHM extends JFrame {
 
         fila_x3 = 500;
         fila_y3 = 600;
-        final JLabel label_Stres = Elementos.crearJLabel(fila_x3, fila_y3, 100, 20, "Stres:", false);
-        fila_x3 += label_Stres.getWidth();
-        Panel3.add(label_Stres);
+        final JLabel label_Estres = Elementos.crearJLabel(fila_x3, fila_y3, 100, 20, "Estres:", false);
+        fila_x3 += label_Estres.getWidth();
+        Panel3.add(label_Estres);
 
-        final JComboBox<String> combo_Stres = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Stres.setBounds(fila_x3, fila_y3, 50, 20);
-        fila_x3 += combo_Stres.getWidth();
-        Panel3.add(combo_Stres);
+        final JComboBox<String> combo_Estres = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_Estres.setBounds(fila_x3, fila_y3, 50, 20);
+        fila_x3 += combo_Estres.getWidth();
+        Panel3.add(combo_Estres);
 
         fila_x3 = 500;
         fila_y3 = 630;
@@ -1954,6 +2122,15 @@ public class NHM extends JFrame {
         final JTextField texto_NCigarrillos_diarios = Elementos.crearJTextField(fila_x3, fila_y3, 100, 20, "", true);
         fila_x3 += texto_NCigarrillos_diarios.getWidth();
         Panel3.add(texto_NCigarrillos_diarios);
+        texto_NCigarrillos_diarios.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         // Boton Volver
         final JLabel volverButton3 = new JLabel("VOLVER", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
@@ -2119,7 +2296,7 @@ public class NHM extends JFrame {
                         combo_Enf_Eruptivas,
                         combo_Dengue,
                         combo_Hospitalizacion,
-                        combo_Interv_Quirugica,
+                        combo_Interv_Quirurgica,
                         combo_Accidentes,
                         combo_Artritis2,
                         combo_Enf_TS,
@@ -2129,21 +2306,21 @@ public class NHM extends JFrame {
                         combo_Alcohol2,
                         combo_Drogas2,
                         combo_Insecticidas,
-                        combo_Deoirtes,
+                        combo_Deporte,
                         combo_Sedentarismo,
                         combo_Sueno,
                         combo_ChuparDedo,
                         combo_Onicofagia,
                         combo_Micciones,
                         combo_Evacuaciones,
-                        combo_Stres,
+                        combo_Estres,
                         combo_Metales_Pensados,
                         combo_Alimentacion,
                         combo_Fuma,
                         texto_NCigarrillos_diarios
                 };
 
-                String sql = "INSERT INTO datospersonales (apellido_familiar, ci_jefe_familia, Numero_de_Historia, ci_tipo, Ci_cedula, apellido, nombre, estadoCivil, Ocupacion, estudio, anosAprovados, Analfabeta, sexo, NDia, NMes, NaAno, LugarNacimento, Estado, Pais, Dirrecion, Telefono, Religion, Establecimiento, Municipio, Parroquia, Comunidad, Madre_N_A, Madre_Ocupacion, Padre_N_A, Padre_Ocupacion, Representante, Representante_N, Representante_tipo_ci, Representante_ci, Representante_Telefono, Carnet_prenatal, patologiaEmbarazo, patologiaParto, patologiaPuerperio, NConsultasPrenatales, Hrs_fuera_de_casa, MadreFamilia, PadreFamilia, HermanoFamilia, OtrosFamilia, Edad_Gestacional, sem, Forceps, Cesarea, Parto, ApgarMin, Reanimacion, EngresoRN, Exclusiva, Mixta, Ablactacion, Peso_al_nacer, Talla, Circunferencia, Asfixia, PatologiasRN, Alergia, Asma, TBC, Cardiopatia, Hipertension, Varice, Desnutricion, Diabetes, Obesidad, Gastropatia, Neurologiaca, Enf_Renal, Cancer, Alcohol, Drogas, Sifilis, SIDA, Artritis, otros_1, Padre, Madre, Hermanos, Otros_2, Menarquia, Cliclo_menstrual, PRSexual, FrecuenciaRSexual, N_Parejas, Dispareunia, Anticoncepcion, AC_DIU, Menospausia, Gesta, Partos, Cesarea2, Aborto, E1erparto, F_Uparto, F_UAborto, Curetaje, N_de_Hijos, Vivos, Muertos, RN_de_mayor_peso, Alergia2, Asma2, Neumonia, TBC2, Cardiopatia2, Hipertension2, Hiperlipidemias, Varices, Hepatopatia, Desnutricion2, Diabetes2, Obesidad2, Gastroenteritis, Encoprexis, Enf_Renal2, Enuresis, Cancer2, Tromboembolica, Tumor_Mamario, Meningitis, TCraneoencefal, Enf_Eruptivas, Dengue, Hospitalizacion, Interv_Quirugica, Accidentes, Artritis2, Enf_TS, Enf_Infec_Tran, Enf_Laboral, Otros_3, Alcohol2, Drogas2, Insecticidas, Deoirtes, Sedentarismo, Sueno, ChuparDedo, Onicofagia, Micciones, Evacuaciones, Stres, Metales_Pensados, Alimentacion, Fuma, NCigarrillos_diarios)"
+                String sql = "INSERT INTO datospersonales (apellido_familiar, ci_jefe_familia, Numero_de_Historia, ci_tipo, Ci_cedula, apellido, nombre, estadoCivil, Ocupacion, estudio, anosAprobados, Analfabeta, sexo, NDia, NMes, NaAno, LugarNacimiento, Estado, Pais, Direccion, Telefono, Religion, Establecimiento, Municipio, Parroquia, Comunidad, Madre_N_A, Madre_Ocupacion, Padre_N_A, Padre_Ocupacion, Representante, Representante_N, Representante_tipo_ci, Representante_ci, Representante_Telefono, Carnet_prenatal, patologiaEmbarazo, patologiaParto, patologiaPuerperio, NConsultasPrenatales, Hrs_fuera_de_casa, MadreFamilia, PadreFamilia, HermanoFamilia, OtrosFamilia, Edad_Gestacional, sem, Forceps, Cesarea, Parto, ApgarMin, Reanimacion, EgresoRN, Exclusiva, Mixta, Ablactacion, Peso_al_nacer, Talla, Circunferencia, Asfixia, PatologiasRN, Alergia, Asma, TBC, Cardiopatia, Hipertension, Varice, Desnutricion, Diabetes, Obesidad, Gastropatia, Neurologica, Enf_Renal, Cancer, Alcohol, Drogas, Sifilis, SIDA, Artritis, otros_1, Padre, Madre, Hermanos, Otros_2, Menarquia, Ciclo_menstrual, PRSexual, FrecuenciaRSexual, N_Parejas, Dispareunia, Anticoncepcion, AC_DIU, Menopausia, Gesta, Partos, Cesarea2, Aborto, E1erparto, F_Uparto, F_UAborto, Curetaje, N_de_Hijos, Vivos, Muertos, RN_de_mayor_peso, Alergia2, Asma2, Neumonia, TBC2, Cardiopatia2, Hipertension2, Hiperlipidemias, Varices, Hepatopatia, Desnutricion2, Diabetes2, Obesidad2, Gastroenteritis, Encoprexis, Enf_Renal2, Enuresis, Cancer2, Tromboembolica, Tumor_Mamario, Meningitis, TCraneoencefal, Enf_Eruptivas, Dengue, Hospitalizacion, Interv_Quirurgica, Accidentes, Artritis2, Enf_TS, Enf_Infec_Tran, Enf_Laboral, Otros_3, Alcohol2, Drogas2, Insecticidas, Deportes, Sedentarismo, Sueno, ChuparDedo, Onicofagia, Micciones, Evacuaciones, Estres, Metales_Pensados, Alimentacion, Fuma, NCigarrillos_diarios)"
                         +
                         "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -2170,10 +2347,10 @@ public class NHM extends JFrame {
                     statement.executeUpdate();
                     new Menu().setVisible(true);
                     dispose();
-                    JOptionPane.showMessageDialog(null, "Se a guardado con exito", "Completado",
+                    JOptionPane.showMessageDialog(null, "Se a guardado con éxito", "Completado",
                             JOptionPane.INFORMATION_MESSAGE, null);
                 } catch (SQLException e1) {
-                    JOptionPane.showMessageDialog(null, "Se a producido un error /n" + "Codigo de error:" + e1, "ERROR",
+                    JOptionPane.showMessageDialog(null, "Se a producido un error \n" + "Código de error:" + e1, "ERROR",
                             JOptionPane.ERROR_MESSAGE, null);
                     e1.printStackTrace();
                 }
@@ -2326,7 +2503,7 @@ public class NHM extends JFrame {
                     label_Enf_Eruptivas,
                     label_Dengue,
                     label_Hospitalizacion,
-                    label_Interv_Quirugica,
+                    label_Interv_Quirurgica,
                     label_Accidentes,
                     label_Artritis2,
                     label_Enf_TS,
@@ -2336,14 +2513,14 @@ public class NHM extends JFrame {
                     label_Alcohol2,
                     label_Drogas2,
                     label_Insecticidas,
-                    label_Deoirtes,
+                    label_Deporte,
                     label_Sedentarismo,
                     label_Sueno,
                     label_ChuparDedo,
                     label_Onicofagia,
                     label_Micciones,
                     label_Evacuaciones,
-                    label_Stres,
+                    label_Estres,
                     label_Metales_Pensados,
                     label_Alimentacion,
                     label_Fuma,
@@ -2360,12 +2537,12 @@ public class NHM extends JFrame {
         contentPanel.add(Panel3, "panel3");
 
         setContentPane(contentPanel);
-        // Cambiar el color de las letras dependiento del tema
+        // Cambiar el color de las letras dependiendo del tema
 
     }
 
     public static void main(String[] args) {
-        // Ejecutar la aplicación en el subproceso de la interfaz gráfica
+        // Ejecutar la aplicación en el subprocess de la interfaz gráfica
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

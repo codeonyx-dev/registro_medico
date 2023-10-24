@@ -2,6 +2,8 @@ package com.usd89.registro;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
@@ -10,10 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 import com.usd89.DatabaseConnection.Conexion;
 
 public class GestionUsuarios extends JFrame {
@@ -113,6 +113,15 @@ public class GestionUsuarios extends JFrame {
                 cedulaField.setBackground(Color.white);
             }
         });
+        cedulaField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JTextField telefonofield = Elementos.crearJTextField(14, 255, 260, 29, "", true);
         Panel.add(telefonofield);
@@ -121,20 +130,29 @@ public class GestionUsuarios extends JFrame {
                 telefonofield.setBackground(Color.white);
             }
         });
-
-        final JTextField usuariofield = Elementos.crearJTextField(14, 325, 260, 29, "", true);
-        Panel.add(usuariofield);
-        usuariofield.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                usuariofield.setBackground(Color.white);
+        telefonofield.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
             }
         });
 
-        final JTextField contrasenafield = Elementos.crearJTextField(14, 387, 260, 29,"", true);
-        Panel.add(contrasenafield);
-        contrasenafield.addMouseListener(new MouseAdapter() {
+        final JTextField usuarioField = Elementos.crearJTextField(14, 325, 260, 29, "", true);
+        Panel.add(usuarioField);
+        usuarioField.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                contrasenafield.setBackground(Color.white);
+                usuarioField.setBackground(Color.white);
+            }
+        });
+
+        final JTextField contrasenaField = Elementos.crearJTextField(14, 387, 260, 29, "", true);
+        Panel.add(contrasenaField);
+        contrasenaField.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                contrasenaField.setBackground(Color.white);
             }
         });
 
@@ -161,8 +179,8 @@ public class GestionUsuarios extends JFrame {
                         apellidoField.setText(resultSet.getString("Apellido"));
                         cedulaField.setText(resultSet.getString("cedula"));
                         telefonofield.setText(resultSet.getString("telefono"));
-                        usuariofield.setText(resultSet.getString("nombre_usuario"));
-                        contrasenafield.setText(resultSet.getString("contrasena"));
+                        usuarioField.setText(resultSet.getString("nombre_usuario"));
+                        contrasenaField.setText(resultSet.getString("contrasena"));
                     }
                     conexion.close();
                 } catch (Exception ex) {
@@ -208,20 +226,20 @@ public class GestionUsuarios extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 int comprobar = 0;
                 nombreField.setBackground(
-                        usuariofield.getText().isEmpty() ? new Color(255, 102, 102) : new Color(255, 255, 255));
+                        usuarioField.getText().isEmpty() ? new Color(255, 102, 102) : new Color(255, 255, 255));
                 comprobar += nombreField.getText().isEmpty() ? 1 : 0;
                 apellidoField.setBackground(
-                        usuariofield.getText().isEmpty() ? new Color(255, 102, 102) : new Color(255, 255, 255));
+                        usuarioField.getText().isEmpty() ? new Color(255, 102, 102) : new Color(255, 255, 255));
                 comprobar += apellidoField.getText().isEmpty() ? 1 : 0;
                 cedulaField.setBackground(
-                        usuariofield.getText().isEmpty() ? new Color(255, 102, 102) : new Color(255, 255, 255));
+                        usuarioField.getText().isEmpty() ? new Color(255, 102, 102) : new Color(255, 255, 255));
                 comprobar += cedulaField.getText().isEmpty() ? 1 : 0;
-                usuariofield.setBackground(
-                        usuariofield.getText().isEmpty() ? new Color(255, 102, 102) : new Color(255, 255, 255));
-                comprobar += usuariofield.getText().isEmpty() ? 1 : 0;
-                contrasenafield.setBackground(
-                        usuariofield.getText().isEmpty() ? new Color(255, 102, 102) : new Color(255, 255, 255));
-                comprobar += contrasenafield.getText().isEmpty() ? 1 : 0;
+                usuarioField.setBackground(
+                        usuarioField.getText().isEmpty() ? new Color(255, 102, 102) : new Color(255, 255, 255));
+                comprobar += usuarioField.getText().isEmpty() ? 1 : 0;
+                contrasenaField.setBackground(
+                        usuarioField.getText().isEmpty() ? new Color(255, 102, 102) : new Color(255, 255, 255));
+                comprobar += contrasenaField.getText().isEmpty() ? 1 : 0;
 
                 if (comprobar == 0) {
                     String[] privilegios = { "lectura", "modificacion", "administrador" };
@@ -233,7 +251,7 @@ public class GestionUsuarios extends JFrame {
                         try {
                             String sql2 = "SELECT nombre_usuario FROM usuarios WHERE  nombre_usuario = ?";
                             PreparedStatement consultaStatement2 = conexion.prepareStatement(sql2);
-                            consultaStatement2.setString(1, usuariofield.getText().toString());
+                            consultaStatement2.setString(1, usuarioField.getText().toString());
                             ResultSet resultado2 = consultaStatement2.executeQuery();
                             // Si la cedula esta repetida
                             String sql1 = "SELECT cedula FROM usuarios WHERE cedula = ?";
@@ -251,8 +269,8 @@ public class GestionUsuarios extends JFrame {
                                 try {
                                     conexion.prepareStatement(sql);
                                     PreparedStatement consultaStatement = conexion.prepareStatement(sql);
-                                    consultaStatement.setString(1, usuariofield.getText().toString().toLowerCase());
-                                    consultaStatement.setString(2, contrasenafield.getText().toString());
+                                    consultaStatement.setString(1, usuarioField.getText().toString().toLowerCase());
+                                    consultaStatement.setString(2, contrasenaField.getText().toString());
                                     consultaStatement.setString(3, nombreField.getText().toString());
                                     consultaStatement.setString(4, apellidoField.getText().toString());
                                     consultaStatement.setString(5, cedulaField.getText().toString());
@@ -352,7 +370,7 @@ public class GestionUsuarios extends JFrame {
                 try {
                     String sql = "UPDATE usuarios SET contrasena=?, Nombre=?, Apellido=?, telefono=? WHERE id=?";
                     PreparedStatement consultasStatement = conexion.prepareStatement(sql);
-                    consultasStatement.setString(1, contrasenafield.getText());
+                    consultasStatement.setString(1, contrasenaField.getText());
                     consultasStatement.setString(2, nombreField.getText());
                     consultasStatement.setString(3, apellidoField.getText());
                     consultasStatement.setString(4, telefonofield.getText());
@@ -361,7 +379,8 @@ public class GestionUsuarios extends JFrame {
                     int filaActualizada = consultasStatement.executeUpdate();
 
                     if (filaActualizada > 0) {
-                        JOptionPane.showMessageDialog(null,"Se ha actualizado los datos del Usuario con la cedula " + cedulaField.getText());
+                        JOptionPane.showMessageDialog(null,
+                                "Se ha actualizado los datos del Usuario con la cedula " + cedulaField.getText());
                     } else {
                         System.out.println("No se encontró ningún cliente con ID " + id);
                     }

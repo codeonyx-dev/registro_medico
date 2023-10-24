@@ -115,8 +115,8 @@ public class Menu extends JFrame {
 
         usButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                GestionUsuarios gestion = new GestionUsuarios();
-                gestion.setVisible(true);
+                GestionUsuarios Gestion = new GestionUsuarios();
+                Gestion.setVisible(true);
                 dispose();
             }
 
@@ -137,7 +137,7 @@ public class Menu extends JFrame {
         }
 
         // Botón Cerrar sesión
-        final JLabel csButton = new JLabel("CERRAR SESION", Elementos.botonImagen(Inicio.Tema,"pequeno.0"), SwingConstants.CENTER);
+        final JLabel csButton = new JLabel("CERRAR SESIÓN", Elementos.botonImagen(Inicio.Tema,"pequeno.0"), SwingConstants.CENTER);
         csButton.setBounds(280, 350, 280, 67);
         csButton.setFont(new Font("Roboto Black", 1, 22));
         csButton.setForeground(Elementos.colores(Inicio.Tema));
@@ -147,7 +147,12 @@ public class Menu extends JFrame {
 
         csButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-
+                Inicio.nivel_acceso="lectura";
+                Inicio.Usuario.setText("");
+                Inicio.Contraseña.setText("");
+                dispose();
+                new Inicio().setVisible(true);
+                
             }
 
             public void mouseEntered(MouseEvent e) {
