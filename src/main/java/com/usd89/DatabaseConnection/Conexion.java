@@ -1,9 +1,8 @@
 package com.usd89.DatabaseConnection;
 
-
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+import javax.swing.JOptionPane;
 import java.sql.Connection;
 
 public class Conexion {
@@ -15,7 +14,7 @@ public class Conexion {
             String contrasena = "";
             conexion = (Connection) DriverManager.getConnection(url, usuario, contrasena);
         } catch (SQLException ex) {
-            System.out.println("Error al conectar con la base de datos: " + ex.getMessage());
+        JOptionPane.showMessageDialog(null, "Se a producido un error \n"+"Codigo de error: "+ex.getMessage(), "ERROR",JOptionPane.ERROR_MESSAGE, null);
         }
         return conexion;
     }
