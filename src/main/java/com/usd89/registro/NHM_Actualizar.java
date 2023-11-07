@@ -2504,12 +2504,13 @@ public class NHM_Actualizar extends JFrame {
                     // antecedentes perinatales en menores de 12 años
                     Paragraph Line10 = new Paragraph("Antecedentes perinatales en menores de 12 años\n\n");
                     document.add(Line10);
-                    
+
                     // Crea una tabla con 3 columnas
                     PdfPTable table = new PdfPTable(3);
 
                     // Crea y agrega celdas a la tabla
-                    PdfPCell cell1 = new PdfPCell(new Paragraph("Carnet prenatal: " + combo_Carnet_prenatal.getSelectedItem()));
+                    PdfPCell cell1 = new PdfPCell(
+                            new Paragraph("Carnet prenatal: " + combo_Carnet_prenatal.getSelectedItem()));
                     PdfPCell cell2 = new PdfPCell(new Paragraph("Madre"));
                     PdfPCell cell3 = new PdfPCell(new Paragraph("Familia"));
 
@@ -2517,36 +2518,41 @@ public class NHM_Actualizar extends JFrame {
                     table.addCell(cell2);
                     table.addCell(cell3);
                     // Agrega más celdas a la tabla
-                    PdfPCell cell4 = new PdfPCell(new Paragraph("Patologia embarazo: " + combo_patologiaEmbarazo.getSelectedItem()));
-                    PdfPCell cell5 = new PdfPCell(new Paragraph("Hrs fuera de casa: " + texto_Hrs_fuera_de_casa.getText()));
-                    PdfPCell cell6 = new PdfPCell(new Paragraph("Madre: "+ combo_MadreFamilia.getSelectedItem()));
+                    PdfPCell cell4 = new PdfPCell(
+                            new Paragraph("Patologia embarazo: " + combo_patologiaEmbarazo.getSelectedItem()));
+                    PdfPCell cell5 = new PdfPCell(
+                            new Paragraph("Hrs fuera de casa: " + texto_Hrs_fuera_de_casa.getText()));
+                    PdfPCell cell6 = new PdfPCell(new Paragraph("Madre: " + combo_MadreFamilia.getSelectedItem()));
 
                     table.addCell(cell4);
                     table.addCell(cell5);
                     table.addCell(cell6);
 
-                     // Agrega más celdas a la tabla
-                    PdfPCell cell7 = new PdfPCell(new Paragraph("Patologia parto:" + combo_patologiaParto.getSelectedItem()));
+                    // Agrega más celdas a la tabla
+                    PdfPCell cell7 = new PdfPCell(
+                            new Paragraph("Patologia parto:" + combo_patologiaParto.getSelectedItem()));
                     PdfPCell cell8 = new PdfPCell(new Paragraph());
-                    PdfPCell cell9 = new PdfPCell(new Paragraph("Padre: "+ combo_PadreFamilia.getSelectedItem()));
+                    PdfPCell cell9 = new PdfPCell(new Paragraph("Padre: " + combo_PadreFamilia.getSelectedItem()));
 
                     table.addCell(cell7);
                     table.addCell(cell8);
                     table.addCell(cell9);
 
-                     // Agrega más celdas a la tabla
-                    PdfPCell cell10 = new PdfPCell(new Paragraph("Patologia puerperio:" + combo_patologiaParto.getSelectedItem()));
+                    // Agrega más celdas a la tabla
+                    PdfPCell cell10 = new PdfPCell(
+                            new Paragraph("Patologia puerperio:" + combo_patologiaParto.getSelectedItem()));
                     PdfPCell cell11 = new PdfPCell(new Paragraph());
-                    PdfPCell cell12 = new PdfPCell(new Paragraph("Hermano: "+ combo_HermanoFamilia.getSelectedItem()));
+                    PdfPCell cell12 = new PdfPCell(new Paragraph("Hermano: " + combo_HermanoFamilia.getSelectedItem()));
 
                     table.addCell(cell10);
                     table.addCell(cell11);
                     table.addCell(cell12);
 
-                     // Agrega más celdas a la tabla
-                    PdfPCell cell13 = new PdfPCell(new Paragraph("N~ Consultas prenatales:" + combo_patologiaParto.getSelectedItem()));
+                    // Agrega más celdas a la tabla
+                    PdfPCell cell13 = new PdfPCell(
+                            new Paragraph("N~ Consultas prenatales:" + combo_patologiaParto.getSelectedItem()));
                     PdfPCell cell14 = new PdfPCell(new Paragraph());
-                    PdfPCell cell15 = new PdfPCell(new Paragraph("Otros: "+ text_OtrosFamilia.getText()));
+                    PdfPCell cell15 = new PdfPCell(new Paragraph("Otros: " + text_OtrosFamilia.getText()));
 
                     table.addCell(cell13);
                     table.addCell(cell14);
@@ -2556,30 +2562,32 @@ public class NHM_Actualizar extends JFrame {
                     Paragraph Line11 = new Paragraph("");
                     document.add(Line11);
 
-                     // Crea una tabla con 5 columnas
+                    // Crea una tabla con 5 columnas
                     PdfPTable table2 = new PdfPTable(2);
 
                     // Crea y agrega celdas a la tabla
-                    PdfPCell cell2_1 = new PdfPCell(new Paragraph("Edad Gestacional: " + text_Edad_Gestacion.getText()));
+                    PdfPCell cell2_1 = new PdfPCell(
+                            new Paragraph("Edad Gestacional: " + text_Edad_Gestacion.getText()));
                     PdfPCell cell2_2 = new PdfPCell(new Paragraph("Semanas: " + text_sem.getText()));
 
                     table2.addCell(cell2_1);
                     table2.addCell(cell2_2);
 
                     PdfPCell cell2_3 = new PdfPCell(new Paragraph("Forceps: " + combo_Forces.getSelectedItem()));
-                    PdfPCell cell2_4 = new PdfPCell(new Paragraph("Peso al nacer: " + text_Peso_al_nacer.getText()+ " gr"));
+                    PdfPCell cell2_4 = new PdfPCell(
+                            new Paragraph("Peso al nacer: " + text_Peso_al_nacer.getText() + " gr"));
 
                     table2.addCell(cell2_3);
                     table2.addCell(cell2_4);
 
                     PdfPCell cell2_5 = new PdfPCell(new Paragraph("Cesarea: " + combo_Cesarea.getSelectedItem()));
-                    PdfPCell cell2_6 = new PdfPCell(new Paragraph("Talla: " + text_Talla.getText()+ " cm"));
+                    PdfPCell cell2_6 = new PdfPCell(new Paragraph("Talla: " + text_Talla.getText() + " cm"));
 
                     table2.addCell(cell2_5);
                     table2.addCell(cell2_6);
 
                     PdfPCell cell2_7 = new PdfPCell(new Paragraph("Parto: " + combo_Parto.getSelectedItem()));
-                    PdfPCell cell2_8 = new PdfPCell(new Paragraph("Talla: " + text_Circunferencia.getText()+ " cm"));
+                    PdfPCell cell2_8 = new PdfPCell(new Paragraph("Talla: " + text_Circunferencia.getText() + " cm"));
 
                     table2.addCell(cell2_7);
                     table2.addCell(cell2_8);
@@ -2590,8 +2598,10 @@ public class NHM_Actualizar extends JFrame {
                     table2.addCell(cell2_9);
                     table2.addCell(cell2_10);
 
-                    PdfPCell cell2_11 = new PdfPCell(new Paragraph("Reanimacion: " + combo_Reanimacion.getSelectedItem()));
-                    PdfPCell cell2_12 = new PdfPCell(new Paragraph("Patologias RN: " + combo_PatologiasRN.getSelectedItem()));
+                    PdfPCell cell2_11 = new PdfPCell(
+                            new Paragraph("Reanimacion: " + combo_Reanimacion.getSelectedItem()));
+                    PdfPCell cell2_12 = new PdfPCell(
+                            new Paragraph("Patologias RN: " + combo_PatologiasRN.getSelectedItem()));
 
                     table2.addCell(cell2_11);
                     table2.addCell(cell2_12);
@@ -2603,17 +2613,20 @@ public class NHM_Actualizar extends JFrame {
 
                     PdfPCell cell2_13 = new PdfPCell(new Paragraph("Egreso RN: " + combo_EgresoRN.getSelectedItem()));
                     table3.addCell(cell2_13);
-                    PdfPCell cell2_14 = new PdfPCell(new Paragraph("Lactancia: " + "Exclusiva: "+ text_Exclusiva.getText()+" m "+ "Mixta: "+text_Mixta.getText()+" m "+ "Ablactacion: "+text_Ablactacion.getText()+" m " ));
+                    PdfPCell cell2_14 = new PdfPCell(new Paragraph("Lactancia: " + "Exclusiva: "
+                            + text_Exclusiva.getText() + " m " + "Mixta: " + text_Mixta.getText() + " m "
+                            + "Ablactacion: " + text_Ablactacion.getText() + " m "));
                     table3.addCell(cell2_14);
                     // Agrega la tabla al documento
                     document.add(table3);
-                    
+
                     Paragraph Linea11 = new Paragraph("Antecedentes Familiares y otros contactos\n\n");
                     document.add(Linea11);
 
                     PdfPTable table4 = new PdfPTable(4);
                     PdfPCell cell2_15 = new PdfPCell(new Paragraph("Alergia: " + combo_Alergia.getSelectedItem()));
-                    PdfPCell cell2_16 = new PdfPCell(new Paragraph("Desnutricion: " + combo_Desnutricion.getSelectedItem()));
+                    PdfPCell cell2_16 = new PdfPCell(
+                            new Paragraph("Desnutricion: " + combo_Desnutricion.getSelectedItem()));
                     PdfPCell cell2_17 = new PdfPCell(new Paragraph("Cancer: " + combo_Cancer.getSelectedItem()));
                     PdfPCell cell2_18 = new PdfPCell(new Paragraph("Otros: " + combo_Otros.getSelectedItem()));
 
@@ -2631,7 +2644,6 @@ public class NHM_Actualizar extends JFrame {
                     table4.addCell(cell2_21);
                     table4.addCell(cell2_22);
 
-
                     PdfPCell cell2_23 = new PdfPCell(new Paragraph("T.B.C: " + combo_TBC.getSelectedItem()));
                     PdfPCell cell2_24 = new PdfPCell(new Paragraph("Obesidad: " + combo_Obesidad.getSelectedItem()));
                     PdfPCell cell2_25 = new PdfPCell(new Paragraph("Drogas: " + combo_Drogas.getSelectedItem()));
@@ -2641,18 +2653,22 @@ public class NHM_Actualizar extends JFrame {
                     table4.addCell(cell2_25);
                     table4.addCell(cell2_26);
 
-                    PdfPCell cell2_27 = new PdfPCell(new Paragraph("Cardiopatia: " + combo_Cardiopatia.getSelectedItem()));
-                    PdfPCell cell2_28 = new PdfPCell(new Paragraph("Gastropatia: " + combo_Gastropatia.getSelectedItem()));
+                    PdfPCell cell2_27 = new PdfPCell(
+                            new Paragraph("Cardiopatia: " + combo_Cardiopatia.getSelectedItem()));
+                    PdfPCell cell2_28 = new PdfPCell(
+                            new Paragraph("Gastropatia: " + combo_Gastropatia.getSelectedItem()));
                     PdfPCell cell2_29 = new PdfPCell(new Paragraph("Sifilis: " + combo_Sífilis.getSelectedItem()));
-                    PdfPCell cell2_30 = new PdfPCell(new Paragraph("Hermanos(as): " + combo_Hermanos.getSelectedItem()));
+                    PdfPCell cell2_30 = new PdfPCell(
+                            new Paragraph("Hermanos(as): " + combo_Hermanos.getSelectedItem()));
                     table4.addCell(cell2_27);
                     table4.addCell(cell2_28);
                     table4.addCell(cell2_29);
                     table4.addCell(cell2_30);
 
-                    
-                    PdfPCell cell2_31 = new PdfPCell(new Paragraph("Hipertension: " + combo_Hipertension.getSelectedItem()));
-                    PdfPCell cell2_32 = new PdfPCell(new Paragraph("Neurologica: " + combo_Neurologica.getSelectedItem()));
+                    PdfPCell cell2_31 = new PdfPCell(
+                            new Paragraph("Hipertension: " + combo_Hipertension.getSelectedItem()));
+                    PdfPCell cell2_32 = new PdfPCell(
+                            new Paragraph("Neurologica: " + combo_Neurologica.getSelectedItem()));
                     PdfPCell cell2_33 = new PdfPCell(new Paragraph("SIDA: " + combo_SIDA.getSelectedItem()));
                     PdfPCell cell2_34 = new PdfPCell(new Paragraph("Otros: " + combo_otros.getSelectedItem()));
                     table4.addCell(cell2_31);
