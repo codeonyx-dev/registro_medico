@@ -343,7 +343,6 @@ public class GestionUsuarios extends JFrame {
                 } catch (SQLException ex) {
                     System.out.println(ex);
                 } finally {
-                    Conexion.close();
                 }
             }
 

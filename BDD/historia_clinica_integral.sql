@@ -214,10 +214,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre_usuario`, `contrasena`, `nivel_acceso`, `Nombre`, `Apellido`, `cedula`, `telefono`) VALUES
-(1, 'usuario1', 'contrasena1', 'lectura', 'Yuranyd', 'Caldera', '31340422', '04126533814'),
 (2, 'usuario2', 'contrasena2', 'modificacion', 'Reimond', 'Caldera', '5713593', '04126559653'),
 (3, 'admin', 'contrasena3', 'administrador', 'Raimond', 'Caldera', '11455950', '04126854641'),
-(4, 'codeonyx', '31340422', 'administrador', 'Raimon', 'Caldera', '605', '04124595473');
 
 --
 -- Índices para tablas volcadas

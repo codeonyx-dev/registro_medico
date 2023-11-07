@@ -77,10 +77,8 @@ public class Inicio extends JFrame {
           } catch (SQLException eve) {
             eve.printStackTrace();
           }
-
         }
       }
-
     });
 
     Usuario = Elementos.crearJTextField(79, 155, 250, 25, "", true);
@@ -184,7 +182,6 @@ public class Inicio extends JFrame {
             System.out.println(ex);
           }
         } else {
-          JOptionPane.showMessageDialog(null, "Error al conectar la base de datos", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
 
       }
