@@ -4,14 +4,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.usd89.DatabaseConnection.Conexion;
 
@@ -34,52 +31,6 @@ public class Inicio extends JFrame {
     Panel.setLayout(null);
     Panel.setBounds(0, 0, 400, 425);
     add(Panel);
-    // Campo de Usuario
-    JLabel BotonImportar = new JLabel("..");
-    BotonImportar.setFont(new Font("Arial", 2, 20));
-    BotonImportar.setForeground(Color.RED);
-    BotonImportar.setBounds(190, 390, 40, 40);
-    Panel.add(BotonImportar);
-
-    BotonImportar.addMouseListener(new MouseAdapter() {
-      public void mouseClicked(MouseEvent e) {
-        String rutaArchivo;
-        System.out.println(e.getClickCount());
-        if (e.getClickCount() == 3) {
-          String sql = "CREATE DATABASE IF NOT EXISTS historia_clinica_integral";
-          try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/", "root", "");
-            Statement stmt = con.createStatement();
-            stmt.execute(sql);
-            JFileChooser ch = new JFileChooser();
-            FileNameExtensionFilter fil = new FileNameExtensionFilter("SQL", "sql");
-            ch.setFileFilter(fil);
-            int se = ch.showOpenDialog(null);
-            if (se == JFileChooser.APPROVE_OPTION) {
-              String ruta = ch.getSelectedFile().getPath();
-              rutaArchivo = ruta;
-              if (!rutaArchivo.isEmpty()) {
-                String backus = "";
-                if (rutaArchivo.trim().length() != 0) {
-                  try {
-                    backus = "cmd /c C:/xampp/mysql/bin/mysql.exe -u " + "root" + " historia_clinica_integral" + " < "
-                        + rutaArchivo;
-                    Runtime rt = Runtime.getRuntime();
-                    rt.exec(backus);
-                    System.out.println(rutaArchivo);
-                    JOptionPane.showMessageDialog(null, "Backus Importado: " + rutaArchivo);
-                  } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage());
-                  }
-                }
-              }
-            }
-          } catch (SQLException eve) {
-            eve.printStackTrace();
-          }
-        }
-      }
-    });
 
     Usuario = Elementos.crearJTextField(79, 155, 250, 25, "", true);
     Usuario.setFont(new Font("Arial", 1, 14));
@@ -152,8 +103,9 @@ public class Inicio extends JFrame {
 
         // Validación de datos de usuario
         // Se conecta la bdd
-        if (Conexion.getConexion() != null) {
-          Connection conexion = Conexion.getConexion();
+        Connection conexion = Conexion.getConexion();
+        if (conexion != null) {
+          
           try {
             String sql = "SELECT * FROM usuarios WHERE nombre_usuario = ? AND contrasena = ?  ";
             // Crear la consulta
