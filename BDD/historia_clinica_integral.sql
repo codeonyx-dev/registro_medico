@@ -1,33 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.8.5
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 24-10-2023 a las 01:31:11
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 7.3.2
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de datos: `historia_clinica_integral`
---
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `datospersonales`
---
-
 CREATE TABLE `datospersonales` (
   `apellido_familiar` varchar(80) DEFAULT NULL,
   `ci_jefe_familia` varchar(80) DEFAULT NULL,
@@ -182,63 +152,8 @@ CREATE TABLE `datospersonales` (
   `NCigarrillos_diarios` varchar(80) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `datospersonales`
---
 
 INSERT INTO `datospersonales` (`apellido_familiar`, `ci_jefe_familia`, `Numero_de_Historia`, `ci_tipo`, `Ci_cedula`, `apellido`, `nombre`, `estadoCivil`, `Ocupacion`, `estudio`, `anosAprobados`, `Analfabeta`, `sexo`, `NDia`, `NMes`, `NaAno`, `LugarNacimiento`, `Estado`, `Pais`, `Direccion`, `Telefono`, `Religion`, `Establecimiento`, `Municipio`, `Parroquia`, `Comunidad`, `Madre_N_A`, `Madre_Ocupacion`, `Padre_N_A`, `Padre_Ocupacion`, `Representante`, `Representante_N`, `Representante_tipo_ci`, `Representante_ci`, `Representante_Telefono`, `Carnet_prenatal`, `patologiaEmbarazo`, `patologiaParto`, `patologiaPuerperio`, `NConsultasPrenatales`, `Hrs_fuera_de_casa`, `MadreFamilia`, `PadreFamilia`, `HermanoFamilia`, `OtrosFamilia`, `Edad_Gestacional`, `sem`, `Forceps`, `Cesarea`, `Parto`, `ApgarMin`, `Reanimacion`, `EgresoRN`, `Exclusiva`, `Mixta`, `Ablactacion`, `Peso_al_nacer`, `Talla`, `Circunferencia`, `Asfixia`, `PatologiasRN`, `Alergia`, `Asma`, `TBC`, `Cardiopatia`, `Hipertension`, `Varice`, `Desnutricion`, `Diabetes`, `Obesidad`, `Gastropatia`, `Neurologica`, `Enf_Renal`, `Cancer`, `Alcohol`, `Drogas`, `Sifilis`, `SIDA`, `Artritis`, `otros_1`, `Padre`, `Madre`, `Hermanos`, `Otros_2`, `Menarquia`, `Ciclo_menstrual`, `PRSexual`, `FrecuenciaRSexual`, `N_Parejas`, `Dispareunia`, `Anticoncepcion`, `AC_DIU`, `Menopausia`, `Gesta`, `Partos`, `Cesarea2`, `Aborto`, `E1erparto`, `F_Uparto`, `F_UAborto`, `Curetaje`, `N_de_Hijos`, `Vivos`, `Muertos`, `RN_de_mayor_peso`, `Alergia2`, `Asma2`, `Neumonia`, `TBC2`, `Cardiopatia2`, `Hipertension2`, `Hiperlipidemias`, `Varices`, `Hepatopatia`, `Desnutricion2`, `Diabetes2`, `Obesidad2`, `Gastroenteritis`, `Encoprexis`, `Enf_Renal2`, `Enuresis`, `Cancer2`, `Tromboembolica`, `Tumor_Mamario`, `Meningitis`, `TCraneoencefal`, `Enf_Eruptivas`, `Dengue`, `Hospitalizacion`, `Interv_Quirurgica`, `Accidentes`, `Artritis2`, `Enf_TS`, `Enf_Infec_Tran`, `Enf_Laboral`, `Otros_3`, `Alcohol2`, `Drogas2`, `Insecticidas`, `Deportes`, `Sedentarismo`, `Sueno`, `ChuparDedo`, `Onicofagia`, `Micciones`, `Evacuaciones`, `Estres`, `Metales_Pensados`, `Alimentacion`, `Fuma`, `NCigarrillos_diarios`) VALUES
-('Caldera', '465464', '8793', 'V', '31340422', 'Caldera', 'Raimond', 'S', '146', 'S', '46', 'Si', 'M', 'DD', 'MM4654', 'AA654', '6546', '5465', '46', '4654', '4654', '64', '61', '61', '616', '6', '16', '16', '16', '16', 'Padre', '61', 'V', '16', '161', 'Si', 'Si', 'Si', 'Si', 'Si', '', 'Si', 'Si', 'Si', '', '', '', 'Si', 'Si', 'Si', '', 'Si', 'Sanos', '', '', '', '', '', '', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', '', '', '', '', '', 'Si', 'Si', 'ACO', 'Si', 'Si', 'Si', 'Si', 'Si', '', '', '', '', '', '', '', '', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', '', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', ''),
 ('LUISA', '57135963', '7417', 'V', 'JO', 'JOI', 'MARIAN', 'S', 'MOM', 'O', 'MO', 'Si', 'M', 'DDMOM', 'MMOM', 'AAOM', 'OM', 'OM', 'OM', 'OM', 'OM', 'OM', 'OMO', 'MO', 'MO', 'MO', 'MO', 'MO', 'MO', 'O', 'Madre', 'MO', 'V', 'OM', 'OMO', 'Si', 'Si', 'Si', 'Si', 'Si', 'MO', 'Si', 'Si', 'Si', 'OM', '', '', 'Si', 'Si', 'Si', '', 'Si', 'Sanos', '', '', '', '', '', '', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', '', '', '', '', '', 'Si', 'Si', 'ACO', 'Si', 'Si', 'Si', 'Si', 'Si', '', '', '', '', '', '', '', '', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', '', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', '5'),
 ('487487', '8798748', '6905', 'V', '6', '4848484', '848', 'S', '84', 'P', '484', 'Si', 'F', 'DD944884', 'MM9498498', 'AA94498', '498', '498', '4984', '984', '984', '984', '98498', '498', '49', '49', '4', '', '', '', 'Padre', '', 'V', '', '', 'Si', 'Si', 'Si', 'Si', 'Si', '', 'Si', 'Si', 'Si', '', '', '', 'Si', 'Si', 'Si', '', 'Si', 'Sanos', '', '', '', '', '', '', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', '', '', '', '', '', 'Si', 'Si', 'ACO', 'Si', 'Si', 'Si', 'Si', 'Si', '', '', '', '', '', '', '', '', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', '', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', ''),
 ('4654', '654', '4772', 'V', '465', '4654', '654', 'S', '654', 'P', '465', 'Si', 'F', 'DD654', 'MM65465', 'AA465', '465', '4654', '654', '6546', '5465', '465', '465', '465', '4654', '65465', '', '', '', '', 'Padre', '', 'V', '', '', 'Si', 'Si', 'Si', 'Si', 'Si', '', 'Si', 'Si', 'Si', '', '', '', 'Si', 'Si', 'Si', '', 'Si', 'Sanos', '', '', '', '', '', '', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', '', '', '', '', '', 'Si', 'Si', 'ACO', 'Si', 'Si', 'Si', 'Si', 'Si', '', '', '', '', '', '', '', '', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', '', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', 'Si', '');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuarios`
---
-
-CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
-  `nombre_usuario` varchar(50) NOT NULL,
-  `contrasena` varchar(255) NOT NULL,
-  `nivel_acceso` enum('lectura','modificacion','administrador') NOT NULL,
-  `Nombre` varchar(20) DEFAULT NULL,
-  `Apellido` varchar(20) DEFAULT NULL,
-  `cedula` varchar(10) DEFAULT NULL,
-  `telefono` varchar(12) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`id`, `nombre_usuario`, `contrasena`, `nivel_acceso`, `Nombre`, `Apellido`, `cedula`, `telefono`) VALUES
-(2, 'usuario2', 'contrasena2', 'modificacion', 'Reimond', 'Caldera', '5713593', '04126559653'),
-(3, 'admin', 'contrasena3', 'administrador', 'Raimond', 'Caldera', '11455950', '04126854641'),
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nombre_usuario` (`nombre_usuario`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
