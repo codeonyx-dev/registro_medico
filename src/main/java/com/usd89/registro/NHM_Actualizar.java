@@ -14,6 +14,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -32,6 +36,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.toedter.calendar.JDateChooser;
 import com.usd89.DatabaseConnection.Conexion;
 
 public class NHM_Actualizar extends JFrame {
@@ -39,7 +44,7 @@ public class NHM_Actualizar extends JFrame {
     public String[] Obtener_datos() {
         String[] tablaBDD = { "apellido_familiar", "Numero_de_Historia", "ci_jefe_familia", "ci_tipo", "Ci_cedula",
                 "apellido", "nombre", "estadoCivil", "Ocupacion", "estudio", "anosAprobados", "Analfabeta", "sexo",
-                "NDia", "NMes", "NaAno", "LugarNacimiento", "Estado", "Pais", "Direccion", "Telefono", "Religion",
+                "NFecha", "LugarNacimiento", "Estado", "Pais", "Direccion", "Telefono", "Religion",
                 "Establecimiento", "Municipio", "Parroquia", "Comunidad", "Madre_N_A", "Madre_Ocupacion",
                 "Padre_N_A", "Padre_Ocupacion", "Representante", "Representante_N", "Representante_tipo_ci",
                 "Representante_ci", "Representante_Telefono", "Carnet_prenatal", "patologiaEmbarazo",
@@ -205,12 +210,32 @@ public class NHM_Actualizar extends JFrame {
 
         final JTextField text_apellido = Elementos.crearJTextField(335, 95, 150, 20, "", true);
         Panel1.add(text_apellido);
+        text_apellido_familiar.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_nombre = Elementos.crearJLabel(500, 95, 65, 20, "Nombre:", false);
         Panel1.add(label_nombre);
 
         final JTextField text_nombre = Elementos.crearJTextField(565, 95, 130, 20, "", true);
         Panel1.add(text_nombre);
+        text_nombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_estadoCivil = Elementos.crearJLabel(700, 95, 90, 20, "Estado civil:", false);
         Panel1.add(label_estadoCivil);
@@ -224,6 +249,17 @@ public class NHM_Actualizar extends JFrame {
 
         final JTextField text_Ocupacion = Elementos.crearJTextField(943, 95, 100, 20, "", true);
         Panel1.add(text_Ocupacion);
+
+        text_Ocupacion.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_Estudios = Elementos.crearJLabel(36, 125, 80, 20, "Estudios:", false);
         Panel1.add(label_Estudios);
@@ -265,45 +301,11 @@ public class NHM_Actualizar extends JFrame {
         final JLabel label_fechaNacimiento = Elementos.crearJLabel(630, 125, 130, 20, "Fecha nacimiento:", false);
         Panel1.add(label_fechaNacimiento);
 
-        final JTextField text_NDia = Elementos.crearJTextField(765, 125, 50, 20, "DD", true);
-        final JTextField text_NMes = Elementos.crearJTextField(815, 125, 50, 20, "MM", true);
-        final JTextField text_NaAno = Elementos.crearJTextField(865, 125, 50, 20, "AA", true);
-        Panel1.add(text_NDia);
-        Panel1.add(text_NMes);
-        Panel1.add(text_NaAno);
-
-        text_NDia.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent evt) {
-                char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
-                        && (text_NDia.getText().length() < 2)) {
-                    evt.consume();
-                }
-            }
-        });
-
-        text_NMes.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent evt) {
-                char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
-                        && (text_NDia.getText().length() < 2)) {
-                    evt.consume();
-                }
-            }
-        });
-
-        text_NaAno.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent evt) {
-                char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)
-                        && (text_NDia.getText().length() < 4)) {
-                    evt.consume();
-                }
-            }
-        });
+        // Agregar el calendario
+        JDateChooser calendario = new JDateChooser("dd/MM/yyyy", "##/##/####", '_');
+        calendario.setFont(new Font("Arial", 3, 15));
+        calendario.setBounds(760, 125, 100, 20);
+        Panel1.add(calendario);
 
         final JLabel label_LugarNacimiento = Elementos.crearJLabel(36, 175, 150, 20, "Lugar de nacimiento:", false);
         Panel1.add(label_LugarNacimiento);
@@ -401,6 +403,16 @@ public class NHM_Actualizar extends JFrame {
         final JTextField texto_Madre_N_A = Elementos.crearJTextField(fila_x + 5, 310, 200, 20, "", true);
         fila_x += texto_Madre_N_A.getWidth();
         Panel1.add(texto_Madre_N_A);
+        texto_Madre_N_A.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_Madre_Ocupacion = Elementos.crearJLabel(fila_x + 15, 310, 85, 20, "Ocupacion:", false);
         fila_x += label_Madre_Ocupacion.getWidth();
@@ -409,6 +421,16 @@ public class NHM_Actualizar extends JFrame {
         final JTextField texto_Madre_Ocupacion = Elementos.crearJTextField(fila_x + 15, 310, 100, 20, "", true);
         fila_x += texto_Madre_Ocupacion.getWidth();
         Panel1.add(texto_Madre_Ocupacion);
+        texto_Madre_Ocupacion.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         // Octava linea
         fila_x = 36;
@@ -420,6 +442,16 @@ public class NHM_Actualizar extends JFrame {
         final JTextField texto_Padre_N_A = Elementos.crearJTextField(fila_x + 5, 335, 200, 20, "", true);
         fila_x += texto_Padre_N_A.getWidth();
         Panel1.add(texto_Padre_N_A);
+        texto_Padre_N_A.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_Padre_Ocupacion = Elementos.crearJLabel(fila_x + 15, 335, 85, 20, "Ocupacion:", false);
         fila_x += label_Padre_Ocupacion.getWidth();
@@ -428,6 +460,16 @@ public class NHM_Actualizar extends JFrame {
         final JTextField texto_Padre_Ocupacion = Elementos.crearJTextField(fila_x + 15, 335, 100, 20, "", true);
         fila_x += texto_Padre_Ocupacion.getWidth();
         Panel1.add(texto_Padre_Ocupacion);
+        texto_Padre_Ocupacion.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         // Novena linea
         fila_x = 36;
@@ -447,6 +489,16 @@ public class NHM_Actualizar extends JFrame {
         final JTextField texto_Representante_N = Elementos.crearJTextField(fila_x + 10, 360, 100, 20, "", true);
         fila_x += texto_Representante_N.getWidth();
         Panel1.add(texto_Representante_N);
+        texto_Representante_N.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_Representante_ci = Elementos.crearJLabel(fila_x + 20, 360, 60, 20, "Cédula:", false);
         fila_x += label_Representante_ci.getWidth();
@@ -611,8 +663,8 @@ public class NHM_Actualizar extends JFrame {
         volverButton.setHorizontalTextPosition(SwingConstants.CENTER);
         volverButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                Menu Menu = new Menu();
-                Menu.setVisible(true);
+                Buscador Buscador = new Buscador();
+                Buscador.setVisible(true);
                 dispose();
             }
 
@@ -715,8 +767,7 @@ public class NHM_Actualizar extends JFrame {
                     if (JTextField.getText().isEmpty()) {
                         JTextField.setBackground(Color.red);
                         datosFaltantes++;
-                    }
-                    if (datosFaltantes == 0) {
+                    } else if (datosFaltantes == 0) {
                         cardLayout.show(contentPanel, "panel2");
                     }
                 }
@@ -832,7 +883,8 @@ public class NHM_Actualizar extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == '.' || c == ',' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -849,7 +901,8 @@ public class NHM_Actualizar extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == '.' || c == ',' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -894,7 +947,8 @@ public class NHM_Actualizar extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == '.' || c == ',' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -929,7 +983,8 @@ public class NHM_Actualizar extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == '.' || c == ',' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -1629,7 +1684,8 @@ public class NHM_Actualizar extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == '.' || c == ',' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -2197,188 +2253,186 @@ public class NHM_Actualizar extends JFrame {
         GuardarButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 JComponent[] componentes = {
-                        text_apellido_familiar,
-                        text_ci_jefe_familia,
-                        text_Numero_de_Historia,
-                        ci_ComboBox,
-                        text_ci,
-                        text_apellido,
-                        text_nombre,
-                        ComboBox_estadoCivil,
-                        text_Ocupacion,
-                        combo_estudio,
-                        text_anosAprobados,
-                        combo_Analfabeta,
-                        combo_sexo,
-                        text_NDia,
-                        text_NMes,
-                        text_NaAno,
-                        text_LugarNacimiento,
-                        texto_Estado,
-                        texto_Pais,
-                        texto_Direccion,
-                        texto_Telefono,
-                        texto_Religion,
-                        texto_Establecimiento,
-                        texto_Municipio,
-                        texto_Parroquia,
-                        texto_Comunidad,
-                        texto_Madre_N_A,
-                        texto_Madre_Ocupacion,
-                        texto_Padre_N_A,
-                        texto_Padre_Ocupacion,
-                        combo_Representante,
-                        texto_Representante_N,
-                        combo__Representante_ci,
-                        texto_Representante_ci,
-                        texto_Representante_Telefono,
-                        combo_Carnet_prenatal,
-                        combo_patologiaEmbarazo,
-                        combo_patologiaParto,
-                        combo_patologiaPuerperio,
-                        combo_NConsultasPrenatales,
-                        texto_Hrs_fuera_de_casa,
-                        combo_MadreFamilia,
-                        combo_PadreFamilia,
-                        combo_HermanoFamilia,
-                        text_OtrosFamilia,
-                        text_Edad_Gestacion,
-                        text_sem,
-                        combo_Forces,
-                        combo_Cesarea,
-                        combo_Parto,
-                        text_ApgarMin,
-                        combo_Reanimacion,
-                        combo_EgresoRN,
-                        text_Exclusiva,
-                        text_Mixta,
-                        text_Ablactacion,
-                        text_Peso_al_nacer,
-                        text_Talla,
-                        text_Circunferencia,
-                        combo_Asfixia,
-                        combo_PatologiasRN,
-                        combo_Alergia,
-                        combo_Asma,
-                        combo_TBC,
-                        combo_Cardiopatia,
-                        combo_Hipertension,
-                        combo_Varice,
-                        combo_Desnutricion,
-                        combo_Diabetes,
-                        combo_Obesidad,
-                        combo_Gastropatia,
-                        combo_Neurologica,
-                        combo_Enf_Renal,
-                        combo_Cancer,
-                        combo_Alcohol,
-                        combo_Drogas,
-                        combo_Sífilis,
-                        combo_SIDA,
-                        combo_Artritis,
-                        combo_otros,
-                        combo_Padre,
-                        combo_Madre,
-                        combo_Hermanos,
-                        combo_Otros,
-                        texto_Menarquia,
-                        texto_Ciclo_menstrual,
-                        texto_PRSexual,
-                        texto_FrecuenciaRSexual,
-                        texto_N_Parejas,
-                        combo_Dispareunia,
-                        combo_Anticoncepcion,
-                        combo_AC_DIU,
-                        combo_Menopausia,
-                        combo_Gesta,
-                        combo_Partos,
-                        combo_Cesarea2,
-                        combo_Aborto,
-                        texto_E1erParto,
-                        texto_F_U_parto,
-                        texto_F_UAborto,
-                        combo_Curetaje,
-                        texto_N_de_Hijos,
-                        texto_Vivos,
-                        texto_Muertos,
-                        text_RN_de_mayor_peso,
-                        combo_Alergia2,
-                        combo_Asma2,
-                        combo_Neumonia,
-                        combo_TBC2,
-                        combo_Cardiopatia2,
-                        combo_Hipertension2,
-                        combo_Hiperlipidemias,
-                        combo_Varices,
-                        combo_Hepatopatia,
-                        combo_Desnutricion2,
-                        combo_Diabetes2,
-                        combo_Obesidad2,
-                        combo_Gastroenteritis,
-                        combo_Encoprexis,
-                        combo_Enf_Renal2,
-                        combo_Enuresis,
-                        combo_Cancer2,
-                        combo_Tromboembolica,
-                        combo_Tumor_Mamario,
-                        combo_Meningitis,
-                        combo_TCraneoencefal,
-                        combo_Enf_Eruptivas,
-                        combo_Dengue,
-                        combo_Hospitalizacion,
-                        combo_Interv_Quirurgica,
-                        combo_Accidentes,
-                        combo_Artritis2,
-                        combo_Enf_TS,
-                        combo_Enf_Infec_Tran,
-                        combo_Enf_Laboral,
-                        text_Otros,
-                        combo_Alcohol2,
-                        combo_Drogas2,
-                        combo_Insecticidas,
-                        combo_Deportes,
-                        combo_Sedentarismo,
-                        combo_Sueno,
-                        combo_ChuparDedo,
-                        combo_Onicofagia,
-                        combo_Micciones,
-                        combo_Evacuaciones,
-                        combo_Estres,
-                        combo_Metales_Pensados,
-                        combo_Alimentacion,
-                        combo_Fuma,
-                        texto_NCigarrillos_diarios
+                    text_apellido_familiar,
+                    text_ci_jefe_familia,
+                    text_Numero_de_Historia,
+                    ci_ComboBox,
+                    text_ci,
+                    text_apellido,
+                    text_nombre,
+                    ComboBox_estadoCivil,
+                    text_Ocupacion,
+                    combo_estudio,
+                    text_anosAprobados,
+                    combo_Analfabeta,
+                    combo_sexo,
+                    calendario,
+                    text_LugarNacimiento,
+                    texto_Estado,
+                    texto_Pais,
+                    texto_Direccion,
+                    texto_Telefono,
+                    texto_Religion,
+                    texto_Establecimiento,
+                    texto_Municipio,
+                    texto_Parroquia,
+                    texto_Comunidad,
+                    texto_Madre_N_A,
+                    texto_Madre_Ocupacion,
+                    texto_Padre_N_A,
+                    texto_Padre_Ocupacion,
+                    combo_Representante,
+                    texto_Representante_N,
+                    combo__Representante_ci,
+                    texto_Representante_ci,
+                    texto_Representante_Telefono,
+                    combo_Carnet_prenatal,
+                    combo_patologiaEmbarazo,
+                    combo_patologiaParto,
+                    combo_patologiaPuerperio,
+                    combo_NConsultasPrenatales,
+                    texto_Hrs_fuera_de_casa,
+                    combo_MadreFamilia,
+                    combo_PadreFamilia,
+                    combo_HermanoFamilia,
+                    text_OtrosFamilia,
+                    text_Edad_Gestacion,
+                    text_sem,
+                    combo_Forces,
+                    combo_Cesarea,
+                    combo_Parto,
+                    text_ApgarMin,
+                    combo_Reanimacion,
+                    combo_EgresoRN,
+                    text_Exclusiva,
+                    text_Mixta,
+                    text_Ablactacion,
+                    text_Peso_al_nacer,
+                    text_Talla,
+                    text_Circunferencia,
+                    combo_Asfixia,
+                    combo_PatologiasRN,
+                    combo_Alergia,
+                    combo_Asma,
+                    combo_TBC,
+                    combo_Cardiopatia,
+                    combo_Hipertension,
+                    combo_Varice,
+                    combo_Desnutricion,
+                    combo_Diabetes,
+                    combo_Obesidad,
+                    combo_Gastropatia,
+                    combo_Neurologica,
+                    combo_Enf_Renal,
+                    combo_Cancer,
+                    combo_Alcohol,
+                    combo_Drogas,
+                    combo_Sífilis,
+                    combo_SIDA,
+                    combo_Artritis,
+                    combo_otros,
+                    combo_Padre,
+                    combo_Madre,
+                    combo_Hermanos,
+                    combo_Otros,
+                    texto_Menarquia,
+                    texto_Ciclo_menstrual,
+                    texto_PRSexual,
+                    texto_FrecuenciaRSexual,
+                    texto_N_Parejas,
+                    combo_Dispareunia,
+                    combo_Anticoncepcion,
+                    combo_AC_DIU,
+                    combo_Menopausia,
+                    combo_Gesta,
+                    combo_Partos,
+                    combo_Cesarea2,
+                    combo_Aborto,
+                    texto_E1erParto,
+                    texto_F_U_parto,
+                    texto_F_UAborto,
+                    combo_Curetaje,
+                    texto_N_de_Hijos,
+                    texto_Vivos,
+                    texto_Muertos,
+                    text_RN_de_mayor_peso,
+                    combo_Alergia2,
+                    combo_Asma2,
+                    combo_Neumonia,
+                    combo_TBC2,
+                    combo_Cardiopatia2,
+                    combo_Hipertension2,
+                    combo_Hiperlipidemias,
+                    combo_Varices,
+                    combo_Hepatopatia,
+                    combo_Desnutricion2,
+                    combo_Diabetes2,
+                    combo_Obesidad2,
+                    combo_Gastroenteritis,
+                    combo_Encoprexis,
+                    combo_Enf_Renal2,
+                    combo_Enuresis,
+                    combo_Cancer2,
+                    combo_Tromboembolica,
+                    combo_Tumor_Mamario,
+                    combo_Meningitis,
+                    combo_TCraneoencefal,
+                    combo_Enf_Eruptivas,
+                    combo_Dengue,
+                    combo_Hospitalizacion,
+                    combo_Interv_Quirurgica,
+                    combo_Accidentes,
+                    combo_Artritis2,
+                    combo_Enf_TS,
+                    combo_Enf_Infec_Tran,
+                    combo_Enf_Laboral,
+                    text_Otros,
+                    combo_Alcohol2,
+                    combo_Drogas2,
+                    combo_Insecticidas,
+                    combo_Deportes,
+                    combo_Sedentarismo,
+                    combo_Sueno,
+                    combo_ChuparDedo,
+                    combo_Onicofagia,
+                    combo_Micciones,
+                    combo_Evacuaciones,
+                    combo_Estres,
+                    combo_Metales_Pensados,
+                    combo_Alimentacion,
+                    combo_Fuma,
+                    texto_NCigarrillos_diarios
                 };
                 try {
                     Connection conexion = Conexion.getConexion();
                     PreparedStatement pst = conexion.prepareStatement(
-                            "update datospersonales set apellido_familiar=?, ci_jefe_familia=?, Numero_de_Historia=?," +
-                                    "ci_tipo=?, Ci_cedula=?, apellido=?, nombre=?, estadoCivil=?, Ocupacion=?, estudio=?, anosAprobados=?, Analfabeta=?, sexo=?, NDia=?, NMes=?,"
-                                    +
-                                    "NaAno=?, LugarNacimiento=?, Estado=?, Pais=?, Direccion=?, Telefono=?, Religion=?, Establecimiento=?, Municipio=?, Parroquia=?, Comunidad=?,"
-                                    +
-                                    "Madre_N_A=?, Madre_Ocupacion=?, Padre_N_A=?, Padre_Ocupacion=?, Representante=?, Representante_N=?, Representante_tipo_ci=?, Representante_ci=?,"
-                                    +
-                                    "Representante_Telefono=?, Carnet_prenatal=?, patologiaEmbarazo=?, patologiaParto=?, patologiaPuerperio=?, NConsultasPrenatales=?, Hrs_fuera_de_casa=?,"
-                                    +
-                                    "MadreFamilia=?, PadreFamilia=?, HermanoFamilia=?, OtrosFamilia=?, Edad_Gestacional=?, sem=?, Forceps=?, Cesarea=?, Parto=?, ApgarMin=?, Reanimacion=?,"
-                                    +
-                                    "EgresoRN=?, Exclusiva=?, Mixta=?, Ablactacion=?, Peso_al_nacer=?, Talla=?, Circunferencia=?, Asfixia=?, PatologiasRN=?, Alergia=?, Asma=?, TBC=?,"
-                                    +
-                                    "Cardiopatia=?, Hipertension=?, Varice=?, Desnutricion=?, Diabetes=?, Obesidad=?, Gastropatia=?, Neurologica=?, Enf_Renal=?, Cancer=?, Alcohol=?,"
-                                    +
-                                    "Drogas=?, Sifilis=?, SIDA=?, Artritis=?, otros_1=?, Padre=?, Madre=?, Hermanos=?, Otros_2=?, Menarquia=?, Ciclo_menstrual=?, PRSexual=?, FrecuenciaRSexual=?,"
-                                    +
-                                    "N_Parejas=?, Dispareunia=?, Anticoncepcion=?, AC_DIU=?, Menopausia=?, Gesta=?, Partos=?, Cesarea2=?, Aborto=?, E1erparto=?, F_Uparto=?, F_UAborto=?, Curetaje=?,"
-                                    +
-                                    "N_de_Hijos=?, Vivos=?, Muertos=?, RN_de_mayor_peso=?, Alergia2=?, Asma2=?, Neumonia=?, TBC2=?, Cardiopatia2=?, Hipertension2=?, Hiperlipidemias=?, Varices=?, Hepatopatia=?,"
-                                    +
-                                    "Desnutricion2=?, Diabetes2=?, Obesidad2=?, Gastroenteritis=?, Encoprexis=?, Enf_Renal2=?, Enuresis=?, Cancer2=?, Tromboembolica=?, Tumor_Mamario=?, Meningitis=?, TCraneoencefal=?,"
-                                    +
-                                    "Enf_Eruptivas=?, Dengue=?, Hospitalizacion=?, Interv_Quirurgica=?, Accidentes=?, Artritis2=?, Enf_TS=?, Enf_Infec_Tran=?, Enf_Laboral=?, Otros_3=?, Alcohol2=?, Drogas2=?, Insecticidas=?,"
-                                    +
-                                    "Deportes=?, Sedentarismo=?, Sueno=?, ChuparDedo=?, Onicofagia=?, Micciones=?, Evacuaciones=?, Estres=?, Metales_Pensados=?, Alimentacion=?, Fuma=?, NCigarrillos_diarios=? where Numero_de_Historia ="
-                                    + Buscador.ID);
+                        "update datospersonales set apellido_familiar=?, ci_jefe_familia=?, Numero_de_Historia=?," +
+                        "ci_tipo=?, Ci_cedula=?, apellido=?, nombre=?, estadoCivil=?, Ocupacion=?, estudio=?, anosAprobados=?, Analfabeta=?, sexo=?, NFecha=?,"
+                        +
+                        "LugarNacimiento=?, Estado=?, Pais=?, Direccion=?, Telefono=?, Religion=?, Establecimiento=?, Municipio=?, Parroquia=?, Comunidad=?,"
+                        +
+                        "Madre_N_A=?, Madre_Ocupacion=?, Padre_N_A=?, Padre_Ocupacion=?, Representante=?, Representante_N=?, Representante_tipo_ci=?, Representante_ci=?,"
+                        +
+                        "Representante_Telefono=?, Carnet_prenatal=?, patologiaEmbarazo=?, patologiaParto=?, patologiaPuerperio=?, NConsultasPrenatales=?, Hrs_fuera_de_casa=?,"
+                        +
+                        "MadreFamilia=?, PadreFamilia=?, HermanoFamilia=?, OtrosFamilia=?, Edad_Gestacional=?, sem=?, Forceps=?, Cesarea=?, Parto=?, ApgarMin=?, Reanimacion=?,"
+                        +
+                        "EgresoRN=?, Exclusiva=?, Mixta=?, Ablactacion=?, Peso_al_nacer=?, Talla=?, Circunferencia=?, Asfixia=?, PatologiasRN=?, Alergia=?, Asma=?, TBC=?,"
+                        +
+                        "Cardiopatia=?, Hipertension=?, Varice=?, Desnutricion=?, Diabetes=?, Obesidad=?, Gastropatia=?, Neurologica=?, Enf_Renal=?, Cancer=?, Alcohol=?,"
+                        +
+                        "Drogas=?, Sifilis=?, SIDA=?, Artritis=?, otros_1=?, Padre=?, Madre=?, Hermanos=?, Otros_2=?, Menarquia=?, Ciclo_menstrual=?, PRSexual=?, FrecuenciaRSexual=?,"
+                        +
+                        "N_Parejas=?, Dispareunia=?, Anticoncepcion=?, AC_DIU=?, Menopausia=?, Gesta=?, Partos=?, Cesarea2=?, Aborto=?, E1erparto=?, F_Uparto=?, F_UAborto=?, Curetaje=?,"
+                        +
+                        "N_de_Hijos=?, Vivos=?, Muertos=?, RN_de_mayor_peso=?, Alergia2=?, Asma2=?, Neumonia=?, TBC2=?, Cardiopatia2=?, Hipertension2=?, Hiperlipidemias=?, Varices=?, Hepatopatia=?,"
+                        +
+                        "Desnutricion2=?, Diabetes2=?, Obesidad2=?, Gastroenteritis=?, Encoprexis=?, Enf_Renal2=?, Enuresis=?, Cancer2=?, Tromboembolica=?, Tumor_Mamario=?, Meningitis=?, TCraneoencefal=?,"
+                        +
+                        "Enf_Eruptivas=?, Dengue=?, Hospitalizacion=?, Interv_Quirurgica=?, Accidentes=?, Artritis2=?, Enf_TS=?, Enf_Infec_Tran=?, Enf_Laboral=?, Otros_3=?, Alcohol2=?, Drogas2=?, Insecticidas=?,"
+                        +
+                        "Deportes=?, Sedentarismo=?, Sueno=?, ChuparDedo=?, Onicofagia=?, Micciones=?, Evacuaciones=?, Estres=?, Metales_Pensados=?, Alimentacion=?, Fuma=?, NCigarrillos_diarios=? where Numero_de_Historia ="
+                        + Buscador.ID);
 
                     int index = 1; // indice para los marcadores de posición
                     for (JComponent componente : componentes) {
@@ -2392,7 +2446,13 @@ public class NHM_Actualizar extends JFrame {
                                 String valor = selectedItem.toString();
                                 pst.setString(index, valor);
                                 index++;
-                            }
+                            } 
+                            }else if (componente instanceof JDateChooser) {
+                                Date selectedDate = ((JDateChooser) componente).getDate();
+                                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                String valor = dateFormat.format(selectedDate);
+                                pst.setString(index, valor);
+                                index++;
                         }
                     }
 
@@ -2462,8 +2522,7 @@ public class NHM_Actualizar extends JFrame {
                             "Estudios: " + combo_estudio.getSelectedItem() + " Años aprobados: "
                                     + text_anosAprobados.getText() + " Analfabeta: "
                                     + combo_Analfabeta.getSelectedItem() + " Sexo: " + combo_sexo.getSelectedItem()
-                                    + " Fecha de nacimiento: " + text_NDia.getText() + "/" + text_NMes.getText() + "/"
-                                    + text_NaAno.getText());
+                                    + " Fecha de nacimiento:");
                     document.add(Line3);
 
                     Paragraph Line4 = new Paragraph();
@@ -2687,7 +2746,7 @@ public class NHM_Actualizar extends JFrame {
 
                     document.add(table4);
 
-                    Paragraph Linea12= new Paragraph("Antecedentes Personales a Cualquier edad\n\n");
+                    Paragraph Linea12 = new Paragraph("Antecedentes Personales a Cualquier edad\n\n");
 
                     PdfPTable Tabla5 = new PdfPTable(4);
                     document.add(Linea12);
@@ -2876,13 +2935,13 @@ public class NHM_Actualizar extends JFrame {
         } else {
             fondo3.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/NHM_part3-claro.png")));
         }
+
         fondo3.setBounds(0, 0, 1290, 720);
         Panel3.add(fondo3);
         contentPanel.add(Panel3, "panel3");
-
         setContentPane(contentPanel);
-        // Cambiar el color de las letras dependiendo del tema
 
+        // Cambiar el color de las letras dependiendo del tema
         JComponent[] componentes = {
                 text_apellido_familiar,
                 text_ci_jefe_familia,
@@ -2897,9 +2956,7 @@ public class NHM_Actualizar extends JFrame {
                 text_anosAprobados,
                 combo_Analfabeta,
                 combo_sexo,
-                text_NDia,
-                text_NMes,
-                text_NaAno,
+                calendario,
                 text_LugarNacimiento,
                 texto_Estado,
                 texto_Pais,
@@ -3046,6 +3103,20 @@ public class NHM_Actualizar extends JFrame {
             } else if (componente instanceof JComboBox<?>) {
                 ((JComboBox<?>) componente).setSelectedItem(ObtenerDatos[index]);
                 index++;
+            } else if (componente instanceof JDateChooser) {
+                try {
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+                    String datos = ObtenerDatos[index];
+
+                    Date parsedDate;
+                    parsedDate = dateFormat.parse(datos);
+                    ((JDateChooser) componente).setDate(parsedDate);
+                    index++;
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                    System.out.println("Error al analizar la fecha.");
+                }
             }
         }
 

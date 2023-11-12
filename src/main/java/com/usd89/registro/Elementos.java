@@ -93,9 +93,26 @@ public class Elementos {
             case "mediano.1":
                 boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_mediano_on.png"));
                 break;
+
+            case "mediano_black.0":
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_mediano_off_black.png"));
+                break;
+            case "mediano_black.1":
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_mediano_on_black.png"));
+                break;
+            
             case "pequeno.0":
                 boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_pequeno_off.png"));
                 break;
+
+            case "pequeno_black.0":
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_pequeno_off_black.png"));  
+                break; 
+
+            case "pequeno_black.1":
+                boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_pequeno_on_black.png"));  
+                break;      
+
             case "pequeno.1":
                 boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_pequeno_on.png"));
                 break;           
@@ -105,6 +122,7 @@ public class Elementos {
             case "muypequeno.1":
                 boton = new ImageIcon(Elementos.class.getResource("/imagen/Fondos/" + tema + "/Botones/bt_muypequeno_on.png"));  
                 break;           
+                
             default:
                 break;
         }
