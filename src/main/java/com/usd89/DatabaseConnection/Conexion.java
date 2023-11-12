@@ -17,7 +17,6 @@ public class Conexion {
             String driver = "com.mysql.cj.jdbc.Driver";
             Class.forName(driver);
             conexion = DriverManager.getConnection(url, usuario, contrasena);
-            System.out.println("FUNCIONA");
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace(); // Imprime la excepción en la consola
             JOptionPane.showMessageDialog(null, "Se ha producido un error:\nCódigo de error: " + ex.getMessage(),

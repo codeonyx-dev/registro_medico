@@ -1,6 +1,8 @@
 package com.usd89.registro;
 
 import javax.swing.*;
+
+import com.toedter.calendar.JDateChooser;
 import com.usd89.DatabaseConnection.Conexion;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -12,6 +14,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 public class NHM extends JFrame {
@@ -118,6 +123,15 @@ public class NHM extends JFrame {
         final JTextField text_apellido_familiar = Elementos.crearJTextField(fila_x + 5, 65, 150, 20, "", true);
         fila_x += text_apellido_familiar.getWidth();
         Panel1.add(text_apellido_familiar);
+        text_apellido_familiar.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == ' '|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_ci_jefe_familia = Elementos.crearJLabel(fila_x + 15, 65, 130, 20, "C.I Jefe de familia:",
                 false);
@@ -131,7 +145,7 @@ public class NHM extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == ' '|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -158,22 +172,49 @@ public class NHM extends JFrame {
 
         final JTextField text_ci = Elementos.crearJTextField(105, 95, 150, 20, "", true);
         Panel1.add(text_ci);
+        text_ci.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_apellido = Elementos.crearJLabel(270, 95, 70, 20, "Apellido:", false);
         Panel1.add(label_apellido);
 
         final JTextField text_apellido = Elementos.crearJTextField(335, 95, 150, 20, "", true);
         Panel1.add(text_apellido);
+        text_apellido.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_nombre = Elementos.crearJLabel(500, 95, 65, 20, "Nombre:", false);
         Panel1.add(label_nombre);
 
         final JTextField text_nombre = Elementos.crearJTextField(565, 95, 130, 20, "", true);
         Panel1.add(text_nombre);
-
+        text_nombre.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c ==' '|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
+        
         final JLabel label_estadoCivil = Elementos.crearJLabel(700, 95, 90, 20, "Estado civil:", false);
         Panel1.add(label_estadoCivil);
-
+        
         final JComboBox<String> ComboBox_estadoCivil = new JComboBox<String>(new String[] { "S", "C", "V", "D", "O" });
         ComboBox_estadoCivil.setBounds(790, 95, 50, 20);
         Panel1.add(ComboBox_estadoCivil);
@@ -183,6 +224,15 @@ public class NHM extends JFrame {
 
         final JTextField text_Ocupacion = Elementos.crearJTextField(943, 95, 100, 20, "", true);
         Panel1.add(text_Ocupacion);
+        text_Ocupacion.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == ' '|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         // Tercera linea
         final JLabel label_Estudios = Elementos.crearJLabel(36, 125, 80, 20, "Estudios:", false);
@@ -225,48 +275,18 @@ public class NHM extends JFrame {
         final JLabel label_fechaNacimiento = Elementos.crearJLabel(630, 125, 130, 20, "Fecha nacimiento:", false);
         Panel1.add(label_fechaNacimiento);
 
-        final JTextField text_NDia = Elementos.crearJTextField(765, 125, 50, 20, "DD", true);
-        final JTextField text_NMes = Elementos.crearJTextField(815, 125, 50, 20, "MM", true);
-        final JTextField text_NaAno = Elementos.crearJTextField(865, 125, 50, 20, "AA", true);
-        Panel1.add(text_NDia);
-        Panel1.add(text_NMes);
-        Panel1.add(text_NaAno);
+        //Agregar el calendario
+        JDateChooser calendario = new JDateChooser("dd/MM/yyyy", "##/##/####", '_');
+        calendario.setFont(new Font("Arial", 3 ,15));
+        calendario.setBounds(760, 125,100,20);
+        Panel1.add(calendario);
 
-        text_NDia.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent evt) {
-                char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) && (text_NDia.getText().length()<2)) {
-                    evt.consume();
-                }
-            }
-        });
-
-        text_NMes.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent evt) {
-                char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) && (text_NDia.getText().length()<2)) {
-                    evt.consume();
-                }
-            }
-        });
-
-        text_NaAno.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent evt) {
-                char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) && (text_NDia.getText().length()<4)) {
-                    evt.consume();
-                }
-            }
-        });
-        
         final JLabel label_LugarNacimiento = Elementos.crearJLabel(36, 175, 150, 20, "Lugar de nacimiento:", false);
         Panel1.add(label_LugarNacimiento);
 
         final JTextField text_LugarNacimiento = Elementos.crearJTextField(190, 175, 150, 20, "", true);
         Panel1.add(text_LugarNacimiento);
+        
 
         final JLabel label_Estado = Elementos.crearJLabel(345, 175, 80, 20, "Estado:", false);
         Panel1.add(label_Estado);
@@ -358,7 +378,15 @@ public class NHM extends JFrame {
         final JTextField texto_Madre_N_A = Elementos.crearJTextField(fila_x + 5, 310, 200, 20, "", true);
         fila_x += texto_Madre_N_A.getWidth();
         Panel1.add(texto_Madre_N_A);
-
+        texto_Madre_N_A.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
         final JLabel label_Madre_Ocupacion = Elementos.crearJLabel(fila_x + 15, 310, 85, 20, "Ocupacion:", false);
         fila_x += label_Madre_Ocupacion.getWidth();
         Panel1.add(label_Madre_Ocupacion);
@@ -366,6 +394,16 @@ public class NHM extends JFrame {
         final JTextField texto_Madre_Ocupacion = Elementos.crearJTextField(fila_x + 15, 310, 100, 20, "", true);
         fila_x += texto_Madre_Ocupacion.getWidth();
         Panel1.add(texto_Madre_Ocupacion);
+        texto_Madre_Ocupacion.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c ==' ' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
+        
 
         // Octava linea
         fila_x = 36;
@@ -377,6 +415,15 @@ public class NHM extends JFrame {
         final JTextField texto_Padre_N_A = Elementos.crearJTextField(fila_x + 5, 335, 200, 20, "", true);
         fila_x += texto_Padre_N_A.getWidth();
         Panel1.add(texto_Padre_N_A);
+        texto_Padre_N_A.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c ==' ' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_Padre_Ocupacion = Elementos.crearJLabel(fila_x + 15, 335, 85, 20, "Ocupacion:", false);
         fila_x += label_Padre_Ocupacion.getWidth();
@@ -385,6 +432,15 @@ public class NHM extends JFrame {
         final JTextField texto_Padre_Ocupacion = Elementos.crearJTextField(fila_x + 15, 335, 100, 20, "", true);
         fila_x += texto_Padre_Ocupacion.getWidth();
         Panel1.add(texto_Padre_Ocupacion);
+        texto_Padre_Ocupacion.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         // Novena linea
         fila_x = 36;
@@ -404,6 +460,15 @@ public class NHM extends JFrame {
         final JTextField texto_Representante_N = Elementos.crearJTextField(fila_x + 10, 360, 100, 20, "", true);
         fila_x += texto_Representante_N.getWidth();
         Panel1.add(texto_Representante_N);
+        texto_Representante_N.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JLabel label_Representante_ci = Elementos.crearJLabel(fila_x + 20, 360, 60, 20, "Cédula:", false);
         fila_x += label_Representante_ci.getWidth();
@@ -536,7 +601,7 @@ public class NHM extends JFrame {
                 "N~ Consultas prenatales:", false);
         fila_x += NConsultasPrenatales.getWidth();
         Panel1.add(NConsultasPrenatales);
-        
+
         final JComboBox<String> combo_NConsultasPrenatales = new JComboBox<String>(new String[] { "Si", "No" });
         combo_NConsultasPrenatales.setBounds(fila_x + 5, 590, 40, 20);
         fila_x += combo_NConsultasPrenatales.getWidth();
@@ -664,8 +729,7 @@ public class NHM extends JFrame {
                     if (JTextField.getText().isEmpty()) {
                         JTextField.setBackground(Color.red);
                         datosFaltantes++;
-                    }
-                    if (datosFaltantes == 0) {
+                    }else if(datosFaltantes == 0) {
                         cardLayout.show(contentPanel, "panel2");
                     }
                 }
@@ -721,7 +785,7 @@ public class NHM extends JFrame {
         JLabel fondo = new JLabel();
         if (Inicio.Tema == "Oscuro") {
             fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Oscuro/NHM_part1-Oscuro.png")));
-        } else {
+        }else {
             fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/NHM_part1-claro.png")));
         }
         fondo.setBounds(0, 0, 1290, 720);
@@ -803,7 +867,7 @@ public class NHM extends JFrame {
                 }
             }
         });
-        
+
         fila_x2 = 36;
         final JLabel label_Forces = Elementos.crearJLabel(fila_x2, 95, 65, 20, "Forces:", false);
         fila_x2 += label_Forces.getWidth();
@@ -843,7 +907,7 @@ public class NHM extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == '.'|| c == ','|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -864,7 +928,7 @@ public class NHM extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == '.'|| c == ','|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -887,7 +951,7 @@ public class NHM extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == '.'|| c == ','|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -910,12 +974,11 @@ public class NHM extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == '.'|| c == ','|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
         });
-
 
         final JLabel label_Asfixia = Elementos.crearJLabel(fila_x2 + 35, 125, 60, 25, "Asfixia:", false);
         fila_x2 += label_Asfixia.getWidth();
@@ -1414,7 +1477,6 @@ public class NHM extends JFrame {
             }
         });
 
-
         fila_x3 = 36;
         fila_y3 = 200;
         final JLabel label_Dispareunia = Elementos.crearJLabel(fila_x3, fila_y3, 100, 20, "Dispareunia:", false);
@@ -1594,7 +1656,7 @@ public class NHM extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == '.'|| c == ','|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -2180,9 +2242,7 @@ public class NHM extends JFrame {
                         text_anosAprobados,
                         combo_Analfabeta,
                         combo_sexo,
-                        text_NDia,
-                        text_NMes,
-                        text_NaAno,
+                        calendario,
                         text_LugarNacimiento,
                         texto_Estado,
                         texto_Pais,
@@ -2320,9 +2380,9 @@ public class NHM extends JFrame {
                         texto_NCigarrillos_diarios
                 };
 
-                String sql = "INSERT INTO datospersonales (apellido_familiar, ci_jefe_familia, Numero_de_Historia, ci_tipo, Ci_cedula, apellido, nombre, estadoCivil, Ocupacion, estudio, anosAprobados, Analfabeta, sexo, NDia, NMes, NaAno, LugarNacimiento, Estado, Pais, Direccion, Telefono, Religion, Establecimiento, Municipio, Parroquia, Comunidad, Madre_N_A, Madre_Ocupacion, Padre_N_A, Padre_Ocupacion, Representante, Representante_N, Representante_tipo_ci, Representante_ci, Representante_Telefono, Carnet_prenatal, patologiaEmbarazo, patologiaParto, patologiaPuerperio, NConsultasPrenatales, Hrs_fuera_de_casa, MadreFamilia, PadreFamilia, HermanoFamilia, OtrosFamilia, Edad_Gestacional, sem, Forceps, Cesarea, Parto, ApgarMin, Reanimacion, EgresoRN, Exclusiva, Mixta, Ablactacion, Peso_al_nacer, Talla, Circunferencia, Asfixia, PatologiasRN, Alergia, Asma, TBC, Cardiopatia, Hipertension, Varice, Desnutricion, Diabetes, Obesidad, Gastropatia, Neurologica, Enf_Renal, Cancer, Alcohol, Drogas, Sifilis, SIDA, Artritis, otros_1, Padre, Madre, Hermanos, Otros_2, Menarquia, Ciclo_menstrual, PRSexual, FrecuenciaRSexual, N_Parejas, Dispareunia, Anticoncepcion, AC_DIU, Menopausia, Gesta, Partos, Cesarea2, Aborto, E1erparto, F_Uparto, F_UAborto, Curetaje, N_de_Hijos, Vivos, Muertos, RN_de_mayor_peso, Alergia2, Asma2, Neumonia, TBC2, Cardiopatia2, Hipertension2, Hiperlipidemias, Varices, Hepatopatia, Desnutricion2, Diabetes2, Obesidad2, Gastroenteritis, Encoprexis, Enf_Renal2, Enuresis, Cancer2, Tromboembolica, Tumor_Mamario, Meningitis, TCraneoencefal, Enf_Eruptivas, Dengue, Hospitalizacion, Interv_Quirurgica, Accidentes, Artritis2, Enf_TS, Enf_Infec_Tran, Enf_Laboral, Otros_3, Alcohol2, Drogas2, Insecticidas, Deportes, Sedentarismo, Sueno, ChuparDedo, Onicofagia, Micciones, Evacuaciones, Estres, Metales_Pensados, Alimentacion, Fuma, NCigarrillos_diarios)"
+                String sql = "INSERT INTO datospersonales (apellido_familiar, ci_jefe_familia, Numero_de_Historia, ci_tipo, Ci_cedula, apellido, nombre, estadoCivil, Ocupacion, estudio, anosAprobados, Analfabeta, sexo, NFecha, LugarNacimiento, Estado, Pais, Direccion, Telefono, Religion, Establecimiento, Municipio, Parroquia, Comunidad, Madre_N_A, Madre_Ocupacion, Padre_N_A, Padre_Ocupacion, Representante, Representante_N, Representante_tipo_ci, Representante_ci, Representante_Telefono, Carnet_prenatal, patologiaEmbarazo, patologiaParto, patologiaPuerperio, NConsultasPrenatales, Hrs_fuera_de_casa, MadreFamilia, PadreFamilia, HermanoFamilia, OtrosFamilia, Edad_Gestacional, sem, Forceps, Cesarea, Parto, ApgarMin, Reanimacion, EgresoRN, Exclusiva, Mixta, Ablactacion, Peso_al_nacer, Talla, Circunferencia, Asfixia, PatologiasRN, Alergia, Asma, TBC, Cardiopatia, Hipertension, Varice, Desnutricion, Diabetes, Obesidad, Gastropatia, Neurologica, Enf_Renal, Cancer, Alcohol, Drogas, Sifilis, SIDA, Artritis, otros_1, Padre, Madre, Hermanos, Otros_2, Menarquia, Ciclo_menstrual, PRSexual, FrecuenciaRSexual, N_Parejas, Dispareunia, Anticoncepcion, AC_DIU, Menopausia, Gesta, Partos, Cesarea2, Aborto, E1erparto, F_Uparto, F_UAborto, Curetaje, N_de_Hijos, Vivos, Muertos, RN_de_mayor_peso, Alergia2, Asma2, Neumonia, TBC2, Cardiopatia2, Hipertension2, Hiperlipidemias, Varices, Hepatopatia, Desnutricion2, Diabetes2, Obesidad2, Gastroenteritis, Encoprexis, Enf_Renal2, Enuresis, Cancer2, Tromboembolica, Tumor_Mamario, Meningitis, TCraneoencefal, Enf_Eruptivas, Dengue, Hospitalizacion, Interv_Quirurgica, Accidentes, Artritis2, Enf_TS, Enf_Infec_Tran, Enf_Laboral, Otros_3, Alcohol2, Drogas2, Insecticidas, Deportes, Sedentarismo, Sueno, ChuparDedo, Onicofagia, Micciones, Evacuaciones, Estres, Metales_Pensados, Alimentacion, Fuma, NCigarrillos_diarios)"
                         +
-                        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
                 Connection conexion = Conexion.getConexion();
                 try {
@@ -2342,6 +2402,12 @@ public class NHM extends JFrame {
                                 statement.setString(index, valor);
                                 index++;
                             }
+                        }else if (componente instanceof JDateChooser) {
+                            Date selectedDate = ((JDateChooser) componente).getDate();
+                            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            String valor = dateFormat.format(selectedDate);
+                            statement.setString(index, valor);
+                            index++;
                         }
                     }
                     statement.executeUpdate();

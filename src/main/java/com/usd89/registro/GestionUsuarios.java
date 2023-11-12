@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
 import com.usd89.DatabaseConnection.Conexion;
 
 public class GestionUsuarios extends JFrame {
@@ -97,6 +98,15 @@ public class GestionUsuarios extends JFrame {
                 nombreField.setBackground(Color.white);
             }
         });
+        nombreField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt){
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
 
         final JTextField apellidoField = Elementos.crearJTextField(14, 134, 260, 29, "", true);
         Panel.add(apellidoField);
@@ -105,6 +115,16 @@ public class GestionUsuarios extends JFrame {
                 apellidoField.setBackground(Color.white);
             }
         });
+        apellidoField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt){
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c)|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE || c == ' ')) {
+                    evt.consume();
+                }
+            }
+        });
+
 
         final JTextField cedulaField = Elementos.crearJTextField(14, 194, 260, 29, "", true);
         Panel.add(cedulaField);
@@ -134,7 +154,7 @@ public class GestionUsuarios extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == '-' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -147,12 +167,31 @@ public class GestionUsuarios extends JFrame {
                 usuarioField.setBackground(Color.white);
             }
         });
+        usuarioField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (c == ' ') {
+                    evt.consume();
+                }
+            }
+        });
+        
 
         final JTextField contrasenaField = Elementos.crearJTextField(14, 387, 260, 29, "", true);
         Panel.add(contrasenaField);
         contrasenaField.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 contrasenaField.setBackground(Color.white);
+            }
+        });
+        contrasenaField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (c == ' ') {
+                    evt.consume();
+                }
             }
         });
 
@@ -191,7 +230,8 @@ public class GestionUsuarios extends JFrame {
 
         // Botones
         // VOLVER
-        final JLabel buttonRegresar = Elementos.crearJLabel(240, 500, 210, 60, "REGRESAR", false);
+
+        final JLabel buttonRegresar = Elementos.crearJLabel(130, 500, 210, 60, "REGRESAR", false);
         buttonRegresar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
         buttonRegresar.setFont(new Font("Roboto Black", 1, 22));
         buttonRegresar.setForeground(Elementos.colores(Inicio.Tema));
@@ -214,6 +254,33 @@ public class GestionUsuarios extends JFrame {
                 buttonRegresar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
             }
         });
+
+        final JLabel buttonLimpiar = Elementos.crearJLabel(340, 500, 210, 60, "LIMPIAR CAMPOS", false);
+        buttonLimpiar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
+        buttonLimpiar.setFont(new Font("Roboto Black", 1, 22));
+        buttonLimpiar.setForeground(Elementos.colores(Inicio.Tema));
+        buttonLimpiar.setHorizontalTextPosition(SwingConstants.CENTER);
+        buttonLimpiar.setVerticalTextPosition(SwingConstants.CENTER);
+        Panel.add(buttonLimpiar);
+        buttonLimpiar.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                JTextField[] textField = {nombreField,apellidoField,cedulaField,telefonofield,contrasenaField,usuarioField};
+                for (JTextField JTextField : textField) {
+                    JTextField.setText("");
+                    JTextField.setBackground(Color.white);
+                }
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                buttonLimpiar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.1"));
+
+            }
+
+            public void mouseExited(MouseEvent e) {
+                buttonLimpiar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
+            }
+        });
+        
         // Añadir
         final JLabel buttonAgregar = Elementos.crearJLabel(10, 440, 210, 60, "AGREGAR", false);
         buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
@@ -319,7 +386,6 @@ public class GestionUsuarios extends JFrame {
                 int selectedRow = tabla.getSelectedRow();
                 // Obtener los valores de las celdas de la fila seleccionada
                 String usuario = CargarTabla().getValueAt(selectedRow, 4).toString();
-                System.out.println(usuario);
                 try {
                     Connection conexion = Conexion.getConexion();
                     // Crear una sentencia SQL DELETE
@@ -379,9 +445,9 @@ public class GestionUsuarios extends JFrame {
 
                     if (filaActualizada > 0) {
                         JOptionPane.showMessageDialog(null,
-                                "Se ha actualizado los datos del Usuario con la cedula " + cedulaField.getText());
+                                "Se ha actualizado los datos del Usuario con la cedula " + cedulaField.getText()+ "\nNota: La cedula y el usuario no se pueden modificar para prevenir conflicto a la hora de ver los registros");
                     } else {
-                        System.out.println("No se encontró ningún cliente con ID " + id);
+                        JOptionPane.showMessageDialog(null,"No se encontró ningún usuario con ID " + id);
                     }
                     conexion.close();
                     tabla.setModel(CargarTabla());
@@ -411,5 +477,9 @@ public class GestionUsuarios extends JFrame {
             fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/Gestion-de-Usuario.png")));
         }
 
+    }
+    public static void main(String[] args) {
+        GestionUsuarios m = new GestionUsuarios();
+        m.setVisible(true);
     }
 }

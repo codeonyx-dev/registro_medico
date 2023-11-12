@@ -19,7 +19,7 @@ public class Buscador extends JFrame {
     JTable lista = new JTable();
     JTextField BuscadorText = new JTextField();
     JComboBox<String> BuscarPor = new JComboBox<String>(
-            new String[] { "Nombre", "N° de historia medica", "Cédula del paciente", "Estado", "Telefono" });
+            new String[] { "Nombre", "N° de historia medica", "Cédula del paciente", "Estado" });
     static String ID;
 
     public void buscar() {
@@ -35,8 +35,6 @@ public class Buscador extends JFrame {
             buscarPor = "Ci_cedula";
         } else if (buscarPor.equalsIgnoreCase("ESTADO")) {
             buscarPor = "Estado";
-        } else if (buscarPor.equalsIgnoreCase("Telefono")) {
-            buscarPor = "Telefono";
         }
 
         if (!"".equals(campo)) {
@@ -48,7 +46,7 @@ public class Buscador extends JFrame {
                 @Override
                 public boolean isCellEditable(int filas, int columnas) {
 
-                    if (columnas == 6) {
+                    if (columnas == 7) {
                         return true;
                     } else {
                         return false;
@@ -62,9 +60,9 @@ public class Buscador extends JFrame {
             Connection conexion = Conexion.getConexion();
             String sql = "";
             if (BuscadorText.getText().equalsIgnoreCase("Buscar...")) {
-                sql = " SELECT Numero_de_Historia, nombre, apellido, sexo, Estado,Telefono,Representante FROM datospersonales ";
+                sql = " SELECT Numero_de_Historia, nombre, apellido, sexo, Estado,Telefono,Ci_cedula FROM datospersonales ";
             } else {
-                sql = " SELECT Numero_de_Historia, nombre, apellido, sexo, Estado,Telefono,Representante FROM datospersonales "
+                sql = " SELECT Numero_de_Historia, nombre, apellido, sexo, Estado,Telefono,Ci_cedula FROM datospersonales "
                         + where;
             }
 
@@ -86,8 +84,8 @@ public class Buscador extends JFrame {
             int[] anchos = { 100, 100, 100, 20, 50, 50, 100 };
             for (int i = 0; i < modelo.getColumnCount(); i++) {
                 lista.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
-            }
 
+            }
             while (rs.next()) {
                 Object[] filas = new Object[cantidadColumnas];
                 for (int i = 0; i < cantidadColumnas; i++) {
@@ -213,10 +211,17 @@ public class Buscador extends JFrame {
                 volverButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
             }
         });
-
+        final JLabel EliminarButton;
         // Botón Eliminar Registro
-        final JLabel EliminarButton = new JLabel("ELIMINAR REGISTRO", Elementos.botonImagen(Inicio.Tema, "mediano.0"),
-                SwingConstants.CENTER);
+        if (!(Inicio.nivel_acceso.equals("administrador"))) {
+            EliminarButton = new JLabel("ELIMINAR REGISTRO", Elementos.botonImagen(Inicio.Tema, "mediano_black.0"),
+                    SwingConstants.CENTER);
+            EliminarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "mediano_black.0"));
+        } else {
+            EliminarButton = new JLabel("ELIMINAR REGISTRO", Elementos.botonImagen(Inicio.Tema, "mediano.0"),
+                    SwingConstants.CENTER);
+        }
+
         EliminarButton.setBounds(375, 640, 320, 67);
         EliminarButton.setFont(new Font("Roboto Black", 1, 22));
         EliminarButton.setForeground(Elementos.colores(Inicio.Tema));
@@ -226,15 +231,12 @@ public class Buscador extends JFrame {
         EliminarButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 if (Inicio.nivel_acceso.equals("administrador")) {
-                    int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas eliminar este dato?",
-                            "Confirmación de Eliminación", JOptionPane.YES_NO_OPTION);
-
-                    if (opcion == JOptionPane.YES_OPTION) {
-                        // Realiza la acción de eliminación aquí
-                        int seleccionar = lista.getSelectedRow();
-
-                        if (seleccionar >= 0) {
-
+                    int seleccionar = lista.getSelectedRow();
+                    if (seleccionar >= 0) {
+                        int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas eliminar este dato?",
+                                "Confirmación de Eliminación", JOptionPane.YES_NO_OPTION);
+                        if (opcion == JOptionPane.YES_OPTION) {
+                            // Realiza la acción de eliminación aquí
                             String ID = String.valueOf(lista.getValueAt(seleccionar, 0));
                             try {
                                 Connection cn = Conexion.getConexion();
@@ -246,33 +248,43 @@ public class Buscador extends JFrame {
 
                             } catch (Exception ex) {
                             }
-
-                        } else {
-                            System.out.println("FALLO");
                         }
                     } else {
-                        // El usuario ha cancelado la eliminación
-                        System.out.println("Eliminación cancelada.");
+                        JOptionPane.showMessageDialog(null, "No ha seleccionado ningún registro");
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "No tiene el permiso para eliminar datos", "Error",
                             JOptionPane.ERROR_MESSAGE, null);
                 }
-
             }
 
             public void mouseEntered(MouseEvent e) {
-                EliminarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "mediano.1"));
+                if (!(Inicio.nivel_acceso.equals("administrador"))) {
+                    EliminarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "mediano_black.1"));
+                } else {
+                    EliminarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "mediano.1"));
+                }
             }
 
             public void mouseExited(MouseEvent e) {
-                EliminarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "mediano.0"));
+                if (!(Inicio.nivel_acceso.equals("administrador"))) {
+                    EliminarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "mediano_black.0"));
+                } else {
+                    EliminarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "mediano.0"));
+                }
             }
         });
 
         // Botón Actualizar Registro
-        final JLabel ActualizarButton = new JLabel("ACTUALIZAR DATOS", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
-                SwingConstants.CENTER);
+        final JLabel ActualizarButton;
+        if (!(Inicio.nivel_acceso.equals("administrador") || Inicio.nivel_acceso.equals("modificacion"))) {
+            ActualizarButton = new JLabel("ACTUALIZAR DATOS", Elementos.botonImagen(Inicio.Tema, "pequeno_black.0"),
+                    SwingConstants.CENTER);
+        } else {
+            ActualizarButton = new JLabel("ACTUALIZAR DATOS", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
+                    SwingConstants.CENTER);
+        }
+
         ActualizarButton.setBounds(700, 640, 250, 67);
         ActualizarButton.setFont(new Font("Roboto Black", 1, 22));
         ActualizarButton.setForeground(Elementos.colores(Inicio.Tema));
@@ -281,20 +293,37 @@ public class Buscador extends JFrame {
         Panel.add(ActualizarButton);
         ActualizarButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                int seleccionar = lista.getSelectedRow();
-                if (seleccionar >= 0) {
-                    ID = String.valueOf(lista.getValueAt(seleccionar, 0));
-                    new NHM_Actualizar().setVisible(true);
-                    dispose();
+                if (Inicio.nivel_acceso.equals("administrador") || Inicio.nivel_acceso.equals("modificacion")) {
+                    int seleccionar = lista.getSelectedRow();
+                    System.out.println(seleccionar);
+                    if (seleccionar >= 0) {
+                        ID = String.valueOf(lista.getValueAt(seleccionar, 0));
+                        new NHM_Actualizar().setVisible(true);
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No ha seleccionado ningún registro");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No tiene el permiso para Actualizar datos", "Error",
+                            JOptionPane.ERROR_MESSAGE, null);
                 }
+
             }
 
             public void mouseEntered(MouseEvent e) {
-                ActualizarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
+                if (!(Inicio.nivel_acceso.equals("administrador") || Inicio.nivel_acceso.equals("modificacion"))) {
+                    ActualizarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno_black.1"));
+                } else {
+                    ActualizarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
+                }
             }
 
             public void mouseExited(MouseEvent e) {
-                ActualizarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
+                if (Inicio.nivel_acceso.equals("administrador") || Inicio.nivel_acceso.equals("modificacion")) {
+                    ActualizarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
+                } else {
+                    ActualizarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno_black.0"));
+                }
             }
         });
 
