@@ -2,11 +2,19 @@ package com.usd89.registro;
 
 import javax.swing.*;
 
+import com.itextpdf.text.pdf.parser.Vector;
 import com.toedter.calendar.JDateChooser;
 import com.usd89.DatabaseConnection.Conexion;
+import com.usd89.DatabaseConnection.Localidades.Estados;
+import com.usd89.DatabaseConnection.Localidades.Municipio;
+import com.usd89.DatabaseConnection.Localidades.Pais;
+
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
@@ -95,7 +103,6 @@ public class NHM extends JFrame {
                 Cerrar.setForeground(Color.WHITE);
             }
         });
-
         // Minimizar
         final JLabel Minimizar = Elementos.minimizar(1070, 10, 20, 20);
         Panel1.add(Minimizar);
@@ -115,62 +122,62 @@ public class NHM extends JFrame {
 
         // PRIMERA FILA
         int fila_x = 36;
-        final JLabel label_apellido_familiar = Elementos.crearJLabel(fila_x, 65, 150, 20, "Apellido de tu familia:",
+        final JLabel label_apellido_familiar = Elementos.crearJLabel(fila_x, 70, 150, 20, "Apellido de tu familia:",
                 false);
         fila_x += label_apellido_familiar.getWidth();
         Panel1.add(label_apellido_familiar);
 
-        final JTextField text_apellido_familiar = Elementos.crearJTextField(fila_x + 5, 65, 150, 20, "", true);
+        final JTextField text_apellido_familiar = Elementos.crearJTextField(fila_x + 5, 70, 140, 20, "", true);
         fila_x += text_apellido_familiar.getWidth();
         Panel1.add(text_apellido_familiar);
         text_apellido_familiar.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isAlphabetic(c) || c == ' '|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
         });
 
-        final JLabel label_ci_jefe_familia = Elementos.crearJLabel(fila_x + 15, 65, 130, 20, "C.I Jefe de familia:",
+        final JLabel label_ci_jefe_familia = Elementos.crearJLabel(fila_x + 25, 70, 130, 20, "C.I Jefe de familia:",
                 false);
         fila_x += label_ci_jefe_familia.getWidth();
         Panel1.add(label_ci_jefe_familia);
 
-        final JTextField text_ci_jefe_familia = Elementos.crearJTextField(fila_x + 15, 65, 150, 20, "", true);
+        final JTextField text_ci_jefe_familia = Elementos.crearJTextField(fila_x + 30, 70, 100, 20, "", true);
         fila_x += text_ci_jefe_familia.getWidth();
         Panel1.add(text_ci_jefe_familia);
         text_ci_jefe_familia.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == ' '|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
         });
 
-        final JLabel Label_Numero_de_Historia = Elementos.crearJLabel(fila_x + 25, 65, 150, 20, "Numero de Historia:",
+        final JLabel Label_Numero_de_Historia = Elementos.crearJLabel(fila_x + 50, 70, 150, 20, "Numero de Historia:",
                 false);
         fila_x += Label_Numero_de_Historia.getWidth();
         Panel1.add(Label_Numero_de_Historia);
 
         String numeroHistoria = generarNumeroHistoriaUnico();
-        final JTextField text_Numero_de_Historia = Elementos.crearJTextField(fila_x + 25, 65, 150, 20, numeroHistoria,
+        final JTextField text_Numero_de_Historia = Elementos.crearJTextField(fila_x + 50, 70, 80, 20, numeroHistoria,
                 true);
         fila_x += text_Numero_de_Historia.getWidth();
         text_Numero_de_Historia.setEditable(false);
         Panel1.add(text_Numero_de_Historia);
 
         // Segunda linea
-        final JLabel Label_ci = Elementos.crearJLabel(36, 95, 20, 20, "CI", false);
+        final JLabel Label_ci = Elementos.crearJLabel(36, 115, 20, 20, "CI", false);
         Panel1.add(Label_ci);
         final JComboBox<String> ci_ComboBox = new JComboBox<String>(new String[] { "V", "E" });
-        ci_ComboBox.setBounds(61, 95, 40, 20);
+        ci_ComboBox.setBounds(61, 115, 40, 20);
         Panel1.add(ci_ComboBox);
-
-        final JTextField text_ci = Elementos.crearJTextField(105, 95, 150, 20, "", true);
+        final JTextField text_ci = Elementos.crearJTextField(105, 115, 100, 20, "", true);
         Panel1.add(text_ci);
         text_ci.addKeyListener(new KeyAdapter() {
             @Override
@@ -182,70 +189,74 @@ public class NHM extends JFrame {
             }
         });
 
-        final JLabel label_apellido = Elementos.crearJLabel(270, 95, 70, 20, "Apellido:", false);
-        Panel1.add(label_apellido);
-
-        final JTextField text_apellido = Elementos.crearJTextField(335, 95, 150, 20, "", true);
-        Panel1.add(text_apellido);
-        text_apellido.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent evt) {
-                char c = evt.getKeyChar();
-                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
-                    evt.consume();
-                }
-            }
-        });
-
-        final JLabel label_nombre = Elementos.crearJLabel(500, 95, 65, 20, "Nombre:", false);
+        final JLabel label_nombre = Elementos.crearJLabel(220, 115, 65, 20, "Nombre:", false);
         Panel1.add(label_nombre);
 
-        final JTextField text_nombre = Elementos.crearJTextField(565, 95, 130, 20, "", true);
+        final JTextField text_nombre = Elementos.crearJTextField(285, 115, 130, 20, "", true);
         Panel1.add(text_nombre);
         text_nombre.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isAlphabetic(c) || c ==' '|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
         });
-        
-        final JLabel label_estadoCivil = Elementos.crearJLabel(700, 95, 90, 20, "Estado civil:", false);
-        Panel1.add(label_estadoCivil);
-        
-        final JComboBox<String> ComboBox_estadoCivil = new JComboBox<String>(new String[] { "S", "C", "V", "D", "O" });
-        ComboBox_estadoCivil.setBounds(790, 95, 50, 20);
-        Panel1.add(ComboBox_estadoCivil);
 
-        final JLabel label_Ocupacion = Elementos.crearJLabel(860, 95, 80, 20, "Ocupación:", false);
-        Panel1.add(label_Ocupacion);
+        final JLabel label_apellido = Elementos.crearJLabel(430, 115, 70, 20, "Apellido:", false);
+        Panel1.add(label_apellido);
 
-        final JTextField text_Ocupacion = Elementos.crearJTextField(943, 95, 100, 20, "", true);
-        Panel1.add(text_Ocupacion);
-        text_Ocupacion.addKeyListener(new KeyAdapter() {
+        final JTextField text_apellido = Elementos.crearJTextField(495, 115, 150, 20, "", true);
+        Panel1.add(text_apellido);
+        text_apellido.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isAlphabetic(c) || c == ' '|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
         });
 
-        // Tercera linea
-        final JLabel label_Estudios = Elementos.crearJLabel(36, 125, 80, 20, "Estudios:", false);
+        final JLabel label_Sexo = Elementos.crearJLabel(660, 115, 50, 20, "Sexo:", false);
+        Panel1.add(label_Sexo);
+
+        final JComboBox<String> combo_sexo = new JComboBox<String>(new String[] { "Femenino", "Masculino" });
+        combo_sexo.setBounds(705, 115, 85, 20);
+        Panel1.add(combo_sexo);
+
+        final JLabel label_estadoCivil = Elementos.crearJLabel(805, 115, 90, 20, "Estado civil:", false);
+        Panel1.add(label_estadoCivil);
+
+        final JComboBox<String> ComboBox_estadoCivil = new JComboBox<String>(
+                new String[] { "Soltero/a", "Casado/a", "Viudo/a", "Divorciado/a", "Otros" });
+        ComboBox_estadoCivil.setBounds(895, 115, 100, 20);
+        Panel1.add(ComboBox_estadoCivil);
+
+        // FECHA DE NACIMIENTO
+        final JLabel label_fechaNacimiento = Elementos.crearJLabel(36, 150, 130, 20, "Fecha nacimiento:", false);
+        Panel1.add(label_fechaNacimiento);
+
+        // Agregar el calendario
+        JDateChooser calendario = new JDateChooser("dd/MM/yyyy", "##/##/####", '_');
+        calendario.setFont(new Font("Arial", 3, 15));
+        calendario.setBounds(170, 150, 100, 20);
+        Panel1.add(calendario);
+
+        final JLabel label_Estudios = Elementos.crearJLabel(285, 150, 80, 20, "Estudios:", false);
         Panel1.add(label_Estudios);
 
         final JComboBox<String> combo_estudio = new JComboBox<String>(new String[] { "P", "S", "U", "O" });
-        combo_estudio.setBounds(110, 125, 50, 20);
+        combo_estudio.setBounds(360, 150, 55, 20);
         Panel1.add(combo_estudio);
 
-        final JLabel label_anosAprobados = Elementos.crearJLabel(170, 125, 120, 20, "Años aprobados:", false);
+        final JLabel label_anosAprobados = Elementos.crearJLabel(430, 150, 120, 20, "Años aprobados:", false);
         Panel1.add(label_anosAprobados);
 
-        final JTextField text_anosAprobados = Elementos.crearJTextField(295, 125, 80, 20, "", true);
+        final JTextField text_anosAprobados = Elementos.crearJTextField(550, 150, 95, 20, "", true);
         Panel1.add(text_anosAprobados);
         text_anosAprobados.addKeyListener(new KeyAdapter() {
             @Override
@@ -257,186 +268,244 @@ public class NHM extends JFrame {
             }
         });
 
-        final JLabel label_Analfabeta = Elementos.crearJLabel(380, 125, 80, 20, "Analfabeta:", false);
+        final JLabel label_Analfabeta = Elementos.crearJLabel(660, 150, 80, 20, "Analfabeta:", false);
         Panel1.add(label_Analfabeta);
 
         final JComboBox<String> combo_Analfabeta = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Analfabeta.setBounds(465, 125, 50, 20);
+        combo_Analfabeta.setBounds(740, 150, 50, 20);
         Panel1.add(combo_Analfabeta);
 
-        final JLabel label_Sexo = Elementos.crearJLabel(525, 125, 50, 20, "Sexo:", false);
-        Panel1.add(label_Sexo);
+        final JLabel label_Ocupacion = Elementos.crearJLabel(805, 150, 80, 20, "Ocupación:", false);
+        Panel1.add(label_Ocupacion);
 
-        final JComboBox<String> combo_sexo = new JComboBox<String>(new String[] { "F", "M" });
-        combo_sexo.setBounds(575, 125, 50, 20);
-        Panel1.add(combo_sexo);
-
-        // FECHA DE NACIMIENTO
-        final JLabel label_fechaNacimiento = Elementos.crearJLabel(630, 125, 130, 20, "Fecha nacimiento:", false);
-        Panel1.add(label_fechaNacimiento);
-
-        //Agregar el calendario
-        JDateChooser calendario = new JDateChooser("dd/MM/yyyy", "##/##/####", '_');
-        calendario.setFont(new Font("Arial", 3 ,15));
-        calendario.setBounds(760, 125,100,20);
-        Panel1.add(calendario);
-
-        final JLabel label_LugarNacimiento = Elementos.crearJLabel(36, 175, 150, 20, "Lugar de nacimiento:", false);
-        Panel1.add(label_LugarNacimiento);
-
-        final JTextField text_LugarNacimiento = Elementos.crearJTextField(190, 175, 150, 20, "", true);
-        Panel1.add(text_LugarNacimiento);
-        
-
-        final JLabel label_Estado = Elementos.crearJLabel(345, 175, 80, 20, "Estado:", false);
-        Panel1.add(label_Estado);
-
-        final JTextField texto_Estado = Elementos.crearJTextField(400, 175, 100, 20, "", true);
-        Panel1.add(texto_Estado);
-
-        final JLabel label_Pais = Elementos.crearJLabel(505, 175, 40, 20, "Pais:", false);
-        Panel1.add(label_Pais);
-
-        final JTextField texto_Pais = Elementos.crearJTextField(545, 175, 100, 20, "", true);
-        Panel1.add(texto_Pais);
-
-        final JLabel label_Dirección = Elementos.crearJLabel(650, 175, 80, 20, "Dirección:", false);
-        Panel1.add(label_Dirección);
-
-        final JTextField texto_Direccion = Elementos.crearJTextField(725, 175, 325, 20, "", true);
-        Panel1.add(texto_Direccion);
-
-        // Cuarta linea
-        fila_x = 36;
-        final JLabel label_Telefono = Elementos.crearJLabel(fila_x, 205, 70, 20, "Telefono:", false);
-        fila_x += label_Telefono.getWidth();
-        Panel1.add(label_Telefono);
-
-        final JTextField texto_Telefono = Elementos.crearJTextField(fila_x + 5, 205, 100, 20, "", true);
-        fila_x += texto_Telefono.getWidth();
-        Panel1.add(texto_Telefono);
-        texto_Telefono.addKeyListener(new KeyAdapter() {
+        final JTextField text_Ocupacion = Elementos.crearJTextField(885, 150, 150, 20, "", true);
+        Panel1.add(text_Ocupacion);
+        text_Ocupacion.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
         });
 
-        final JLabel label_Religion = Elementos.crearJLabel(fila_x + 15, 205, 70, 20, "Religion:", false);
-        fila_x += label_Religion.getWidth();
-        Panel1.add(label_Religion);
+        // Tercera linea
+        final JLabel label_Pais = Elementos.crearJLabel(36, 190, 40, 20, "Pais:", false);
+        Panel1.add(label_Pais);
 
-        final JTextField texto_Religion = Elementos.crearJTextField(fila_x + 15, 205, 100, 20, "", true);
-        fila_x += texto_Religion.getWidth();
-        Panel1.add(texto_Religion);
+        Pais pais = new Pais();
+        DefaultComboBoxModel<String> modelPais = new DefaultComboBoxModel(pais.mostrarPais());
+        JComboBox<String> combo_Pais = new JComboBox<String>();
+        combo_Pais.setBounds(76, 190, 195, 20);
+        combo_Pais.setFont(new Font("Roboto", 1, 15));
+        combo_Pais.setModel(modelPais);
+        Panel1.add(combo_Pais);
 
-        final JLabel label_Establecimiento = Elementos.crearJLabel(fila_x + 25, 205, 120, 20, "Establecimiento:",
-                false);
-        fila_x += label_Establecimiento.getWidth();
-        Panel1.add(label_Establecimiento);
+        final JLabel label_Estado = Elementos.crearJLabel(285, 190, 80, 20, "Estado:", false);
+        Panel1.add(label_Estado);
 
-        final JTextField texto_Establecimiento = Elementos.crearJTextField(fila_x + 25, 205, 110, 20, "", true);
-        fila_x += texto_Establecimiento.getWidth();
-        Panel1.add(texto_Establecimiento);
+        Estados estado = new Estados();
+        JComboBox<String> combo_Estado = new JComboBox<String>(new String[] { "Seleccionar" });
+        combo_Estado.setBounds(340, 190, 210, 20);
+        combo_Estado.setFont(new Font("Roboto", 1, 15));
+        Panel1.add(combo_Estado);
 
-        final JLabel label_Municipio = Elementos.crearJLabel(fila_x + 35, 205, 80, 20, "Municipio:", false);
-        fila_x += label_Municipio.getWidth();
+        final JLabel label_Municipio = Elementos.crearJLabel(575, 190, 80, 20, "Municipio:", false);
         Panel1.add(label_Municipio);
 
-        final JTextField texto_Municipio = Elementos.crearJTextField(fila_x + 35, 205, 120, 20, "", true);
-        fila_x += texto_Municipio.getWidth();
+        Municipio Municipio = new Municipio();
+        JComboBox<String> Combo_municipio = new JComboBox<String>();
+        Combo_municipio.setBounds(660, 190, 130, 20);
+        Combo_municipio.setFont(new Font("Roboto", 1, 15));
+        Panel1.add(Combo_municipio);
+        Combo_municipio.setVisible(true);
+        final JTextField texto_Municipio = Elementos.crearJTextField(660, 190, 130, 20, "", true);
         Panel1.add(texto_Municipio);
+        texto_Municipio.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
+        texto_Municipio.setVisible(false);
+        combo_Pais.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    Pais pais = (Pais) combo_Pais.getSelectedItem();
+                    DefaultComboBoxModel<String> modelEstado = new DefaultComboBoxModel(
+                            estado.mostrarEstados(pais.getId()));
+                    combo_Estado.setModel(modelEstado);
+                    if (pais.getNombre().equals("Venezuela")) {
+                        texto_Municipio.setVisible(false);
+                        Combo_municipio.setVisible(true);
+                    } else {
+                        texto_Municipio.setVisible(true);
+                        Combo_municipio.setVisible(false);
+                    }
+                }
+            }
+        });
+        combo_Estado.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    Estados estados = (Estados) combo_Estado.getSelectedItem();
+                    DefaultComboBoxModel<String> modelMunicipio = new DefaultComboBoxModel(
+                            Municipio.mostrarMunicipios(estados.getId()));
+                    Combo_municipio.setModel(modelMunicipio);
+                }
+            }
+        });
 
-        final JLabel label_Parroquia = Elementos.crearJLabel(fila_x + 45, 205, 80, 20, "Parroquia:", false);
+        final JLabel label_Parroquia = Elementos.crearJLabel(805, 190, 80, 20, "Parroquia:", false);
         fila_x += label_Parroquia.getWidth();
         Panel1.add(label_Parroquia);
 
-        final JTextField texto_Parroquia = Elementos.crearJTextField(fila_x + 45, 205, 120, 20, "", true);
+        final JTextField texto_Parroquia = Elementos.crearJTextField(885, 190, 150, 20, "", true);
         fila_x += texto_Parroquia.getWidth();
         Panel1.add(texto_Parroquia);
 
+        // Cuarta linea
+        final JLabel label_Dirección = Elementos.crearJLabel(36, 230, 80, 20, "Dirección:", false);
+        Panel1.add(label_Dirección);
+
+        final JTextField texto_Direccion = Elementos.crearJTextField(115, 230, 325, 20, "", true);
+        Panel1.add(texto_Direccion);
+
+        final JLabel label_LugarNacimiento = Elementos.crearJLabel(460, 230, 150, 20, "Lugar de nacimiento:", false);
+        Panel1.add(label_LugarNacimiento);
+
+        final JTextField text_LugarNacimiento = Elementos.crearJTextField(610, 230, 180, 20, "", true);
+        Panel1.add(text_LugarNacimiento);
+
+        final JLabel label_Establecimiento = Elementos.crearJLabel(800, 230, 120, 20, "Establecimiento:", false);
+        fila_x += label_Establecimiento.getWidth();
+        Panel1.add(label_Establecimiento);
+
+        final JTextField texto_Establecimiento = Elementos.crearJTextField(920, 230, 115, 20, "", true);
+        fila_x += texto_Establecimiento.getWidth();
+        Panel1.add(texto_Establecimiento);
+        texto_Establecimiento.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
+                    evt.consume();
+                }
+            }
+        });
+
         // Quinta linea
-        fila_x = 36;
-        final JLabel label_Comunidad = Elementos.crearJLabel(fila_x, 235, 85, 20, "Comunidad:", false);
-        fila_x += label_Comunidad.getWidth();
+        final JLabel label_Comunidad = Elementos.crearJLabel(36, 270, 85, 20, "Comunidad:", false);
         Panel1.add(label_Comunidad);
 
-        final JTextField texto_Comunidad = Elementos.crearJTextField(fila_x + 5, 235, 120, 20, "", true);
-        fila_x += texto_Comunidad.getWidth();
+        final JTextField texto_Comunidad = Elementos.crearJTextField(125, 270, 120, 20, "", true);
         Panel1.add(texto_Comunidad);
 
-        // Séptima linea
+        final JLabel label_Telefono = Elementos.crearJLabel(260, 270, 70, 20, "Telefono:", false);
+        Panel1.add(label_Telefono);
+
+        final JTextField texto_Telefono = Elementos.crearJTextField(330, 270, 110, 20, "", true);
+        Panel1.add(texto_Telefono);
+
+        texto_Telefono.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE || c == '+')) {
+                    evt.consume();
+                }
+            }
+        });
+
+        final JLabel label_Religion = Elementos.crearJLabel(460, 270, 70, 20, "Religion:", false);
+        fila_x += label_Religion.getWidth();
+        Panel1.add(label_Religion);
+
+        final JTextField texto_Religion = Elementos.crearJTextField(525, 270, 120, 20, "", true);
+        fila_x += texto_Religion.getWidth();
+        Panel1.add(texto_Religion);
+
+        // Sexta linea Datos del representante
         fila_x = 36;
-        final JLabel label_Madre_N_A = Elementos.crearJLabel(fila_x, 310, 220, 20, "Nombre y apellido de la madre:",
+        final JLabel label_Madre_N_A = Elementos.crearJLabel(fila_x, 355, 220, 20, "Nombre y apellido de la madre:",
                 false);
         fila_x += label_Madre_N_A.getWidth();
         Panel1.add(label_Madre_N_A);
 
-        final JTextField texto_Madre_N_A = Elementos.crearJTextField(fila_x + 5, 310, 200, 20, "", true);
+        final JTextField texto_Madre_N_A = Elementos.crearJTextField(fila_x + 5, 355, 300, 20, "", true);
         fila_x += texto_Madre_N_A.getWidth();
         Panel1.add(texto_Madre_N_A);
         texto_Madre_N_A.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
         });
-        final JLabel label_Madre_Ocupacion = Elementos.crearJLabel(fila_x + 15, 310, 85, 20, "Ocupacion:", false);
+        final JLabel label_Madre_Ocupacion = Elementos.crearJLabel(fila_x + 15, 355, 85, 20, "Ocupacion:", false);
         fila_x += label_Madre_Ocupacion.getWidth();
         Panel1.add(label_Madre_Ocupacion);
 
-        final JTextField texto_Madre_Ocupacion = Elementos.crearJTextField(fila_x + 15, 310, 100, 20, "", true);
+        final JTextField texto_Madre_Ocupacion = Elementos.crearJTextField(fila_x + 15, 355, 114, 20, "", true);
         fila_x += texto_Madre_Ocupacion.getWidth();
         Panel1.add(texto_Madre_Ocupacion);
         texto_Madre_Ocupacion.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isAlphabetic(c) || c ==' ' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
         });
-        
 
-        // Octava linea
+        // Octava linea Datos del representante
         fila_x = 36;
-        final JLabel label_Padre_N_A = Elementos.crearJLabel(fila_x, 335, 220, 20, "Nombre y apellido de la padre:",
+        final JLabel label_Padre_N_A = Elementos.crearJLabel(fila_x, 390, 220, 20, "Nombre y apellido de la padre:",
                 false);
         fila_x += label_Padre_N_A.getWidth();
         Panel1.add(label_Padre_N_A);
 
-        final JTextField texto_Padre_N_A = Elementos.crearJTextField(fila_x + 5, 335, 200, 20, "", true);
+        final JTextField texto_Padre_N_A = Elementos.crearJTextField(fila_x + 5, 390, 300, 20, "", true);
         fila_x += texto_Padre_N_A.getWidth();
         Panel1.add(texto_Padre_N_A);
         texto_Padre_N_A.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isAlphabetic(c) || c ==' ' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
         });
 
-        final JLabel label_Padre_Ocupacion = Elementos.crearJLabel(fila_x + 15, 335, 85, 20, "Ocupacion:", false);
+        final JLabel label_Padre_Ocupacion = Elementos.crearJLabel(fila_x + 15, 390, 85, 20, "Ocupacion:", false);
         fila_x += label_Padre_Ocupacion.getWidth();
         Panel1.add(label_Padre_Ocupacion);
 
-        final JTextField texto_Padre_Ocupacion = Elementos.crearJTextField(fila_x + 15, 335, 100, 20, "", true);
+        final JTextField texto_Padre_Ocupacion = Elementos.crearJTextField(fila_x + 15, 390, 114, 20, "", true);
         fila_x += texto_Padre_Ocupacion.getWidth();
         Panel1.add(texto_Padre_Ocupacion);
         texto_Padre_Ocupacion.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -444,20 +513,20 @@ public class NHM extends JFrame {
 
         // Novena linea
         fila_x = 36;
-        final JLabel label_Representante = Elementos.crearJLabel(fila_x, 360, 110, 20, "Representante:", false);
+        final JLabel label_Representante = Elementos.crearJLabel(fila_x, 420, 110, 20, "Representante:", false);
         fila_x += label_Representante.getWidth();
         Panel1.add(label_Representante);
 
         final JComboBox<String> combo_Representante = new JComboBox<String>(new String[] { "Padre", "Madre", "Otros" });
-        combo_Representante.setBounds(fila_x + 5, 360, 80, 20);
+        combo_Representante.setBounds(fila_x + 5, 420, 80, 20);
         fila_x += combo_Representante.getWidth();
         Panel1.add(combo_Representante);
 
-        final JLabel label_Representante_N = Elementos.crearJLabel(fila_x + 15, 360, 70, 20, "Nombre:", false);
+        final JLabel label_Representante_N = Elementos.crearJLabel(fila_x + 35, 420, 70, 20, "Nombre:", false);
         fila_x += label_Representante_N.getWidth();
         Panel1.add(label_Representante_N);
 
-        final JTextField texto_Representante_N = Elementos.crearJTextField(fila_x + 10, 360, 100, 20, "", true);
+        final JTextField texto_Representante_N = Elementos.crearJTextField(fila_x + 30, 420, 235, 20, "", true);
         fila_x += texto_Representante_N.getWidth();
         Panel1.add(texto_Representante_N);
         texto_Representante_N.addKeyListener(new KeyAdapter() {
@@ -470,16 +539,16 @@ public class NHM extends JFrame {
             }
         });
 
-        final JLabel label_Representante_ci = Elementos.crearJLabel(fila_x + 20, 360, 60, 20, "Cédula:", false);
+        final JLabel label_Representante_ci = Elementos.crearJLabel(fila_x + 40, 420, 60, 20, "Cédula:", false);
         fila_x += label_Representante_ci.getWidth();
         Panel1.add(label_Representante_ci);
 
         final JComboBox<String> combo__Representante_ci = new JComboBox<String>(new String[] { "V", "E" });
-        combo__Representante_ci.setBounds(fila_x + 25, 360, 40, 20);
+        combo__Representante_ci.setBounds(fila_x + 40, 420, 40, 20);
         fila_x += combo__Representante_ci.getWidth();
         Panel1.add(combo__Representante_ci);
 
-        final JTextField texto_Representante_ci = Elementos.crearJTextField(fila_x + 25, 360, 100, 20, "", true);
+        final JTextField texto_Representante_ci = Elementos.crearJTextField(fila_x + 42, 420, 100, 20, "", true);
         fila_x += texto_Representante_ci.getWidth();
         Panel1.add(texto_Representante_ci);
         texto_Representante_ci.addKeyListener(new KeyAdapter() {
@@ -492,11 +561,11 @@ public class NHM extends JFrame {
             }
         });
 
-        final JLabel label_Representante_Telefono = Elementos.crearJLabel(fila_x + 35, 360, 70, 20, "Telefono:", false);
+        final JLabel label_Representante_Telefono = Elementos.crearJLabel(fila_x + 50, 420, 70, 20, "Telefono:", false);
         fila_x += label_Representante_Telefono.getWidth();
         Panel1.add(label_Representante_Telefono);
 
-        final JTextField texto_Representante_Telefono = Elementos.crearJTextField(fila_x + 35, 360, 100, 20, "", true);
+        final JTextField texto_Representante_Telefono = Elementos.crearJTextField(fila_x + 50, 420, 100, 20, "", true);
         fila_x += texto_Representante_Telefono.getWidth();
         Panel1.add(texto_Representante_Telefono);
         texto_Representante_Telefono.addKeyListener(new KeyAdapter() {
@@ -508,35 +577,46 @@ public class NHM extends JFrame {
                 }
             }
         });
-        // Antecedentes prenatales en menores de 12 años
-        fila_x = 36;
-        final JLabel label_CarnetPrenatal = Elementos.crearJLabel(fila_x, 470, 180, 20, "Carnet prenatal:", false);
-        fila_x += label_CarnetPrenatal.getWidth();
+
+        // Décima linea Patologias
+        final JLabel label_CarnetPrenatal = Elementos.crearJLabel(36, 500, 180, 20, "Carnet prenatal:", false);
         Panel1.add(label_CarnetPrenatal);
 
         final JComboBox<String> combo_Carnet_prenatal = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_Carnet_prenatal.setBounds(fila_x + 5, 470, 40, 20);
-        fila_x += combo_Carnet_prenatal.getWidth();
+        combo_Carnet_prenatal.setBounds(216, 500, 40, 20);
         Panel1.add(combo_Carnet_prenatal);
 
-        fila_x = 36;
-        final JLabel label_patologiaEmbarazo = Elementos.crearJLabel(fila_x, 500, 180, 20, "Patologia embarazo:",
-                false);
-        fila_x += label_patologiaEmbarazo.getWidth();
+        final JLabel NConsultasPrenatales = Elementos.crearJLabel(280, 500, 180, 20, "N~ Consultas prenatales:", false);
+        Panel1.add(NConsultasPrenatales);
+
+        final JTextField text_NConsultasPrenatales = Elementos.crearJTextField(470, 500, 60, 20, "", true);
+        Panel1.add(text_NConsultasPrenatales);
+
+        final JLabel label_patologiaEmbarazo = Elementos.crearJLabel(36, 530, 180, 20, "Patologia embarazo:", false);
         Panel1.add(label_patologiaEmbarazo);
 
         final JComboBox<String> combo_patologiaEmbarazo = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_patologiaEmbarazo.setBounds(fila_x + 5, 500, 40, 20);
-        fila_x += combo_patologiaEmbarazo.getWidth();
+        combo_patologiaEmbarazo.setBounds(216, 530, 40, 20);
         Panel1.add(combo_patologiaEmbarazo);
 
-        final JLabel label_Hrs_fuera_de_casa = Elementos.crearJLabel(fila_x + 30, 500, 160, 20, "Hrs fuera de casa:",
-                false);
-        fila_x += label_Hrs_fuera_de_casa.getWidth();
+        final JLabel label_patologiaParto = Elementos.crearJLabel(36, 560, 180, 20, "Patologia parto:", false);
+        Panel1.add(label_patologiaParto);
+
+        final JComboBox<String> combo_patologiaParto = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_patologiaParto.setBounds(216, 560, 40, 20);
+        Panel1.add(combo_patologiaParto);
+
+        final JLabel label_patologiaPuerperio = Elementos.crearJLabel(36, 590, 180, 20, "Patologia puerperio:", false);
+        Panel1.add(label_patologiaPuerperio);
+
+        final JComboBox<String> combo_patologiaPuerperio = new JComboBox<String>(new String[] { "Si", "No" });
+        combo_patologiaPuerperio.setBounds(216, 590, 40, 20);
+        Panel1.add(combo_patologiaPuerperio);
+
+        final JLabel label_Hrs_fuera_de_casa = Elementos.crearJLabel(600, 540, 160, 20, "Hrs fuera de casa", false);
         Panel1.add(label_Hrs_fuera_de_casa);
 
-        final JTextField texto_Hrs_fuera_de_casa = Elementos.crearJTextField(fila_x + 5, 500, 50, 20, "", true);
-        fila_x += texto_Hrs_fuera_de_casa.getWidth();
+        final JTextField texto_Hrs_fuera_de_casa = Elementos.crearJTextField(640, 570, 50, 20, "", true);
         Panel1.add(texto_Hrs_fuera_de_casa);
         texto_Hrs_fuera_de_casa.addKeyListener(new KeyAdapter() {
             @Override
@@ -548,72 +628,36 @@ public class NHM extends JFrame {
             }
         });
 
-        final JLabel label_MadreFamilia = Elementos.crearJLabel(fila_x + 40, 500, 80, 20, "Madre:", false);
-        fila_x += label_MadreFamilia.getWidth();
+        final JLabel label_MadreFamilia = Elementos.crearJLabel(790, 550, 80, 20, "Madre:", false);
         Panel1.add(label_MadreFamilia);
 
         final JComboBox<String> combo_MadreFamilia = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_MadreFamilia.setBounds(fila_x + 25, 500, 40, 20);
-        fila_x += combo_MadreFamilia.getWidth();
+        combo_MadreFamilia.setBounds(845, 550, 40, 20);
         Panel1.add(combo_MadreFamilia);
 
-        fila_x = 36;
-        final JLabel label_patologiaParto = Elementos.crearJLabel(fila_x, 530, 180, 20, "Patologia parto:", false);
-        fila_x += label_patologiaParto.getWidth();
-        Panel1.add(label_patologiaParto);
-
-        final JComboBox<String> combo_patologiaParto = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_patologiaParto.setBounds(fila_x + 5, 530, 40, 20);
-        fila_x += combo_patologiaParto.getWidth();
-        Panel1.add(combo_patologiaParto);
-
-        final JLabel label_PadreFamilia = Elementos.crearJLabel(fila_x + 250, 530, 80, 20, "Padre:", false);
-        fila_x += label_PadreFamilia.getWidth();
+        final JLabel label_PadreFamilia = Elementos.crearJLabel(790, 580, 80, 20, "Padre:", false);
         Panel1.add(label_PadreFamilia);
 
         final JComboBox<String> combo_PadreFamilia = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_PadreFamilia.setBounds(fila_x + 225, 530, 40, 20);
-        fila_x += combo_PadreFamilia.getWidth();
+        combo_PadreFamilia.setBounds(845, 580, 40, 20);
         Panel1.add(combo_PadreFamilia);
 
-        fila_x = 36;
-        final JLabel label_patologiaPuerperio = Elementos.crearJLabel(fila_x, 560, 180, 20, "Patologia puerperio:",
-                false);
-        fila_x += label_patologiaPuerperio.getWidth();
-        Panel1.add(label_patologiaPuerperio);
-
-        final JComboBox<String> combo_patologiaPuerperio = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_patologiaPuerperio.setBounds(fila_x + 5, 560, 40, 20);
-        fila_x += combo_patologiaPuerperio.getWidth();
-        Panel1.add(combo_patologiaPuerperio);
-
-        final JLabel label_HermanoFamilia = Elementos.crearJLabel(fila_x + 250, 560, 80, 20, "Hermano:", false);
-        fila_x += label_HermanoFamilia.getWidth();
+        final JLabel label_HermanoFamilia = Elementos.crearJLabel(900, 550, 80, 20, "Hermano:", false);
         Panel1.add(label_HermanoFamilia);
 
         final JComboBox<String> combo_HermanoFamilia = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_HermanoFamilia.setBounds(fila_x + 245, 560, 40, 20);
-        fila_x += combo_HermanoFamilia.getWidth();
+        combo_HermanoFamilia.setBounds(980, 550, 40, 20);
         Panel1.add(combo_HermanoFamilia);
 
-        fila_x = 36;
-        final JLabel NConsultasPrenatales = Elementos.crearJLabel(fila_x, 590, 180, 20,
-                "N~ Consultas prenatales:", false);
-        fila_x += NConsultasPrenatales.getWidth();
-        Panel1.add(NConsultasPrenatales);
-
-        final JComboBox<String> combo_NConsultasPrenatales = new JComboBox<String>(new String[] { "Si", "No" });
-        combo_NConsultasPrenatales.setBounds(fila_x + 5, 590, 40, 20);
-        fila_x += combo_NConsultasPrenatales.getWidth();
-        Panel1.add(combo_NConsultasPrenatales);
-
-        final JLabel label_OtrosFamilia = Elementos.crearJLabel(fila_x + 250, 590, 80, 20, "Otros:", false);
-        fila_x += label_OtrosFamilia.getWidth();
+        final JLabel label_OtrosFamilia = Elementos.crearJLabel(900, 580, 80, 20, "Otros:", false);
         Panel1.add(label_OtrosFamilia);
 
-        final JTextField text_OtrosFamilia = Elementos.crearJTextField(fila_x + 225, 590, 80, 20, "", true);
-        fila_x += text_OtrosFamilia.getWidth();
+        final JTextField text_OtrosFamilia = Elementos.crearJTextField(950, 580, 80, 20, "", true);
         Panel1.add(text_OtrosFamilia);
+
+        text_OtrosFamilia.addKeyListener(new KeyAdapter() {
+
+        });
 
         // Botón Volver al menu
         final JLabel volverButton = new JLabel("VOLVER AL INICIO", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
@@ -660,8 +704,6 @@ public class NHM extends JFrame {
                         text_Ocupacion,
                         text_anosAprobados,
                         text_LugarNacimiento,
-                        texto_Estado,
-                        texto_Pais,
                         texto_Direccion,
                         texto_Telefono,
                         texto_Religion,
@@ -677,12 +719,15 @@ public class NHM extends JFrame {
                         texto_Representante_ci,
                         texto_Representante_Telefono,
                         texto_Hrs_fuera_de_casa
+                        
                 };
                 for (final JTextField JTextField : textFieldNames) {
                     JTextField.setText("");
                 }
+                combo_Pais.setSelectedIndex(0);
+                combo_Estado.setSelectedIndex(0);
+                
             }
-
             public void mouseEntered(MouseEvent e) {
                 limpiarD_Button.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
             }
@@ -704,34 +749,62 @@ public class NHM extends JFrame {
 
         siguienteButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                JTextField[] textFieldNames = {
+                JComponent[] Componentes = {
                         text_apellido_familiar,
                         text_ci_jefe_familia,
-                        text_Numero_de_Historia,
                         text_ci,
                         text_apellido,
                         text_nombre,
                         text_Ocupacion,
                         text_anosAprobados,
+                        combo_Pais,
+                        combo_Estado,
                         text_LugarNacimiento,
-                        texto_Estado,
-                        texto_Pais,
                         texto_Direccion,
                         texto_Telefono,
                         texto_Religion,
                         texto_Establecimiento,
-                        texto_Municipio,
                         texto_Parroquia,
                         texto_Comunidad,
+                        calendario
                 };
+                JComponent[] nuevoArrayComponentes = new JComponent[Componentes.length + 1];
+                System.arraycopy(Componentes, 0, nuevoArrayComponentes, 0, Componentes.length);
+                if(texto_Municipio.isVisible()){
+                    nuevoArrayComponentes[Componentes.length] = texto_Municipio;
+                }else{
+                    nuevoArrayComponentes[Componentes.length] = Combo_municipio;
+                }
+                Componentes = nuevoArrayComponentes;
+
                 int datosFaltantes = 0;
-                for (final JTextField JTextField : textFieldNames) {
-                    if (JTextField.getText().isEmpty()) {
-                        JTextField.setBackground(Color.red);
-                        datosFaltantes++;
-                    }else if(datosFaltantes == 0) {
-                        cardLayout.show(contentPanel, "panel2");
+                for (final JComponent Component : Componentes) {
+                    if (Component instanceof JTextField) {
+                        if (((JTextField) Component).getText().isEmpty()) {
+                            Component.setBackground(Color.red);
+                            datosFaltantes++;
+                        }
+                    } else if (Component instanceof JComboBox) {
+                        if (((JComboBox<?>) Component).getSelectedItem().toString().equalsIgnoreCase("Seleccionar")) {
+                            Component.setBackground(Color.red);
+                            datosFaltantes++;
+                        }
+                    } else if (Component instanceof JDateChooser) {
+                        if (((JDateChooser) Component).getDate() == null) {
+                            Component.setBackground(Color.red);
+                            if (datosFaltantes == 0) {
+                                JOptionPane.showMessageDialog(null, "Falta colocar la fecha de nacimiento");
+                            } else {
+                                JOptionPane.showMessageDialog(null,
+                                        "Falta colocar la fecha de nacimiento y otros datos");
+                            }
+                            datosFaltantes++;
+                        }
                     }
+                }
+                // Verificar si hay datos faltantes después del bucle
+                if (datosFaltantes == 0) {
+                    cardLayout.show(contentPanel, "panel2");
                 }
             }
 
@@ -745,7 +818,8 @@ public class NHM extends JFrame {
         });
         Panel1.add(siguienteButton);
 
-        JTextField[] textFieldNames = {
+        // Evento de selección para que las casillas en rojo pasen a blancas
+        JComponent[] Componentes = {
                 text_apellido_familiar,
                 text_ci_jefe_familia,
                 text_Numero_de_Historia,
@@ -755,8 +829,8 @@ public class NHM extends JFrame {
                 text_Ocupacion,
                 text_anosAprobados,
                 text_LugarNacimiento,
-                texto_Estado,
-                texto_Pais,
+                combo_Pais,
+                combo_Estado,
                 texto_Direccion,
                 texto_Telefono,
                 texto_Religion,
@@ -773,10 +847,10 @@ public class NHM extends JFrame {
                 texto_Representante_Telefono,
                 texto_Hrs_fuera_de_casa
         };
-        for (final JTextField textField : textFieldNames) {
-            textField.addMouseListener(new MouseAdapter() {
+        for (final JComponent Componte : Componentes) {
+            Componte.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
-                    textField.setBackground(Color.white);
+                    Componte.setBackground(Color.white);
                 }
             });
         }
@@ -785,7 +859,7 @@ public class NHM extends JFrame {
         JLabel fondo = new JLabel();
         if (Inicio.Tema == "Oscuro") {
             fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Oscuro/NHM_part1-Oscuro.png")));
-        }else {
+        } else {
             fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/NHM_part1-claro.png")));
         }
         fondo.setBounds(0, 0, 1290, 720);
@@ -793,7 +867,6 @@ public class NHM extends JFrame {
         contentPanel.add(Panel1, "panel1");
 
         // Segundo Panel
-
         Panel2.setLayout(null);
         Panel2.setBounds(0, 0, 1120, 720);
         add(Panel2);
@@ -907,7 +980,8 @@ public class NHM extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == '.'|| c == ','|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == '.' || c == ',' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -928,7 +1002,8 @@ public class NHM extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == '.'|| c == ','|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == '.' || c == ',' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -951,7 +1026,8 @@ public class NHM extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == '.'|| c == ','|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == '.' || c == ',' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -974,7 +1050,8 @@ public class NHM extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == '.'|| c == ','|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == '.' || c == ',' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -1656,7 +1733,8 @@ public class NHM extends JFrame {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isDigit(c) || c == '.'|| c == ','|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isDigit(c) || c == '.' || c == ',' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -2228,164 +2306,181 @@ public class NHM extends JFrame {
 
         GuardarButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                JComponent[] componentes = {
-                        text_apellido_familiar,
-                        text_ci_jefe_familia,
-                        text_Numero_de_Historia,
-                        ci_ComboBox,
-                        text_ci,
-                        text_apellido,
-                        text_nombre,
-                        ComboBox_estadoCivil,
-                        text_Ocupacion,
-                        combo_estudio,
-                        text_anosAprobados,
-                        combo_Analfabeta,
-                        combo_sexo,
-                        calendario,
-                        text_LugarNacimiento,
-                        texto_Estado,
-                        texto_Pais,
-                        texto_Direccion,
-                        texto_Telefono,
-                        texto_Religion,
-                        texto_Establecimiento,
-                        texto_Municipio,
-                        texto_Parroquia,
-                        texto_Comunidad,
-                        texto_Madre_N_A,
-                        texto_Madre_Ocupacion,
-                        texto_Padre_N_A,
-                        texto_Padre_Ocupacion,
-                        combo_Representante,
-                        texto_Representante_N,
-                        combo__Representante_ci,
-                        texto_Representante_ci,
-                        texto_Representante_Telefono,
-                        combo_Carnet_prenatal,
-                        combo_patologiaEmbarazo,
-                        combo_patologiaParto,
-                        combo_patologiaPuerperio,
-                        combo_NConsultasPrenatales,
-                        texto_Hrs_fuera_de_casa,
-                        combo_MadreFamilia,
-                        combo_PadreFamilia,
-                        combo_HermanoFamilia,
-                        text_OtrosFamilia,
-                        text_Edad_Gestacion,
-                        text_sem,
-                        combo_Forces,
-                        combo_Cesarea,
-                        combo_Parto,
-                        text_ApgarMin,
-                        combo_Reanimacion,
-                        combo_EgresoRN,
-                        text_Exclusiva,
-                        text_Mixta,
-                        text_Ablactacion,
-                        text_Peso_al_nacer,
-                        text_Talla,
-                        text_Circunferencia,
-                        combo_Asfixia,
-                        combo_PatologiasRN,
-                        combo_Alergia,
-                        combo_Asma,
-                        combo_TBC,
-                        combo_Cardiopatia,
-                        combo_Hipertension,
-                        combo_Varice,
-                        combo_Desnutricion,
-                        combo_Diabetes,
-                        combo_Obesidad,
-                        combo_Gastropatia,
-                        combo_Neurologica,
-                        combo_Enf_Renal,
-                        combo_Cancer,
-                        combo_Alcohol,
-                        combo_Drogas,
-                        combo_Sífilis,
-                        combo_SIDA,
-                        combo_Artritis,
-                        combo_otros,
-                        combo_Padre,
-                        combo_Madre,
-                        combo_Hermanos,
-                        combo_Otros,
-                        texto_Menarquia,
-                        texto_Ciclo_menstrual,
-                        texto_PRSexual,
-                        texto_FrecuenciaRSexual,
-                        texto_N_Parejas,
-                        combo_Dispareunia,
-                        combo_Anticoncepcion,
-                        combo_AC_DIU,
-                        combo_Menopausia,
-                        combo_Gesta,
-                        combo_Partos,
-                        combo_Cesarea2,
-                        combo_Aborto,
-                        texto_E1erParto,
-                        texto_F_U_Parto,
-                        texto_F_UAborto,
-                        combo_Curetaje,
-                        texto_N_de_Hijos,
-                        texto_Vivos,
-                        texto_Muertos,
-                        text_RN_de_mayor_peso,
-                        combo_Alergia2,
-                        combo_Asma2,
-                        combo_Neumonia,
-                        combo_TBC2,
-                        combo_Cardiopatia2,
-                        combo_Hipertension2,
-                        combo_Hiperlipidemias,
-                        combo_Varices,
-                        combo_Hepatopatia,
-                        combo_Desnutricion2,
-                        combo_Diabetes2,
-                        combo_Obesidad2,
-                        combo_Gastroenteritis,
-                        combo_Encoprexis,
-                        combo_Enf_Renal2,
-                        combo_Enuresis,
-                        combo_Cancer2,
-                        combo_Tromboembolica,
-                        combo_Tumor_Mamario,
-                        combo_Meningitis,
-                        combo_TCraneoencefal,
-                        combo_Enf_Eruptivas,
-                        combo_Dengue,
-                        combo_Hospitalizacion,
-                        combo_Interv_Quirurgica,
-                        combo_Accidentes,
-                        combo_Artritis2,
-                        combo_Enf_TS,
-                        combo_Enf_Infec_Tran,
-                        combo_Enf_Laboral,
-                        text_Otros,
-                        combo_Alcohol2,
-                        combo_Drogas2,
-                        combo_Insecticidas,
-                        combo_Deporte,
-                        combo_Sedentarismo,
-                        combo_Sueno,
-                        combo_ChuparDedo,
-                        combo_Onicofagia,
-                        combo_Micciones,
-                        combo_Evacuaciones,
-                        combo_Estres,
-                        combo_Metales_Pensados,
-                        combo_Alimentacion,
-                        combo_Fuma,
-                        texto_NCigarrillos_diarios
-                };
-
-                String sql = "INSERT INTO datospersonales (apellido_familiar, ci_jefe_familia, Numero_de_Historia, ci_tipo, Ci_cedula, apellido, nombre, estadoCivil, Ocupacion, estudio, anosAprobados, Analfabeta, sexo, NFecha, LugarNacimiento, Estado, Pais, Direccion, Telefono, Religion, Establecimiento, Municipio, Parroquia, Comunidad, Madre_N_A, Madre_Ocupacion, Padre_N_A, Padre_Ocupacion, Representante, Representante_N, Representante_tipo_ci, Representante_ci, Representante_Telefono, Carnet_prenatal, patologiaEmbarazo, patologiaParto, patologiaPuerperio, NConsultasPrenatales, Hrs_fuera_de_casa, MadreFamilia, PadreFamilia, HermanoFamilia, OtrosFamilia, Edad_Gestacional, sem, Forceps, Cesarea, Parto, ApgarMin, Reanimacion, EgresoRN, Exclusiva, Mixta, Ablactacion, Peso_al_nacer, Talla, Circunferencia, Asfixia, PatologiasRN, Alergia, Asma, TBC, Cardiopatia, Hipertension, Varice, Desnutricion, Diabetes, Obesidad, Gastropatia, Neurologica, Enf_Renal, Cancer, Alcohol, Drogas, Sifilis, SIDA, Artritis, otros_1, Padre, Madre, Hermanos, Otros_2, Menarquia, Ciclo_menstrual, PRSexual, FrecuenciaRSexual, N_Parejas, Dispareunia, Anticoncepcion, AC_DIU, Menopausia, Gesta, Partos, Cesarea2, Aborto, E1erparto, F_Uparto, F_UAborto, Curetaje, N_de_Hijos, Vivos, Muertos, RN_de_mayor_peso, Alergia2, Asma2, Neumonia, TBC2, Cardiopatia2, Hipertension2, Hiperlipidemias, Varices, Hepatopatia, Desnutricion2, Diabetes2, Obesidad2, Gastroenteritis, Encoprexis, Enf_Renal2, Enuresis, Cancer2, Tromboembolica, Tumor_Mamario, Meningitis, TCraneoencefal, Enf_Eruptivas, Dengue, Hospitalizacion, Interv_Quirurgica, Accidentes, Artritis2, Enf_TS, Enf_Infec_Tran, Enf_Laboral, Otros_3, Alcohol2, Drogas2, Insecticidas, Deportes, Sedentarismo, Sueno, ChuparDedo, Onicofagia, Micciones, Evacuaciones, Estres, Metales_Pensados, Alimentacion, Fuma, NCigarrillos_diarios)"
-                        +
-                        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
-                Connection conexion = Conexion.getConexion();
                 try {
+                
+                    JComponent[] componentes = {
+                            text_apellido_familiar,
+                            text_ci_jefe_familia,
+                            text_Numero_de_Historia,
+                            ci_ComboBox,
+                            text_ci,
+                            text_apellido,
+                            text_nombre,
+                            ComboBox_estadoCivil,
+                            text_Ocupacion,
+                            combo_estudio,
+                            text_anosAprobados,
+                            combo_Analfabeta,
+                            combo_sexo,
+                            calendario,
+                            text_LugarNacimiento,
+                            combo_Estado,
+                            combo_Pais,
+                            texto_Direccion,
+                            texto_Telefono,
+                            texto_Religion,
+                            texto_Establecimiento,
+                            texto_Parroquia,
+                            texto_Comunidad,
+                            texto_Madre_N_A,
+                            texto_Madre_Ocupacion,
+                            texto_Padre_N_A,
+                            texto_Padre_Ocupacion,
+                            combo_Representante,
+                            texto_Representante_N,
+                            combo__Representante_ci,
+                            texto_Representante_ci,
+                            texto_Representante_Telefono,
+                            combo_Carnet_prenatal,
+                            combo_patologiaEmbarazo,
+                            combo_patologiaParto,
+                            combo_patologiaPuerperio,
+                            text_NConsultasPrenatales,
+                            texto_Hrs_fuera_de_casa,
+                            combo_MadreFamilia,
+                            combo_PadreFamilia,
+                            combo_HermanoFamilia,
+                            text_OtrosFamilia,
+                            text_Edad_Gestacion,
+                            text_sem,
+                            combo_Forces,
+                            combo_Cesarea,
+                            combo_Parto,
+                            text_ApgarMin,
+                            combo_Reanimacion,
+                            combo_EgresoRN,
+                            text_Exclusiva,
+                            text_Mixta,
+                            text_Ablactacion,
+                            text_Peso_al_nacer,
+                            text_Talla,
+                            text_Circunferencia,
+                            combo_Asfixia,
+                            combo_PatologiasRN,
+                            combo_Alergia,
+                            combo_Asma,
+                            combo_TBC,
+                            combo_Cardiopatia,
+                            combo_Hipertension,
+                            combo_Varice,
+                            combo_Desnutricion,
+                            combo_Diabetes,
+                            combo_Obesidad,
+                            combo_Gastropatia,
+                            combo_Neurologica,
+                            combo_Enf_Renal,
+                            combo_Cancer,
+                            combo_Alcohol,
+                            combo_Drogas,
+                            combo_Sífilis,
+                            combo_SIDA,
+                            combo_Artritis,
+                            combo_otros,
+                            combo_Padre,
+                            combo_Madre,
+                            combo_Hermanos,
+                            combo_Otros,
+                            texto_Menarquia,
+                            texto_Ciclo_menstrual,
+                            texto_PRSexual,
+                            texto_FrecuenciaRSexual,
+                            texto_N_Parejas,
+                            combo_Dispareunia,
+                            combo_Anticoncepcion,
+                            combo_AC_DIU,
+                            combo_Menopausia,
+                            combo_Gesta,
+                            combo_Partos,
+                            combo_Cesarea2,
+                            combo_Aborto,
+                            texto_E1erParto,
+                            texto_F_U_Parto,
+                            texto_F_UAborto,
+                            combo_Curetaje,
+                            texto_N_de_Hijos,
+                            texto_Vivos,
+                            texto_Muertos,
+                            text_RN_de_mayor_peso,
+                            combo_Alergia2,
+                            combo_Asma2,
+                            combo_Neumonia,
+                            combo_TBC2,
+                            combo_Cardiopatia2,
+                            combo_Hipertension2,
+                            combo_Hiperlipidemias,
+                            combo_Varices,
+                            combo_Hepatopatia,
+                            combo_Desnutricion2,
+                            combo_Diabetes2,
+                            combo_Obesidad2,
+                            combo_Gastroenteritis,
+                            combo_Encoprexis,
+                            combo_Enf_Renal2,
+                            combo_Enuresis,
+                            combo_Cancer2,
+                            combo_Tromboembolica,
+                            combo_Tumor_Mamario,
+                            combo_Meningitis,
+                            combo_TCraneoencefal,
+                            combo_Enf_Eruptivas,
+                            combo_Dengue,
+                            combo_Hospitalizacion,
+                            combo_Interv_Quirurgica,
+                            combo_Accidentes,
+                            combo_Artritis2,
+                            combo_Enf_TS,
+                            combo_Enf_Infec_Tran,
+                            combo_Enf_Laboral,
+                            text_Otros,
+                            combo_Alcohol2,
+                            combo_Drogas2,
+                            combo_Insecticidas,
+                            combo_Deporte,
+                            combo_Sedentarismo,
+                            combo_Sueno,
+                            combo_ChuparDedo,
+                            combo_Onicofagia,
+                            combo_Micciones,
+                            combo_Evacuaciones,
+                            combo_Estres,
+                            combo_Metales_Pensados,
+                            combo_Alimentacion,
+                            combo_Fuma,
+                            texto_NCigarrillos_diarios
+                    };
+                    JComponent[] nuevoArrayComponentes = new JComponent[componentes.length + 1];
+                    System.arraycopy(componentes, 0, nuevoArrayComponentes, 0, componentes.length);
+                    if(texto_Municipio.isVisible()){
+                    nuevoArrayComponentes[componentes.length] = texto_Municipio;
+                    }else{
+                        nuevoArrayComponentes[componentes.length] = Combo_municipio;
+                    }
+                    componentes = nuevoArrayComponentes;
+
+                    // Iterar a través de los componentes y mostrar sus nombres
+                    for (JComponent componente : componentes) {
+                        if (componente != null) {
+                            String nombreComponente = componente.getName();
+                            System.out.println("Nombre del componente: " + nombreComponente);
+                        }
+                    }
+
+                    String sql = "INSERT INTO datospersonales (apellido_familiar, ci_jefe_familia, Numero_de_Historia, ci_tipo, Ci_cedula, apellido, nombre, estadoCivil, Ocupacion, estudio, anosAprobados, Analfabeta, sexo, NFecha, LugarNacimiento, Estado, Pais, Direccion, Telefono, Religion, Establecimiento, Municipio, Parroquia, Comunidad, Madre_N_A, Madre_Ocupacion, Padre_N_A, Padre_Ocupacion, Representante, Representante_N, Representante_tipo_ci, Representante_ci, Representante_Telefono, Carnet_prenatal, patologiaEmbarazo, patologiaParto, patologiaPuerperio, NConsultasPrenatales, Hrs_fuera_de_casa, MadreFamilia, PadreFamilia, HermanoFamilia, OtrosFamilia, Edad_Gestacional, sem, Forceps, Cesarea, Parto, ApgarMin, Reanimacion, EgresoRN, Exclusiva, Mixta, Ablactacion, Peso_al_nacer, Talla, Circunferencia, Asfixia, PatologiasRN, Alergia, Asma, TBC, Cardiopatia, Hipertension, Varice, Desnutricion, Diabetes, Obesidad, Gastropatia, Neurologica, Enf_Renal, Cancer, Alcohol, Drogas, Sifilis, SIDA, Artritis, otros_1, Padre, Madre, Hermanos, Otros_2, Menarquia, Ciclo_menstrual, PRSexual, FrecuenciaRSexual, N_Parejas, Dispareunia, Anticoncepcion, AC_DIU, Menopausia, Gesta, Partos, Cesarea2, Aborto, E1erparto, F_Uparto, F_UAborto, Curetaje, N_de_Hijos, Vivos, Muertos, RN_de_mayor_peso, Alergia2, Asma2, Neumonia, TBC2, Cardiopatia2, Hipertension2, Hiperlipidemias, Varices, Hepatopatia, Desnutricion2, Diabetes2, Obesidad2, Gastroenteritis, Encoprexis, Enf_Renal2, Enuresis, Cancer2, Tromboembolica, Tumor_Mamario, Meningitis, TCraneoencefal, Enf_Eruptivas, Dengue, Hospitalizacion, Interv_Quirurgica, Accidentes, Artritis2, Enf_TS, Enf_Infec_Tran, Enf_Laboral, Otros_3, Alcohol2, Drogas2, Insecticidas, Deportes, Sedentarismo, Sueno, ChuparDedo, Onicofagia, Micciones, Evacuaciones, Estres, Metales_Pensados, Alimentacion, Fuma, NCigarrillos_diarios)"
+                            +
+                            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+                    Connection conexion = Conexion.getConexion();
+
                     PreparedStatement statement;
                     statement = conexion.prepareStatement(sql);
 
@@ -2402,7 +2497,7 @@ public class NHM extends JFrame {
                                 statement.setString(index, valor);
                                 index++;
                             }
-                        }else if (componente instanceof JDateChooser) {
+                        } else if (componente instanceof JDateChooser) {
                             Date selectedDate = ((JDateChooser) componente).getDate();
                             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                             String valor = dateFormat.format(selectedDate);
@@ -2413,8 +2508,7 @@ public class NHM extends JFrame {
                     statement.executeUpdate();
                     new Menu().setVisible(true);
                     dispose();
-                    JOptionPane.showMessageDialog(null, "Se a guardado con éxito", "Completado",
-                            JOptionPane.INFORMATION_MESSAGE, null);
+                    JOptionPane.showMessageDialog(null, "Se a guardado con éxito", "Completado",JOptionPane.INFORMATION_MESSAGE, null);
                 } catch (SQLException e1) {
                     JOptionPane.showMessageDialog(null, "Se a producido un error \n" + "Código de error:" + e1, "ERROR",
                             JOptionPane.ERROR_MESSAGE, null);
@@ -2450,6 +2544,8 @@ public class NHM extends JFrame {
                     label_Analfabeta,
                     label_Sexo,
                     label_fechaNacimiento,
+                    label_Municipio,
+                    label_Parroquia,
                     label_LugarNacimiento,
                     label_Estado,
                     label_Pais,
@@ -2457,8 +2553,6 @@ public class NHM extends JFrame {
                     label_Telefono,
                     label_Religion,
                     label_Establecimiento,
-                    label_Municipio,
-                    label_Parroquia,
                     label_Comunidad,
                     label_Madre_N_A,
                     label_Madre_Ocupacion,
@@ -2603,8 +2697,6 @@ public class NHM extends JFrame {
         contentPanel.add(Panel3, "panel3");
 
         setContentPane(contentPanel);
-        // Cambiar el color de las letras dependiendo del tema
-
     }
 
     public static void main(String[] args) {
