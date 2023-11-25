@@ -392,16 +392,6 @@ public class NHM extends JFrame {
         final JTextField texto_Establecimiento = Elementos.crearJTextField(920, 230, 115, 20, "", true);
         fila_x += texto_Establecimiento.getWidth();
         Panel1.add(texto_Establecimiento);
-        texto_Establecimiento.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent evt) {
-                char c = evt.getKeyChar();
-                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
-                        || c == KeyEvent.VK_DELETE)) {
-                    evt.consume();
-                }
-            }
-        });
 
         // Quinta linea
         final JLabel label_Comunidad = Elementos.crearJLabel(36, 270, 85, 20, "Comunidad:", false);
@@ -830,7 +820,6 @@ public class NHM extends JFrame {
                 text_anosAprobados,
                 text_LugarNacimiento,
                 combo_Pais,
-                combo_Estado,
                 texto_Direccion,
                 texto_Telefono,
                 texto_Religion,
