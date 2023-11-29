@@ -2,7 +2,6 @@ package com.usd89.registro;
 
 import javax.swing.*;
 
-import com.itextpdf.text.pdf.parser.Vector;
 import com.toedter.calendar.JDateChooser;
 import com.usd89.DatabaseConnection.Conexion;
 import com.usd89.DatabaseConnection.Localidades.Estados;
@@ -14,7 +13,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
@@ -339,8 +337,7 @@ public class NHM extends JFrame {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     Pais pais = (Pais) combo_Pais.getSelectedItem();
-                    DefaultComboBoxModel<String> modelEstado = new DefaultComboBoxModel(
-                            estado.mostrarEstados(pais.getId()));
+                    DefaultComboBoxModel<String> modelEstado = new DefaultComboBoxModel(estado.mostrarEstados(pais.getId()));
                     combo_Estado.setModel(modelEstado);
                     if (pais.getNombre().equals("Venezuela")) {
                         texto_Municipio.setVisible(false);
@@ -357,8 +354,7 @@ public class NHM extends JFrame {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     Estados estados = (Estados) combo_Estado.getSelectedItem();
-                    DefaultComboBoxModel<String> modelMunicipio = new DefaultComboBoxModel(
-                            Municipio.mostrarMunicipios(estados.getId()));
+                    DefaultComboBoxModel<String> modelMunicipio = new DefaultComboBoxModel(Municipio.mostrarMunicipios(estados.getId()));
                     Combo_municipio.setModel(modelMunicipio);
                 }
             }
@@ -2450,7 +2446,7 @@ public class NHM extends JFrame {
                     JComponent[] nuevoArrayComponentes = new JComponent[componentes.length + 1];
                     System.arraycopy(componentes, 0, nuevoArrayComponentes, 0, componentes.length);
                     if(texto_Municipio.isVisible()){
-                    nuevoArrayComponentes[componentes.length] = texto_Municipio;
+                        nuevoArrayComponentes[componentes.length] = texto_Municipio;
                     }else{
                         nuevoArrayComponentes[componentes.length] = Combo_municipio;
                     }
