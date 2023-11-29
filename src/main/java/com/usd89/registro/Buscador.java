@@ -295,11 +295,10 @@ public class Buscador extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 if (Inicio.nivel_acceso.equals("administrador") || Inicio.nivel_acceso.equals("modificacion")) {
                     int seleccionar = lista.getSelectedRow();
-                    System.out.println(seleccionar);
                     if (seleccionar >= 0) {
                         ID = String.valueOf(lista.getValueAt(seleccionar, 0));
-                        new NHM_Actualizar().setVisible(true);
                         dispose();
+                        new NHM_Actualizar().setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(null, "No ha seleccionado ningún registro");
                     }
