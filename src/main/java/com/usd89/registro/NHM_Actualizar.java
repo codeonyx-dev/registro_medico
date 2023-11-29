@@ -3176,6 +3176,7 @@ public class NHM_Actualizar extends JFrame {
 
         int index = 0; // indice para los marcadores de posición
         
+
         Object selectedEstado=null; 
         for (JComponent componente : componentes) {
             if (componente instanceof JTextField) {
