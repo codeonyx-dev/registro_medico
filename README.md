@@ -25,7 +25,7 @@ La aplicación Registro Médico ha sido desarrollada para satisfacer las necesid
 4. Ejecuta la aplicación utilizando el comando:
    
    ```bash
-   java -jar nombre_del_archivo.jar
+   java -jar registro_medico.jar
    ```
 
 ## Contribución
