@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,7 +37,6 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.toedter.calendar.JDateChooser;
@@ -50,7 +50,7 @@ public class NHM_Actualizar extends JFrame {
     public String[] Obtener_datos() {
         String[] tablaBDD = { "apellido_familiar", "Numero_de_Historia", "ci_jefe_familia", "ci_tipo", "Ci_cedula",
                 "apellido", "nombre", "estadoCivil", "Ocupacion", "estudio", "anosAprobados", "Analfabeta", "sexo",
-                "NFecha", "LugarNacimiento","Pais","Estado","Municipio" , "Telefono", "Religion",
+                "NFecha", "LugarNacimiento", "Pais", "Estado", "Municipio", "Telefono", "Religion",
                 "Establecimiento", "Direccion", "Parroquia", "Comunidad", "Madre_N_A", "Madre_Ocupacion",
                 "Padre_N_A", "Padre_Ocupacion", "Representante", "Representante_N", "Representante_tipo_ci",
                 "Representante_ci", "Representante_Telefono", "Carnet_prenatal", "patologiaEmbarazo",
@@ -77,17 +77,15 @@ public class NHM_Actualizar extends JFrame {
             Connection connection = Conexion.getConexion();
             String consultaSQL = ("select * from datospersonales where Numero_de_Historia = ?");
             PreparedStatement statement = connection.prepareStatement(consultaSQL);
-            statement.setString(1, Buscador.ID);
+            statement.setString(1, "1883");// Buscador.ID
             ResultSet resultado = statement.executeQuery();
 
             while (resultado.next()) {
-
                 for (int i = 0; i < datosBDD.length; i++) {
                     datosBDD[i] = resultado.getString(i + 1); // Nota: i + 1 porque el índice de las columnas es 1-based
                     // System.out.println(tablaBDD[i] + " = " + resultado.getString(i + 1));
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -439,10 +437,10 @@ public class NHM_Actualizar extends JFrame {
         final JLabel label_Telefono = Elementos.crearJLabel(260, 270, 70, 20, "Telefono:", false);
         Panel1.add(label_Telefono);
 
-        final JTextField texto_Telefono = Elementos.crearJTextField(330, 270, 110, 20, "", true);
-        Panel1.add(texto_Telefono);
+        final JTextField text_Telefono = Elementos.crearJTextField(330, 270, 110, 20, "", true);
+        Panel1.add(text_Telefono);
 
-        texto_Telefono.addKeyListener(new KeyAdapter() {
+        text_Telefono.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
@@ -456,9 +454,9 @@ public class NHM_Actualizar extends JFrame {
         fila_x += label_Religion.getWidth();
         Panel1.add(label_Religion);
 
-        final JTextField texto_Religion = Elementos.crearJTextField(525, 270, 120, 20, "", true);
-        fila_x += texto_Religion.getWidth();
-        Panel1.add(texto_Religion);
+        final JTextField text_Religion = Elementos.crearJTextField(525, 270, 120, 20, "", true);
+        fila_x += text_Religion.getWidth();
+        Panel1.add(text_Religion);
 
         // Sexta linea Datos del representante
         fila_x = 36;
@@ -731,8 +729,8 @@ public class NHM_Actualizar extends JFrame {
                         text_anosAprobados,
                         text_LugarNacimiento,
                         texto_Direccion,
-                        texto_Telefono,
-                        texto_Religion,
+                        text_Telefono,
+                        text_Religion,
                         texto_Establecimiento,
                         texto_Municipio,
                         texto_Parroquia,
@@ -787,8 +785,8 @@ public class NHM_Actualizar extends JFrame {
                         combo_Estado,
                         text_LugarNacimiento,
                         texto_Direccion,
-                        texto_Telefono,
-                        texto_Religion,
+                        text_Telefono,
+                        text_Religion,
                         texto_Establecimiento,
                         texto_Parroquia,
                         texto_Comunidad,
@@ -857,8 +855,8 @@ public class NHM_Actualizar extends JFrame {
                 text_LugarNacimiento,
                 combo_Pais,
                 texto_Direccion,
-                texto_Telefono,
-                texto_Religion,
+                text_Telefono,
+                text_Religion,
                 texto_Establecimiento,
                 texto_Municipio,
                 texto_Parroquia,
@@ -1956,7 +1954,7 @@ public class NHM_Actualizar extends JFrame {
         Panel3.add(combo_Tromboembolica);
 
         fila_x3 = 500;
-        fila_y3 = 320;
+        fila_y3 = 330;
         final JLabel label_Tumor_Mamario = Elementos.crearJLabel(fila_x3, fila_y3, 130, 20, "Tumor Mamario:", false);
         fila_x3 += label_Tumor_Mamario.getWidth();
         Panel3.add(label_Tumor_Mamario);
@@ -2332,8 +2330,8 @@ public class NHM_Actualizar extends JFrame {
                         combo_Estado,
                         combo_Pais,
                         texto_Direccion,
-                        texto_Telefono,
-                        texto_Religion,
+                        text_Telefono,
+                        text_Religion,
                         texto_Establecimiento,
                         texto_Parroquia,
                         texto_Comunidad,
@@ -2559,274 +2557,405 @@ public class NHM_Actualizar extends JFrame {
         ImprimirButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 Document document = new Document(PageSize.LETTER.rotate());
+                // Establecer los márgenes (en puntos) - Ejemplo: márgenes de 50 puntos en cada
+                // lado
+                float margenSuperior = 10f;
+                float margenInferior = 50f;
+                float margenIzquierdo = 20f;
+                float margenDerecho = 50f;
+                document.setMargins(margenIzquierdo, margenDerecho, margenSuperior, margenInferior);
 
                 try {
                     PdfWriter.getInstance(document, new FileOutputStream("historia_clinica.pdf"));
                     document.open();
 
-                    // Encabezado
                     Paragraph encabezado = new Paragraph("Historia Clínica Integral");
                     encabezado.setAlignment(Element.ALIGN_CENTER);
                     document.add(encabezado);
 
                     // Título "Datos del Usuario"
-                    Paragraph titulo1 = new Paragraph("Datos del Usuario");
+                    Paragraph titulo1 = new Paragraph("Datos del Paciente");
                     document.add(titulo1);
 
-                    // Datos del usuario
-                    Paragraph Line1 = new Paragraph(
-                            "Apellido de tu familia: " + text_apellido_familiar.getText() + " C.I Jefe de familia: "
-                                    + text_ci_jefe_familia.getText() + " Numero de Historia: "
-                                    + text_Numero_de_Historia.getText());
-                    document.add(Line1);
-                    Paragraph Line2 = new Paragraph(
-                            "C.I: " + ci_ComboBox.getSelectedItem() + " " + text_ci.getText() + " Apellido: "
-                                    + text_apellido.getText() + " Nombre: " + text_nombre.getText() + " Estado Civil: "
-                                    + ComboBox_estadoCivil.getSelectedItem() + " Ocupacion: "
-                                    + text_Ocupacion.getText());
-                    document.add(Line2);
+                    document.add(new Paragraph("\n"));
+                    // Crear tabla con 3 columnas
+                    PdfPTable PrimeraFila = new PdfPTable(3);
+                    PrimeraFila.setWidthPercentage(100);
+                    PrimeraFila.addCell("Apellido de tu familia: "+ text_apellido_familiar.getText());
+                    PrimeraFila.addCell("C.I Jefe de familia: "+ text_ci_jefe_familia.getText());
+                    PrimeraFila.addCell("Numero de Historia: "+ text_Numero_de_Historia.getText());
+                    document.add(PrimeraFila);
+                    
+                    PdfPTable SegundaFila = new PdfPTable(5);
+                    SegundaFila.setWidthPercentage(100);
+                    SegundaFila.addCell("CI:"+ci_ComboBox.getSelectedItem()+text_ci.getText());
+                    SegundaFila.addCell("Nombre: "+ text_nombre.getText());
+                    SegundaFila.addCell("Apellido: "+ text_apellido.getText());
+                    SegundaFila.addCell("Sexo: "+ combo_sexo.getSelectedItem());
+                    SegundaFila.addCell("Estado Civil: "+ ComboBox_estadoCivil.getSelectedItem());
+                    document.add(SegundaFila);
 
-                    Paragraph Line3 = new Paragraph(
-                            "Estudios: " + combo_estudio.getSelectedItem() + " Años aprobados: "
-                                    + text_anosAprobados.getText() + " Analfabeta: "
-                                    + combo_Analfabeta.getSelectedItem() + " Sexo: " + combo_sexo.getSelectedItem()
-                                    + " Fecha de nacimiento:");
-                    document.add(Line3);
+                    float[] columnWidths = {130f, 100f, 100f,100f,100f}; 
+                    PdfPTable TerceraFila = new PdfPTable(5);
+                    TerceraFila.setWidths(columnWidths);
+                    TerceraFila.setTotalWidth(PageSize.A4.getWidth() - document.leftMargin() - document.rightMargin());
+                    TerceraFila.setWidthPercentage(100);
+                    Date selectedDate = calendario.getDate();
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    String valor = dateFormat.format(selectedDate);
+                    TerceraFila.addCell("Fecha nacimiento: "+ valor);
+                    TerceraFila.addCell("Estudios: "+ combo_estudio.getSelectedItem());
+                    TerceraFila.addCell("Años aprobados: " + text_anosAprobados.getText());
+                    TerceraFila.addCell("Analfabeta: "+combo_Analfabeta.getSelectedItem());
+                    TerceraFila.addCell("Ocupacion: "+ text_Ocupacion.getText());
+                    document.add(TerceraFila);
 
-                    Paragraph Line4 = new Paragraph();
-                    document.add(Line4);
+                    PdfPTable CuartaFila = new PdfPTable(4);
+                    CuartaFila.setWidthPercentage(100);
+                    CuartaFila.addCell("Pais: "+ combo_Pais.getSelectedItem());
+                    CuartaFila.addCell("Estado: "+ combo_Estado.getSelectedItem());
+                    String[] ObtenerDatos = Obtener_datos();
+                    String pais = ObtenerDatos[16];
+                    if (pais.equals("Venezuela")) {
+                        CuartaFila.addCell("Municipio: " + Combo_municipio.getSelectedItem());
+                    }else{
+                        CuartaFila.addCell("Municipio: " + texto_Municipio.getText());
+                    }
+                    
+                    CuartaFila.addCell("Parroquia: "+ texto_Parroquia.getText());
+                    document.add(CuartaFila);
 
-                    /*
-                     * Paragraph Line5 = new Paragraph(
-                     * "Lugar de nacimiento: " + text_LugarNacimiento.getText() + " Estado: "
-                     * + texto_Estado.getText() + " Pais: " + texto_Pais.getText() + " Direccion: "
-                     * + texto_Direccion.getText());
-                     * document.add(Line5);
-                     */
+                    PdfPTable QuintaFila = new PdfPTable(3);
+                    QuintaFila.setWidthPercentage(100);
+                    QuintaFila.addCell("Direccion: " + texto_Direccion.getText());
+                    QuintaFila.addCell("Lugar de nacimiento: "+ text_LugarNacimiento.getText());
+                    QuintaFila.addCell("Establecimiento: "+ texto_Establecimiento.getText());
+                    document.add(QuintaFila);
 
-                    Paragraph Line6 = new Paragraph(
-                            "Telefono: " + texto_Telefono.getText() + " Religion: " + texto_Religion.getText()
-                                    + " Establecimiento: " + texto_Establecimiento.getText() + " Municipio: "
-                                    + texto_Municipio.getText() + " Parroquia: " + texto_Parroquia.getText()
-                                    + " Comunidad: " + texto_Comunidad.getText());
-                    document.add(Line6);
+                    PdfPTable SextoFila = new PdfPTable(3);
+                    SextoFila.setWidthPercentage(100);
+                    SextoFila.addCell("Comunidad: " + texto_Comunidad.getText());
+                    SextoFila.addCell("Telefono: "+ text_Telefono.getText());
+                    SextoFila.addCell("Religion: "+ text_Religion.getText());
+                    document.add(SextoFila);
 
-                    Paragraph titulo2 = new Paragraph("Datos del Padre y de la madre");
+                    // Título "Datos del Padre y de la Madre"
+                    Paragraph titulo2 = new Paragraph("Datos del Padre y de la Madre");
                     document.add(titulo2);
+                    document.add(new Paragraph("\n"));
 
-                    Paragraph Line7 = new Paragraph(
-                            "Nombre y apellido de la madre: " + texto_Madre_N_A.getText() + " Ocupacion: "
-                                    + texto_Madre_Ocupacion.getText());
-                    document.add(Line7);
-                    Paragraph Line8 = new Paragraph(
-                            "Nombre y apellido de la padre: " + texto_Padre_N_A.getText() + " Ocupacion: "
-                                    + texto_Padre_Ocupacion.getText());
-                    document.add(Line8);
-                    Paragraph Line9 = new Paragraph(
-                            "Representante: " + combo_Representante.getSelectedItem() + " Nombre: "
-                                    + texto_Representante_N.getText() + " Cedula:"
-                                    + combo__Representante_ci.getSelectedItem() + " " + texto_Representante_ci.getText()
-                                    + " Telefono: " + texto_Telefono.getText());
+                    PdfPTable SectimoFila = new PdfPTable(2);
+                    SectimoFila.setWidthPercentage(100);
+                    SectimoFila.addCell("Nombre y apellido de la madre: " + texto_Madre_N_A.getText());
+                    SectimoFila.addCell("Ocupacion: "+ texto_Madre_Ocupacion.getText());
+                    document.add(SectimoFila);
 
-                    document.add(Line9);
+                    PdfPTable OctavoFila = new PdfPTable(2);
+                    OctavoFila.setWidthPercentage(100);
+                    OctavoFila.addCell("Nombre y apellido de la padre: " + texto_Padre_N_A.getText());
+                    OctavoFila.addCell("Ocupacion: "+ texto_Padre_Ocupacion.getText());
+                    document.add(OctavoFila);
 
-                    // antecedentes perinatales en menores de 12 años
-                    Paragraph Line10 = new Paragraph("Antecedentes perinatales en menores de 12 años\n\n");
-                    document.add(Line10);
+                    PdfPTable NovenaFila = new PdfPTable(4);
+                    NovenaFila.setWidthPercentage(100);
+                    NovenaFila.addCell("Representante: " + combo_Representante.getSelectedItem());
+                    NovenaFila.addCell("Nombre: "+ texto_Representante_N.getText());
+                    NovenaFila.addCell("Cedula: "+ combo__Representante_ci.getSelectedItem()+texto_Representante_ci.getText());
+                    NovenaFila.addCell("Telefono: "+ texto_Representante_Telefono.getText());
+                    document.add(NovenaFila);
 
-                    // Crea una tabla con 3 columnas
-                    PdfPTable table = new PdfPTable(3);
+                    // Título "Antecedentes Perinatales en menores de 12 años"
+                    Paragraph titulo3 = new Paragraph("Antecedentes Perinatales en menores de 12 años");
+                    document.add(titulo3);
+                    document.add(new Paragraph("\n"));
 
-                    // Crea y agrega celdas a la tabla
-                    PdfPCell cell1 = new PdfPCell(
-                            new Paragraph("Carnet prenatal: " + combo_Carnet_prenatal.getSelectedItem()));
-                    PdfPCell cell2 = new PdfPCell(new Paragraph("Madre"));
-                    PdfPCell cell3 = new PdfPCell(new Paragraph("Familia"));
+                    PdfPTable CentésimoFila = new PdfPTable(4);
+                    float[] CentésimoFila_column = {80f, 80f,80f,120f};
+                    CentésimoFila.setWidths(CentésimoFila_column);
+                    CentésimoFila.setTotalWidth(PageSize.A4.getWidth() - document.leftMargin() - document.rightMargin());
+                    CentésimoFila.setWidthPercentage(100);
+                    CentésimoFila.addCell("Carnet Prenatal: " + combo_Carnet_prenatal.getSelectedItem());
+                    CentésimoFila.addCell("N~Consultas prenatales: "+ text_NConsultasPrenatales.getText());
+                    CentésimoFila.addCell("Madre");
+                    CentésimoFila.addCell("Familia");
+                    document.add(CentésimoFila);
 
-                    table.addCell(cell1);
-                    table.addCell(cell2);
-                    table.addCell(cell3);
-                    // Agrega más celdas a la tabla
-                    PdfPCell cell4 = new PdfPCell(
-                            new Paragraph("Patologia embarazo: " + combo_patologiaEmbarazo.getSelectedItem()));
-                    PdfPCell cell5 = new PdfPCell(
-                            new Paragraph("Hrs fuera de casa: " + texto_Hrs_fuera_de_casa.getText()));
-                    PdfPCell cell6 = new PdfPCell(new Paragraph("Madre: " + combo_MadreFamilia.getSelectedItem()));
+                    PdfPTable OnceavaFila = new PdfPTable(5);
+                    float[] OnceavaFila_column = {100f,100f,90f,70f,70f};
+                    OnceavaFila.setWidths(OnceavaFila_column);
+                    OnceavaFila.setTotalWidth(PageSize.A4.getWidth() - document.leftMargin() - document.rightMargin());
+                    OnceavaFila.setWidthPercentage(100);
+                    OnceavaFila.addCell("Patologia embarazo: " + combo_patologiaEmbarazo.getSelectedItem());
+                    OnceavaFila.addCell("Patologia de pacto: "+ combo_patologiaParto.getSelectedItem());
+                    OnceavaFila.addCell("Hrs fuera de casa: "+ texto_Hrs_fuera_de_casa.getText());
+                    OnceavaFila.addCell("Madre: "+ combo_MadreFamilia.getSelectedItem());
+                    OnceavaFila.addCell("Hermano: "+ combo_HermanoFamilia.getSelectedItem());
+                    document.add(OnceavaFila);
 
-                    table.addCell(cell4);
-                    table.addCell(cell5);
-                    table.addCell(cell6);
+                    PdfPTable DoceavaFila = new PdfPTable(3);
+                    float[] DoceavaFila_column = {400f,100f,100f};
+                    DoceavaFila.setWidths(DoceavaFila_column);
+                    DoceavaFila.setTotalWidth(PageSize.A4.getWidth() - document.leftMargin() - document.rightMargin());
+                    DoceavaFila.setWidthPercentage(100);
+                    DoceavaFila.addCell("Patologia Puerperio: " + combo_patologiaPuerperio.getSelectedItem());
+                    DoceavaFila.addCell("Padre: "+ combo_PadreFamilia.getSelectedItem());
+                    DoceavaFila.addCell("Otros: "+ text_OtrosFamilia.getText());
+                    document.add(DoceavaFila);
+                    //SEGUNDA VENTANA
+                    PdfPTable PrimeraFila_v2 = new PdfPTable(2);
+                    PrimeraFila_v2.setWidthPercentage(100);
+                    PrimeraFila_v2.addCell("Edad Gestacional: " + text_Edad_Gestacion.getText());
+                    PrimeraFila_v2.addCell("Semanas: "+ text_sem.getText());
+                    document.add(PrimeraFila_v2);
 
-                    // Agrega más celdas a la tabla
-                    PdfPCell cell7 = new PdfPCell(
-                            new Paragraph("Patologia parto:" + combo_patologiaParto.getSelectedItem()));
-                    PdfPCell cell8 = new PdfPCell(new Paragraph());
-                    PdfPCell cell9 = new PdfPCell(new Paragraph("Padre: " + combo_PadreFamilia.getSelectedItem()));
+                    PdfPTable SegundaFila_v2 = new PdfPTable(6);
+                    float[] SegundaFila_v2_column = {70f,70f,70f,100f,90f,140f};
+                    SegundaFila_v2.setWidths(SegundaFila_v2_column);
+                    SegundaFila_v2.setTotalWidth(PageSize.A4.getWidth() - document.leftMargin() - document.rightMargin());
+                    SegundaFila_v2.setWidthPercentage(100);
+                    SegundaFila_v2.addCell("Forceps: " + combo_Forces.getSelectedItem());
+                    SegundaFila_v2.addCell("Cesarea: "+ combo_Cesarea.getSelectedItem());
+                    SegundaFila_v2.addCell("Pacto: "+ combo_Parto.getSelectedItem());
+                    SegundaFila_v2.addCell("Peso al nacer: "+ text_Peso_al_nacer.getText()+" gr");
+                    SegundaFila_v2.addCell("Talla: "+ text_Talla.getText()+" cm");
+                    SegundaFila_v2.addCell("Circunferencia cefálica: "+ text_Circunferencia.getText()+" cm");
+                    document.add(SegundaFila_v2);
 
-                    table.addCell(cell7);
-                    table.addCell(cell8);
-                    table.addCell(cell9);
+                    PdfPTable TerceraFila_v2 = new PdfPTable(5);
+                    TerceraFila_v2.setWidthPercentage(100);
+                    TerceraFila_v2.addCell("Apgar min: " + text_ApgarMin.getText());
+                    TerceraFila_v2.addCell("Asfixia: "+ combo_Asfixia.getSelectedItem());
+                    TerceraFila_v2.addCell("Reanimacion: "+ combo_Reanimacion.getSelectedItem());
+                    TerceraFila_v2.addCell("Patologias RN: "+ combo_PatologiasRN.getSelectedItem());
+                    TerceraFila_v2.addCell("Egreso RN: "+ combo_EgresoRN.getSelectedItem());
+                    document.add(TerceraFila_v2);
 
-                    // Agrega más celdas a la tabla
-                    PdfPCell cell10 = new PdfPCell(
-                            new Paragraph("Patologia puerperio:" + combo_patologiaParto.getSelectedItem()));
-                    PdfPCell cell11 = new PdfPCell(new Paragraph());
-                    PdfPCell cell12 = new PdfPCell(new Paragraph("Hermano: " + combo_HermanoFamilia.getSelectedItem()));
+                    PdfPTable CuartaFila_v2 = new PdfPTable(1);
+                    CuartaFila_v2.setWidthPercentage(100);
+                    CuartaFila_v2.addCell("Lactancia:     Exclusiva: "+text_Exclusiva.getText()+"m  Mixta: "+text_Mixta.getText()+"m  Ablactacion: "+ text_Ablactacion.getText()+"m");
+                    document.add(CuartaFila_v2);
 
-                    table.addCell(cell10);
-                    table.addCell(cell11);
-                    table.addCell(cell12);
+                    Paragraph titulo4 = new Paragraph("Antecedentes Familiares");
+                    document.add(titulo4);
+                    document.add(new Paragraph("\n"));
+                    
+                    PdfPTable QuintaFila_v2 = new PdfPTable(7);
+                    QuintaFila_v2.setWidthPercentage(100);
+                    QuintaFila_v2.addCell("Alergia: "+combo_Alergia.getSelectedItem());
+                    QuintaFila_v2.addCell("Diabetes: " + combo_Diabetes.getSelectedItem());
+                    QuintaFila_v2.addCell("Drogas: "+ combo_Drogas.getSelectedItem());
+                    QuintaFila_v2.addCell("Asma: "+ combo_Asma.getSelectedItem());
+                    QuintaFila_v2.addCell("Obesidad: " + combo_Obesidad.getSelectedItem());
+                    QuintaFila_v2.addCell("Sifilis: "+combo_Sífilis.getSelectedItem());
+                    QuintaFila_v2.addCell("T.B.C: "+ combo_TBC.getSelectedItem());
+                    document.add(QuintaFila_v2);
 
-                    // Agrega más celdas a la tabla
-                    PdfPCell cell13 = new PdfPCell(
-                            new Paragraph("N~ Consultas prenatales:" + combo_patologiaParto.getSelectedItem()));
-                    PdfPCell cell14 = new PdfPCell(new Paragraph());
-                    PdfPCell cell15 = new PdfPCell(new Paragraph("Otros: " + text_OtrosFamilia.getText()));
+                    PdfPTable SextaFila_v2 = new PdfPTable(7);
+                    SextaFila_v2.setWidthPercentage(100);
+                    SextaFila_v2.addCell("Gastropatia: "+combo_Gastropatia.getSelectedItem());
+                    SextaFila_v2.addCell("SIDA: " + combo_SIDA.getSelectedItem());
+                    SextaFila_v2.addCell("Cardiopatia: "+ combo_Cardiopatia.getSelectedItem());
+                    SextaFila_v2.addCell("Neurologica: "+ combo_Neurologica.getSelectedItem());
+                    SextaFila_v2.addCell("Artritis: " + combo_Artritis.getSelectedItem());
+                    SextaFila_v2.addCell("Hipertension: "+combo_Hipertension.getSelectedItem());
+                    SextaFila_v2.addCell("Enf.Renal: "+ combo_Enf_Renal.getSelectedItem());
+                    document.add(SextaFila_v2);
 
-                    table.addCell(cell13);
-                    table.addCell(cell14);
-                    table.addCell(cell15);
+                    PdfPTable SéptimaFila_v2 = new PdfPTable(7);
+                    SéptimaFila_v2.setWidthPercentage(100);
+                    SéptimaFila_v2.addCell("Otros: "+ combo_otros.getSelectedItem());
+                    SéptimaFila_v2.addCell("Varices: " + combo_Varice.getSelectedItem());
+                    SéptimaFila_v2.addCell("Cancer: "+ combo_Cancer.getSelectedItem());
+                    SéptimaFila_v2.addCell("Desnutricion: "+ combo_Desnutricion.getSelectedItem());
+                    SéptimaFila_v2.addCell("Alcohol: " + combo_Alcohol.getSelectedItem());
+                    document.add(SéptimaFila_v2);
 
-                    document.add(table);
-                    Paragraph Line11 = new Paragraph("");
-                    document.add(Line11);
+                    Paragraph titulo5 = new Paragraph("Otros contactos");
+                    document.add(titulo5);
+                    document.add(new Paragraph("\n"));
+                    
+                    PdfPTable OctavaFila_v2 = new PdfPTable(4);
+                    OctavaFila_v2.setWidthPercentage(100);
+                    OctavaFila_v2.addCell("Padre: "+ combo_Padre.getSelectedItem());
+                    OctavaFila_v2.addCell("Madre: "+ combo_Madre.getSelectedItem());
+                    OctavaFila_v2.addCell("Hermanos(as): "+ combo_Hermanos.getSelectedItem());
+                    OctavaFila_v2.addCell("Otros: "+ combo_Otros.getSelectedItem());
+                    document.add(OctavaFila_v2);
+                    document.add(new Paragraph("\n"));
+                    document.add(new Paragraph("\n"));
 
-                    // Crea una tabla con 5 columnas
-                    PdfPTable table2 = new PdfPTable(2);
+                    Paragraph encabezado1 = new Paragraph("Antecedentes Personales");
+                    encabezado1.setAlignment(Element.ALIGN_CENTER);
+                    document.add(encabezado1);
 
-                    // Crea y agrega celdas a la tabla
-                    PdfPCell cell2_1 = new PdfPCell(
-                            new Paragraph("Edad Gestacional: " + text_Edad_Gestacion.getText()));
-                    PdfPCell cell2_2 = new PdfPCell(new Paragraph("Semanas: " + text_sem.getText()));
+                    Paragraph titulo6 = new Paragraph("Sexualidad y Obstétrica");
+                    document.add(titulo6);
+                    document.add(new Paragraph("\n"));
 
-                    table2.addCell(cell2_1);
-                    table2.addCell(cell2_2);
+                    PdfPTable PrimeraFila_v3 = new PdfPTable(4);
+                    PrimeraFila_v3.setWidthPercentage(100);
+                    PrimeraFila_v3.addCell("Menarquia: "+ texto_Menarquia.getText());
+                    PrimeraFila_v3.addCell("Anticonceptivo: "+ combo_Anticoncepcion.getSelectedItem());
+                    PrimeraFila_v3.addCell("Aborto: "+ combo_Aborto.getSelectedItem());
+                    PrimeraFila_v3.addCell("Curetaje: "+ combo_Curetaje.getText());
+                    document.add(PrimeraFila_v3);
 
-                    PdfPCell cell2_3 = new PdfPCell(new Paragraph("Forceps: " + combo_Forces.getSelectedItem()));
-                    PdfPCell cell2_4 = new PdfPCell(
-                            new Paragraph("Peso al nacer: " + text_Peso_al_nacer.getText() + " gr"));
+                    PdfPTable SegundaFila_v3 = new PdfPTable(4);
+                    SegundaFila_v3.setWidthPercentage(100);
+                    SegundaFila_v3.addCell("Ciclo Menstrual: "+ texto_Ciclo_menstrual.getText());
+                    SegundaFila_v3.addCell(combo_AC_DIU.getSelectedItem().toString());
+                    SegundaFila_v3.addCell("E 1er parto: "+ texto_E1erParto.getText());
+                    SegundaFila_v3.addCell("N~ de Hijos: "+ texto_N_de_Hijos.getText());
+                    document.add(SegundaFila_v3);
 
-                    table2.addCell(cell2_3);
-                    table2.addCell(cell2_4);
+                    PdfPTable TerceraFila_v3 = new PdfPTable(4);
+                    TerceraFila_v3.setWidthPercentage(100);
+                    TerceraFila_v3.addCell("P.R. Sexual: "+ texto_PRSexual.getText());
+                    TerceraFila_v3.addCell("Menopausia: "+ combo_Menopausia.getSelectedItem());
+                    TerceraFila_v3.addCell("F.U parto: "+ texto_F_U_Parto.getText());
+                    TerceraFila_v3.addCell("Vivos: "+ texto_Vivos.getText());
+                    document.add(TerceraFila_v3);
 
-                    PdfPCell cell2_5 = new PdfPCell(new Paragraph("Cesarea: " + combo_Cesarea.getSelectedItem()));
-                    PdfPCell cell2_6 = new PdfPCell(new Paragraph("Talla: " + text_Talla.getText() + " cm"));
+                    PdfPTable CuartaFila_v3 = new PdfPTable(4);
+                    CuartaFila_v3.setWidthPercentage(100);
+                    CuartaFila_v3.addCell("Frecuencia R. Sexual: "+ texto_FrecuenciaRSexual.getText());
+                    CuartaFila_v3.addCell("Gesta: "+ combo_Gesta.getSelectedItem());
+                    CuartaFila_v3.addCell("F.U Aborto: "+ texto_F_UAborto.getText());
+                    CuartaFila_v3.addCell("Muertos: "+ texto_Muertos.getText());
+                    document.add(CuartaFila_v3);
 
-                    table2.addCell(cell2_5);
-                    table2.addCell(cell2_6);
+                    PdfPTable QuintaFila_v3 = new PdfPTable(4);
+                    QuintaFila_v3.setWidthPercentage(100);
+                    QuintaFila_v3.addCell("N~ Parejas: "+ texto_N_Parejas.getText());
+                    QuintaFila_v3.addCell("Partos: "+ combo_Partos.getSelectedItem());
+                    QuintaFila_v3.addCell("RN de mayor peso: "+ text_RN_de_mayor_peso.getText());
+                    document.add(QuintaFila_v3);
 
-                    PdfPCell cell2_7 = new PdfPCell(new Paragraph("Parto: " + combo_Parto.getSelectedItem()));
-                    PdfPCell cell2_8 = new PdfPCell(new Paragraph("Talla: " + text_Circunferencia.getText() + " cm"));
+                    PdfPTable SextaFila_v3 = new PdfPTable(3);
+                    SextaFila_v3.setWidthPercentage(100);
+                    SextaFila_v3.addCell("Dispareunia: "+ combo_Dispareunia.getSelectedItem());
+                    SextaFila_v3.addCell("Cesarea: "+ combo_Cesarea2.getSelectedItem());
+                    SextaFila_v3.addCell("RN de mayor peso: "+ text_RN_de_mayor_peso.getText());
+                    document.add(SextaFila_v3);
 
-                    table2.addCell(cell2_7);
-                    table2.addCell(cell2_8);
+                    Paragraph titulo7 = new Paragraph("Patologia Personal");
+                    document.add(titulo7);
+                    document.add(new Paragraph("\n"));
 
-                    PdfPCell cell2_9 = new PdfPCell(new Paragraph("Apgar min: " + text_ApgarMin.getText()));
-                    PdfPCell cell2_10 = new PdfPCell(new Paragraph("Asfixia: " + combo_Asfixia.getSelectedItem()));
+                    PdfPTable SéptimaFila_v3 = new PdfPTable(4);
+                    SéptimaFila_v3.setWidthPercentage(100);
+                    SéptimaFila_v3.addCell("Alergia: "+ combo_Alergia2.getSelectedItem());
+                    SéptimaFila_v3.addCell("Hepatopatia: "+ combo_Hepatopatia.getSelectedItem());
+                    SéptimaFila_v3.addCell("Cancer: "+ combo_Cancer2.getSelectedItem());
+                    SéptimaFila_v3.addCell("Interv. Quirurgica: "+ combo_Interv_Quirurgica.getSelectedItem());
+                    document.add(SéptimaFila_v3);
 
-                    table2.addCell(cell2_9);
-                    table2.addCell(cell2_10);
+                    PdfPTable OctavaFila_v3 = new PdfPTable(4);
+                    OctavaFila_v3.setWidthPercentage(100);
+                    OctavaFila_v3.addCell("Asma: "+ combo_Asma2.getSelectedItem());
+                    OctavaFila_v3.addCell("Desnutricion: "+ combo_Desnutricion2.getSelectedItem());
+                    OctavaFila_v3.addCell("Tromboembolica: "+ combo_Tromboembolica.getSelectedItem());
+                    OctavaFila_v3.addCell("Accidentes: "+ combo_Accidentes.getSelectedItem());
+                    document.add(OctavaFila_v3);
 
-                    PdfPCell cell2_11 = new PdfPCell(
-                            new Paragraph("Reanimacion: " + combo_Reanimacion.getSelectedItem()));
-                    PdfPCell cell2_12 = new PdfPCell(
-                            new Paragraph("Patologias RN: " + combo_PatologiasRN.getSelectedItem()));
+                    PdfPTable NovenaFila_v3 = new PdfPTable(4);
+                    NovenaFila_v3.setWidthPercentage(100);
+                    NovenaFila_v3.addCell("Asma: "+ combo_Asma2.getSelectedItem());
+                    NovenaFila_v3.addCell("Desnutricion: "+ combo_Desnutricion2.getSelectedItem());
+                    NovenaFila_v3.addCell("Tromboembolica: "+ combo_Tromboembolica.getSelectedItem());
+                    NovenaFila_v3.addCell("Accidentes: "+ combo_Accidentes.getSelectedItem());
+                    document.add(NovenaFila_v3);
 
-                    table2.addCell(cell2_11);
-                    table2.addCell(cell2_12);
+                    PdfPTable DécimoFila_v3 = new PdfPTable(4);
+                    DécimoFila_v3.setWidthPercentage(100);
+                    DécimoFila_v3.addCell("Neumonia: "+ combo_Neumonia.getSelectedItem());
+                    DécimoFila_v3.addCell("Diabetes: "+ combo_Diabetes2.getSelectedItem());
+                    DécimoFila_v3.addCell("Tumor Mamario: "+ combo_Tumor_Mamario.getSelectedItem());
+                    DécimoFila_v3.addCell("Artritis: "+ combo_Artritis2.getSelectedItem());
+                    document.add(DécimoFila_v3);
 
-                    // Agrega la tabla al documento
-                    document.add(table2);
+                    PdfPTable OnceavaFila_v3 = new PdfPTable(4);
+                    OnceavaFila_v3.setWidthPercentage(100);
+                    OnceavaFila_v3.addCell("T.B.C: "+ combo_TBC2.getSelectedItem());
+                    OnceavaFila_v3.addCell("Obesidad: "+ combo_Obesidad2.getSelectedItem());
+                    OnceavaFila_v3.addCell("Meningitis: "+ combo_Meningitis.getSelectedItem());
+                    OnceavaFila_v3.addCell("Enf. T.S: "+ combo_Enf_TS.getSelectedItem());
+                    document.add(OnceavaFila_v3);
 
-                    PdfPTable table3 = new PdfPTable(1);
+                    PdfPTable DoceavaFila_v3 = new PdfPTable(4);
+                    DoceavaFila_v3.setWidthPercentage(100);
+                    DoceavaFila_v3.addCell("Cardiopatia: "+ combo_Cardiopatia2.getSelectedItem());
+                    DoceavaFila_v3.addCell("Gastroenteritis: "+ combo_Gastroenteritis.getSelectedItem());
+                    DoceavaFila_v3.addCell("T Craneoencefal: "+ combo_TCraneoencefal.getSelectedItem());
+                    DoceavaFila_v3.addCell("Enf. Infec y Tran: "+ combo_Enf_Infec_Tran.getSelectedItem());
+                    document.add(DoceavaFila_v3);
 
-                    PdfPCell cell2_13 = new PdfPCell(new Paragraph("Egreso RN: " + combo_EgresoRN.getSelectedItem()));
-                    table3.addCell(cell2_13);
-                    PdfPCell cell2_14 = new PdfPCell(new Paragraph("Lactancia: " + "Exclusiva: "
-                            + text_Exclusiva.getText() + " m " + "Mixta: " + text_Mixta.getText() + " m "
-                            + "Ablactacion: " + text_Ablactacion.getText() + " m "));
-                    table3.addCell(cell2_14);
-                    // Agrega la tabla al documento
-                    document.add(table3);
+                    PdfPTable TreceavaFila_v3 = new PdfPTable(4);
+                    TreceavaFila_v3.setWidthPercentage(100);
+                    TreceavaFila_v3.addCell("Hipertension: "+ combo_Hipertension2.getSelectedItem());
+                    TreceavaFila_v3.addCell("Encoprexis: "+ combo_Encoprexis.getSelectedItem());
+                    TreceavaFila_v3.addCell("Enf. Eruptivas: "+ combo_Enf_Eruptivas.getSelectedItem());
+                    TreceavaFila_v3.addCell("Enf. Laboral: "+ combo_Enf_Laboral.getSelectedItem());
+                    document.add(TreceavaFila_v3);
 
-                    Paragraph Linea11 = new Paragraph("Antecedentes Familiares y otros contactos\n\n");
-                    document.add(Linea11);
+                    PdfPTable CuarteabaFila_v3 = new PdfPTable(4);
+                    CuarteabaFila_v3.setWidthPercentage(100);
+                    CuarteabaFila_v3.addCell("Hiperlipidemias: "+ combo_Hiperlipidemias.getSelectedItem());
+                    CuarteabaFila_v3.addCell("Enf. Renal: "+ combo_Enf_Renal2.getSelectedItem());
+                    CuarteabaFila_v3.addCell("Dengue: "+ combo_Dengue.getSelectedItem());
+                    CuarteabaFila_v3.addCell("Otros: "+ text_Otros.getText());
+                    document.add(CuarteabaFila_v3);
 
-                    PdfPTable table4 = new PdfPTable(4);
-                    PdfPCell cell2_15 = new PdfPCell(new Paragraph("Alergia: " + combo_Alergia.getSelectedItem()));
-                    PdfPCell cell2_16 = new PdfPCell(
-                            new Paragraph("Desnutricion: " + combo_Desnutricion.getSelectedItem()));
-                    PdfPCell cell2_17 = new PdfPCell(new Paragraph("Cancer: " + combo_Cancer.getSelectedItem()));
-                    PdfPCell cell2_18 = new PdfPCell(new Paragraph("Otros: " + combo_Otros.getSelectedItem()));
+                    PdfPTable QuintabaFila_v3 = new PdfPTable(3);
+                    QuintabaFila_v3.setWidthPercentage(100);
+                    QuintabaFila_v3.addCell("Varices: "+ combo_Varices.getSelectedItem());
+                    QuintabaFila_v3.addCell("Enuresis: "+ combo_Enuresis.getSelectedItem());
+                    QuintabaFila_v3.addCell("Hospitalizacion: "+ combo_Hospitalizacion.getSelectedItem());
+                    document.add(QuintabaFila_v3);
 
-                    table4.addCell(cell2_15);
-                    table4.addCell(cell2_16);
-                    table4.addCell(cell2_17);
-                    table4.addCell(cell2_18);
+                    Paragraph titulo8 = new Paragraph("Factores de riesgo(Hábitos Sicobilogicos)");
+                    document.add(titulo8);
+                    document.add(new Paragraph("\n"));
 
-                    PdfPCell cell2_19 = new PdfPCell(new Paragraph("Asma: " + combo_Asma.getSelectedItem()));
-                    PdfPCell cell2_20 = new PdfPCell(new Paragraph("Diabetes: " + combo_Diabetes.getSelectedItem()));
-                    PdfPCell cell2_21 = new PdfPCell(new Paragraph("Alcohol: " + combo_Alcohol.getSelectedItem()));
-                    PdfPCell cell2_22 = new PdfPCell(new Paragraph("Padre: " + combo_Padre.getSelectedItem()));
-                    table4.addCell(cell2_19);
-                    table4.addCell(cell2_20);
-                    table4.addCell(cell2_21);
-                    table4.addCell(cell2_22);
+                    PdfPTable DieciseisavaFila_v3 = new PdfPTable(4);
+                    DieciseisavaFila_v3.setWidthPercentage(100);
+                    DieciseisavaFila_v3.addCell("Alcohol: "+ combo_Alcohol2.getSelectedItem());
+                    DieciseisavaFila_v3.addCell("Sedentarismo: "+ combo_Sedentarismo.getSelectedItem());
+                    DieciseisavaFila_v3.addCell("Micciones: "+ combo_Micciones.getSelectedItem());
+                    DieciseisavaFila_v3.addCell("Alimentacion: "+ combo_Alimentacion.getSelectedItem());
+                    document.add(DieciseisavaFila_v3);
 
-                    PdfPCell cell2_23 = new PdfPCell(new Paragraph("T.B.C: " + combo_TBC.getSelectedItem()));
-                    PdfPCell cell2_24 = new PdfPCell(new Paragraph("Obesidad: " + combo_Obesidad.getSelectedItem()));
-                    PdfPCell cell2_25 = new PdfPCell(new Paragraph("Drogas: " + combo_Drogas.getSelectedItem()));
-                    PdfPCell cell2_26 = new PdfPCell(new Paragraph("Madre: " + combo_Madre.getSelectedItem()));
-                    table4.addCell(cell2_23);
-                    table4.addCell(cell2_24);
-                    table4.addCell(cell2_25);
-                    table4.addCell(cell2_26);
+                    PdfPTable DiecisieteavaFila_v3 = new PdfPTable(4);
+                    DiecisieteavaFila_v3.setWidthPercentage(100);
+                    DiecisieteavaFila_v3.addCell("Drogas: "+ combo_Drogas2.getSelectedItem());
+                    DiecisieteavaFila_v3.addCell("Sueño: "+ combo_Sueno.getSelectedItem());
+                    DiecisieteavaFila_v3.addCell("Evacuaciones: "+ combo_Evacuaciones.getSelectedItem());
+                    DiecisieteavaFila_v3.addCell("Fuma: "+ combo_Fuma.getSelectedItem());
+                    document.add(DiecisieteavaFila_v3);
 
-                    PdfPCell cell2_27 = new PdfPCell(
-                            new Paragraph("Cardiopatia: " + combo_Cardiopatia.getSelectedItem()));
-                    PdfPCell cell2_28 = new PdfPCell(
-                            new Paragraph("Gastropatia: " + combo_Gastropatia.getSelectedItem()));
-                    PdfPCell cell2_29 = new PdfPCell(new Paragraph("Sifilis: " + combo_Sífilis.getSelectedItem()));
-                    PdfPCell cell2_30 = new PdfPCell(
-                            new Paragraph("Hermanos(as): " + combo_Hermanos.getSelectedItem()));
-                    table4.addCell(cell2_27);
-                    table4.addCell(cell2_28);
-                    table4.addCell(cell2_29);
-                    table4.addCell(cell2_30);
+                    PdfPTable DieciochoFila_v3 = new PdfPTable(4);
+                    DieciochoFila_v3.setWidthPercentage(100);
+                    DieciochoFila_v3.addCell("Insecticidas: "+ combo_Insecticidas.getSelectedItem());
+                    DieciochoFila_v3.addCell("Chupar Dedo: "+ combo_ChuparDedo.getSelectedItem());
+                    DieciochoFila_v3.addCell("Estres: "+ combo_Estres.getSelectedItem());
+                    DieciochoFila_v3.addCell("N~ Cigarrillos diarios: "+ texto_NCigarrillos_diarios.getText());
+                    document.add(DieciochoFila_v3);
 
-                    PdfPCell cell2_31 = new PdfPCell(
-                            new Paragraph("Hipertension: " + combo_Hipertension.getSelectedItem()));
-                    PdfPCell cell2_32 = new PdfPCell(
-                            new Paragraph("Neurologica: " + combo_Neurologica.getSelectedItem()));
-                    PdfPCell cell2_33 = new PdfPCell(new Paragraph("SIDA: " + combo_SIDA.getSelectedItem()));
-                    PdfPCell cell2_34 = new PdfPCell(new Paragraph("Otros: " + combo_otros.getSelectedItem()));
-                    table4.addCell(cell2_31);
-                    table4.addCell(cell2_32);
-                    table4.addCell(cell2_33);
-                    table4.addCell(cell2_34);
-
-                    PdfPCell cell2_35 = new PdfPCell(new Paragraph("Varice: " + combo_Varice.getSelectedItem()));
-                    PdfPCell cell2_36 = new PdfPCell(new Paragraph("Enf.Renal: " + combo_Enf_Renal.getSelectedItem()));
-                    PdfPCell cell2_37 = new PdfPCell(new Paragraph("Artritis: " + combo_Artritis.getSelectedItem()));
-                    PdfPCell cell2_38 = new PdfPCell(new Paragraph());
-                    table4.addCell(cell2_35);
-                    table4.addCell(cell2_36);
-                    table4.addCell(cell2_37);
-                    table4.addCell(cell2_38);
-
-                    document.add(table4);
-
-                    Paragraph Linea12 = new Paragraph("Antecedentes Personales a Cualquier edad\n\n");
-
-                    PdfPTable Tabla5 = new PdfPTable(4);
-                    document.add(Linea12);
-                    document.add(Tabla5);
+                    PdfPTable DiecinueveFila_v3 = new PdfPTable(4);
+                    DiecinueveFila_v3.setWidthPercentage(100);
+                    DiecinueveFila_v3.addCell("Deporte: "+ combo_Deporte.getSelectedItem());
+                    DiecinueveFila_v3.addCell("Onicofagia: "+ combo_Onicofagia.getSelectedItem());
+                    DiecinueveFila_v3.addCell("Metales Pesados: "+ combo_Metales_Pensados.getSelectedItem());
+                    document.add(DiecinueveFila_v3);
+                    
                     document.close();
-                    System.out.println("PDF creado exitosamente.");
 
+
+                    JOptionPane.showMessageDialog(null, "Se guardo el documento exitosamente");
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
+
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -3029,8 +3158,8 @@ public class NHM_Actualizar extends JFrame {
                 combo_Estado,
                 combo_Pais,
                 texto_Direccion,
-                texto_Telefono,
-                texto_Religion,
+                text_Telefono,
+                text_Religion,
                 texto_Establecimiento,
                 texto_Parroquia,
                 texto_Comunidad,
@@ -3171,18 +3300,15 @@ public class NHM_Actualizar extends JFrame {
             nuevoArrayComponentes[componentes.length] = Combo_municipio;
         } else {
             nuevoArrayComponentes[componentes.length] = texto_Municipio;
-        } 
+        }
         componentes = nuevoArrayComponentes;
-
         int index = 0; // indice para los marcadores de posición
-        
-
-        Object selectedEstado=null; 
+        Object selectedEstado = null;
         for (JComponent componente : componentes) {
             if (componente instanceof JTextField) {
                 ((JTextField) componente).setText(ObtenerDatos[index]);
                 String nombreComponente1 = componente.getName();
-                if(nombreComponente1 != null && nombreComponente1.equals("texto_Municipio")){
+                if (nombreComponente1 != null && nombreComponente1.equals("texto_Municipio")) {
                     texto_Municipio.setText(ObtenerDatos[index]);
                 }
                 index++;
@@ -3193,14 +3319,15 @@ public class NHM_Actualizar extends JFrame {
                     Object selectedPais = ObtenerDatos[index];
                     modelPais.setSelectedItem(selectedPais);
                     combo_Pais.setModel(modelPais);
-                }else if(nombreComponente1 != null && nombreComponente1.equals("combo_Estado")){
-                    selectedEstado = ObtenerDatos[index];      
+                } else if (nombreComponente1 != null && nombreComponente1.equals("combo_Estado")) {
+                    selectedEstado = ObtenerDatos[index];
                     modelEstado.setSelectedItem(selectedEstado);
                     combo_Estado.setModel(modelEstado);
-                }else if(nombreComponente1 != null && nombreComponente1.equals("Combo_municipio")){
-                    Object selectedMunicipio = ObtenerDatos[index]; 
+                    
+                } else if (nombreComponente1 != null && nombreComponente1.equals("Combo_municipio")) {
+                    Object selectedMunicipio = ObtenerDatos[index];
                     String estado_Municipio = selectedEstado.toString();
-                    DefaultComboBoxModel<String> modelMunicipio = new DefaultComboBoxModel(Municipio.obtenerMunicipios(estado_Municipio));     
+                    DefaultComboBoxModel<String> modelMunicipio = new DefaultComboBoxModel(Municipio.obtenerMunicipios(estado_Municipio));
                     modelMunicipio.setSelectedItem(selectedMunicipio);
                     Combo_municipio.setModel(modelMunicipio);
                 }
@@ -3219,6 +3346,10 @@ public class NHM_Actualizar extends JFrame {
                 }
             }
         }
+    }
 
+    public static void main(String[] args) {
+        NHM_Actualizar actualizar = new NHM_Actualizar();
+        actualizar.setVisible(true);
     }
 }
