@@ -6,9 +6,3 @@ Esta aplicación fue diseñada específicamente para satisfacer las necesidades 
 # Link del archivo .Jar
 
 https://mega.nz/file/F58lAbDY#R50KAPwxvzP_Bm8vS50Keo6RMh1wJenwPfsLhWCfRD0
-
-
-## Authors
-
-- [@codeonyx-dev](https://github.com/codeonyx-dev)
-
