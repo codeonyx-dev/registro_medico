@@ -27,14 +27,3 @@ Esta aplicación es para el Registro y control del historial Médico que ha sido
    ```bash
    java -jar registro_medico.jar
    ```
-
-## Contribución
-
-Las contribuciones son bienvenidas. Si deseas contribuir a este proyecto, se debe tener en cuenta lo siguiente en que se puede aportar:
-
--Aporte sobre Bugs
--Mejoras del sistema
--Nuevas funcionalidades
--Mejoras en el interfaz
-
-***Tal vez en el futuro se pueda estar abierto a otro tipos de mejoras***
