@@ -22,7 +22,7 @@ Esta aplicación es para el Registro y control del historial Médico que ha sido
 1. Descarga el archivo `.jar` de la aplicación desde [este enlace](https://mega.nz/file/F58lAbDY#R50KAPwxvzP_Bm8vS50Keo6RMh1wJenwPfsLhWCfRD0).
 2. Asegúrate de tener Java instalado en el sistema.
 3. Configura y asegúra de que XAMPP esté ejecutándose con MySQL.
-4. Ejecutar la aplicación utilizando el comando:
+4. Ejecutar la aplicación utilizando el comando en la consola dentro de la ruta de la aplicación:
    
    ```bash
    java -jar registro_medico.jar
@@ -30,10 +30,11 @@ Esta aplicación es para el Registro y control del historial Médico que ha sido
 
 ## Contribución
 
-Las contribuciones son bienvenidas. Si deseas contribuir a este proyecto, puedes seguir estos pasos:
+Las contribuciones son bienvenidas. Si deseas contribuir a este proyecto, se debe tener en cuenta lo siguiente en que se puede aportar:
 
-1. Haz un fork del repositorio.
-2. Crea una rama (`git checkout -b feature/AmazingFeature`).
-3. Realiza cambios y realiza commit de ellos (`git commit -m 'Agrega una característica asombrosa'`).
-4. Haz push de la rama (`git push origin feature/AmazingFeature`).
-5. Abre un Pull Request.
+-Aporte sobre Bugs
+-Mejoras del sistema
+-Nuevas funcionalidades
+-Mejoras en el interfaz
+
+***Tal vez en el futuro se pueda estar abierto a otro tipos de mejoras***
