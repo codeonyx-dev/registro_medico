@@ -460,7 +460,7 @@ public class NHM extends JFrame {
 
         // Octava linea Datos del representante
         fila_x = 36;
-        final JLabel label_Padre_N_A = Elementos.crearJLabel(fila_x, 390, 220, 20, "Nombre y apellido de la padre:",
+        final JLabel label_Padre_N_A = Elementos.crearJLabel(fila_x, 390, 220, 20, "Nombre y apellido del padre:",
                 false);
         fila_x += label_Padre_N_A.getWidth();
         Panel1.add(label_Padre_N_A);

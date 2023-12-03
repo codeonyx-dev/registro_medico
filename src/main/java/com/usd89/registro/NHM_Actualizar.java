@@ -77,7 +77,7 @@ public class NHM_Actualizar extends JFrame {
             Connection connection = Conexion.getConexion();
             String consultaSQL = ("select * from datospersonales where Numero_de_Historia = ?");
             PreparedStatement statement = connection.prepareStatement(consultaSQL);
-            statement.setString(1, "1883");// Buscador.ID
+            statement.setString(1, Buscador.ID);
             ResultSet resultado = statement.executeQuery();
 
             while (resultado.next()) {
@@ -498,7 +498,7 @@ public class NHM_Actualizar extends JFrame {
 
         // Octava linea Datos del representante
         fila_x = 36;
-        final JLabel label_Padre_N_A = Elementos.crearJLabel(fila_x, 390, 220, 20, "Nombre y apellido de la padre:",
+        final JLabel label_Padre_N_A = Elementos.crearJLabel(fila_x, 390, 220, 20, "Nombre y apellido del padre:",
                 false);
         fila_x += label_Padre_N_A.getWidth();
         Panel1.add(label_Padre_N_A);
@@ -2652,7 +2652,7 @@ public class NHM_Actualizar extends JFrame {
 
                     PdfPTable OctavoFila = new PdfPTable(2);
                     OctavoFila.setWidthPercentage(100);
-                    OctavoFila.addCell("Nombre y apellido de la padre: " + texto_Padre_N_A.getText());
+                    OctavoFila.addCell("Nombre y apellido del padre: " + texto_Padre_N_A.getText());
                     OctavoFila.addCell("Ocupacion: "+ texto_Padre_Ocupacion.getText());
                     document.add(OctavoFila);
 
@@ -3295,7 +3295,7 @@ public class NHM_Actualizar extends JFrame {
         String[] ObtenerDatos = Obtener_datos();
         String obtenerPais = ObtenerDatos[16];
         System.out.println(obtenerPais);
-
+        
         if (obtenerPais.equals("Venezuela")) {
             nuevoArrayComponentes[componentes.length] = Combo_municipio;
         } else {
