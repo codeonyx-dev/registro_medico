@@ -27,3 +27,4 @@ Esta aplicación es para el Registro y control del historial Médico que ha sido
    ```bash
    java -jar registro_medico.jar
    ```
+## Herramientas usadas
