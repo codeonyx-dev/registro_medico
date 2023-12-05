@@ -11,7 +11,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -83,7 +82,6 @@ public class NHM_Actualizar extends JFrame {
             while (resultado.next()) {
                 for (int i = 0; i < datosBDD.length; i++) {
                     datosBDD[i] = resultado.getString(i + 1); // Nota: i + 1 porque el índice de las columnas es 1-based
-                    // System.out.println(tablaBDD[i] + " = " + resultado.getString(i + 1));
                 }
             }
         } catch (SQLException e) {
@@ -374,6 +372,7 @@ public class NHM_Actualizar extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
+                    System.out.println(3);
                     String obtenerPais = combo_Pais.getSelectedItem().toString();
                     DefaultComboBoxModel<String> modelEstado = new DefaultComboBoxModel(estado.obtenerEstados(obtenerPais));
                     combo_Estado.setModel(modelEstado);
@@ -387,6 +386,7 @@ public class NHM_Actualizar extends JFrame {
                 }
             }
         });
+
         combo_Estado.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -2566,7 +2566,7 @@ public class NHM_Actualizar extends JFrame {
                 document.setMargins(margenIzquierdo, margenDerecho, margenSuperior, margenInferior);
 
                 try {
-                    PdfWriter.getInstance(document, new FileOutputStream("historia_clinica.pdf"));
+                    PdfWriter.getInstance(document, new FileOutputStream("historia_clinica "+text_Numero_de_Historia.getText()+".pdf"));
                     document.open();
 
                     Paragraph encabezado = new Paragraph("Historia Clínica Integral");
@@ -3294,7 +3294,6 @@ public class NHM_Actualizar extends JFrame {
 
         String[] ObtenerDatos = Obtener_datos();
         String obtenerPais = ObtenerDatos[16];
-        System.out.println(obtenerPais);
         
         if (obtenerPais.equals("Venezuela")) {
             nuevoArrayComponentes[componentes.length] = Combo_municipio;
@@ -3316,13 +3315,18 @@ public class NHM_Actualizar extends JFrame {
                 ((JComboBox<?>) componente).setSelectedItem(ObtenerDatos[index]);
                 String nombreComponente1 = componente.getName();
                 if (nombreComponente1 != null && nombreComponente1.equals("combo_Pais")) {
+                    ItemListener itemListener = combo_Pais.getItemListeners()[0];
+                    combo_Pais.removeItemListener(itemListener);
                     Object selectedPais = ObtenerDatos[index];
                     modelPais.setSelectedItem(selectedPais);
                     combo_Pais.setModel(modelPais);
+                    combo_Pais.addItemListener(itemListener);
+
                 } else if (nombreComponente1 != null && nombreComponente1.equals("combo_Estado")) {
                     selectedEstado = ObtenerDatos[index];
-                    modelEstado.setSelectedItem(selectedEstado);
-                    combo_Estado.setModel(modelEstado);
+                    DefaultComboBoxModel<String> modelestado = new DefaultComboBoxModel(estado.obtenerEstados(obtenerPais));
+                    modelestado.setSelectedItem(selectedEstado);
+                    combo_Estado.setModel(modelestado);
                     
                 } else if (nombreComponente1 != null && nombreComponente1.equals("Combo_municipio")) {
                     Object selectedMunicipio = ObtenerDatos[index];
@@ -3330,6 +3334,7 @@ public class NHM_Actualizar extends JFrame {
                     DefaultComboBoxModel<String> modelMunicipio = new DefaultComboBoxModel(Municipio.obtenerMunicipios(estado_Municipio));
                     modelMunicipio.setSelectedItem(selectedMunicipio);
                     Combo_municipio.setModel(modelMunicipio);
+                    
                 }
                 index++;
             } else if (componente instanceof JDateChooser) {
@@ -3346,10 +3351,5 @@ public class NHM_Actualizar extends JFrame {
                 }
             }
         }
-    }
-
-    public static void main(String[] args) {
-        NHM_Actualizar actualizar = new NHM_Actualizar();
-        actualizar.setVisible(true);
     }
 }
