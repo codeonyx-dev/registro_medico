@@ -19,7 +19,7 @@ Esta aplicación es para el Registro y control del historial Médico que ha sido
 
 ### Pasos de instalación
 
-1. Descarga el archivo `.jar` de la aplicación desde [este enlace](https://mega.nz/file/F58lAbDY#R50KAPwxvzP_Bm8vS50Keo6RMh1wJenwPfsLhWCfRD0).
+1. Descarga el archivo `.jar` de la aplicación desde [este enlace](https://mega.nz/file/YtUURTSS#pQjG5sl_xf7rV5cfi9-1l_IKkufg5HVtK6CYfrxc_Es).
 2. Asegúrate de tener Java instalado en el sistema.
 3. Configura y asegúra de que XAMPP esté ejecutándose con MySQL.
 4. Ejecutar la aplicación utilizando el comando en la consola dentro de la ruta de la aplicación:
@@ -27,3 +27,4 @@ Esta aplicación es para el Registro y control del historial Médico que ha sido
    ```bash
    java -jar registro_medico.jar
    ```
+## Herramientas usadas
