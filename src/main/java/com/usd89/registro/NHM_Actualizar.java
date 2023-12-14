@@ -3294,11 +3294,15 @@ public class NHM_Actualizar extends JFrame {
 
         String[] ObtenerDatos = Obtener_datos();
         String obtenerPais = ObtenerDatos[16];
-        
+        System.out.println("Pais:"+obtenerPais);
+
         if (obtenerPais.equals("Venezuela")) {
             nuevoArrayComponentes[componentes.length] = Combo_municipio;
+            texto_Municipio.setVisible(false);
         } else {
             nuevoArrayComponentes[componentes.length] = texto_Municipio;
+            Combo_municipio.setVisible(false);
+            texto_Municipio.setVisible(true);
         }
         componentes = nuevoArrayComponentes;
         int index = 0; // indice para los marcadores de posición
@@ -3308,6 +3312,7 @@ public class NHM_Actualizar extends JFrame {
                 ((JTextField) componente).setText(ObtenerDatos[index]);
                 String nombreComponente1 = componente.getName();
                 if (nombreComponente1 != null && nombreComponente1.equals("texto_Municipio")) {
+                    System.out.println("Municipio Textfield: "+ ObtenerDatos[index] );
                     texto_Municipio.setText(ObtenerDatos[index]);
                 }
                 index++;
