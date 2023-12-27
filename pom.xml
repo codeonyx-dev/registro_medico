@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.usd89.resgitro</groupId>
@@ -27,6 +26,12 @@
       <version>5.5.13.3</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.jfree</groupId>
+      <artifactId>jfreechart</artifactId>
+      <version>1.5.4</version>
+    </dependency>
+    
     <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
     <dependency>
       <groupId>com.mysql</groupId>
@@ -60,15 +65,13 @@
               <transformers>
                 <!-- This bit sets the main class for the executable jar as you otherwise -->
                 <!-- would with the assembly plugin                                       -->
-                <transformer
-                  implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <manifestEntries>
                     <Main-Class>com.usd89.registro.Inicio</Main-Class>
                   </manifestEntries>
                 </transformer>
                 <!-- This bit merges the various GeoTools META-INF/services files         -->
-                <transformer
-                  implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
               </transformers>
             </configuration>
           </execution>
