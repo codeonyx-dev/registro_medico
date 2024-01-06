@@ -372,7 +372,6 @@ public class NHM_Actualizar extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    System.out.println(3);
                     String obtenerPais = combo_Pais.getSelectedItem().toString();
                     DefaultComboBoxModel<String> modelEstado = new DefaultComboBoxModel(estado.obtenerEstados(obtenerPais));
                     combo_Estado.setModel(modelEstado);
@@ -3294,7 +3293,6 @@ public class NHM_Actualizar extends JFrame {
 
         String[] ObtenerDatos = Obtener_datos();
         String obtenerPais = ObtenerDatos[16];
-        System.out.println("Pais:"+obtenerPais);
 
         if (obtenerPais.equals("Venezuela")) {
             nuevoArrayComponentes[componentes.length] = Combo_municipio;
@@ -3312,7 +3310,6 @@ public class NHM_Actualizar extends JFrame {
                 ((JTextField) componente).setText(ObtenerDatos[index]);
                 String nombreComponente1 = componente.getName();
                 if (nombreComponente1 != null && nombreComponente1.equals("texto_Municipio")) {
-                    System.out.println("Municipio Textfield: "+ ObtenerDatos[index] );
                     texto_Municipio.setText(ObtenerDatos[index]);
                 }
                 index++;
@@ -3352,7 +3349,6 @@ public class NHM_Actualizar extends JFrame {
                     index++;
                 } catch (ParseException e1) {
                     e1.printStackTrace();
-                    System.out.println("Error al analizar la fecha.");
                 }
             }
         }
