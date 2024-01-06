@@ -22,6 +22,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Random;
 
@@ -2452,14 +2455,6 @@ public class NHM extends JFrame {
                     }
                     componentes = nuevoArrayComponentes;
 
-                    // Iterar a través de los componentes y mostrar sus nombres
-                    for (JComponent componente : componentes) {
-                        if (componente != null) {
-                            String nombreComponente = componente.getName();
-                            System.out.println("Nombre del componente: " + nombreComponente);
-                        }
-                    }
-
                     String sql = "INSERT INTO datospersonales (apellido_familiar, ci_jefe_familia, Numero_de_Historia, ci_tipo, Ci_cedula, apellido, nombre, estadoCivil, Ocupacion, estudio, anosAprobados, Analfabeta, sexo, NFecha, LugarNacimiento, Estado, Pais, Direccion, Telefono, Religion, Establecimiento, Municipio, Parroquia, Comunidad, Madre_N_A, Madre_Ocupacion, Padre_N_A, Padre_Ocupacion, Representante, Representante_N, Representante_tipo_ci, Representante_ci, Representante_Telefono, Carnet_prenatal, patologiaEmbarazo, patologiaParto, patologiaPuerperio, NConsultasPrenatales, Hrs_fuera_de_casa, MadreFamilia, PadreFamilia, HermanoFamilia, OtrosFamilia, Edad_Gestacional, sem, Forceps, Cesarea, Parto, ApgarMin, Reanimacion, EgresoRN, Exclusiva, Mixta, Ablactacion, Peso_al_nacer, Talla, Circunferencia, Asfixia, PatologiasRN, Alergia, Asma, TBC, Cardiopatia, Hipertension, Varice, Desnutricion, Diabetes, Obesidad, Gastropatia, Neurologica, Enf_Renal, Cancer, Alcohol, Drogas, Sifilis, SIDA, Artritis, otros_1, Padre, Madre, Hermanos, Otros_2, Menarquia, Ciclo_menstrual, PRSexual, FrecuenciaRSexual, N_Parejas, Dispareunia, Anticoncepcion, AC_DIU, Menopausia, Gesta, Partos, Cesarea2, Aborto, E1erparto, F_Uparto, F_UAborto, Curetaje, N_de_Hijos, Vivos, Muertos, RN_de_mayor_peso, Alergia2, Asma2, Neumonia, TBC2, Cardiopatia2, Hipertension2, Hiperlipidemias, Varices, Hepatopatia, Desnutricion2, Diabetes2, Obesidad2, Gastroenteritis, Encoprexis, Enf_Renal2, Enuresis, Cancer2, Tromboembolica, Tumor_Mamario, Meningitis, TCraneoencefal, Enf_Eruptivas, Dengue, Hospitalizacion, Interv_Quirurgica, Accidentes, Artritis2, Enf_TS, Enf_Infec_Tran, Enf_Laboral, Otros_3, Alcohol2, Drogas2, Insecticidas, Deportes, Sedentarismo, Sueno, ChuparDedo, Onicofagia, Micciones, Evacuaciones, Estres, Metales_Pensados, Alimentacion, Fuma, NCigarrillos_diarios)"
                             +
                             "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -2494,6 +2489,48 @@ public class NHM extends JFrame {
                     new Menu().setVisible(true);
                     dispose();
                     JOptionPane.showMessageDialog(null, "Se a guardado con éxito", "Completado",JOptionPane.INFORMATION_MESSAGE, null);
+                } catch (SQLException e1) {
+                    JOptionPane.showMessageDialog(null, "Se a producido un error \n" + "Código de error:" + e1, "ERROR",
+                            JOptionPane.ERROR_MESSAGE, null);
+                    e1.printStackTrace();
+                }
+
+                try {
+                    String sql1 = "select cantidad_pacientes from estadistica_pacientes where fecha = ?";
+
+                    Connection conexion = Conexion.getConexion();
+                    PreparedStatement statement;
+
+                    statement = conexion.prepareStatement(sql1);
+                    
+                    LocalDate fechaActual = LocalDate.now();
+                    DateTimeFormatter Formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    String formato = fechaActual.format(Formato);
+                    statement.setString(1, formato);
+
+                    ResultSet resultado = statement.executeQuery();
+                    String cantidadPacientes = "0";
+                    if (resultado.next()) {
+                        cantidadPacientes = resultado.getString("cantidad_pacientes");
+                    }else{
+                        String sql3 = "INSERT INTO estadistica_pacientes (fecha, cantidad_pacientes) VALUES (?,?)";
+                        PreparedStatement statement2;
+                        statement2 = conexion.prepareStatement(sql3);
+                        statement2.setString(1, formato);
+                        statement2.setString(2, "1");
+                        statement2.executeUpdate();
+                    }
+
+                    int cantidad = Integer.parseInt(cantidadPacientes);
+                    cantidad++;
+
+
+                    String sql2 = "UPDATE estadistica_pacientes set cantidad_pacientes = ? WHERE fecha = ?";
+                    PreparedStatement pst = conexion.prepareStatement(sql2);
+                    pst.setString(1, String.valueOf(cantidad));
+                    pst.setString(2, formato);
+                    pst.executeUpdate();
+
                 } catch (SQLException e1) {
                     JOptionPane.showMessageDialog(null, "Se a producido un error \n" + "Código de error:" + e1, "ERROR",
                             JOptionPane.ERROR_MESSAGE, null);
@@ -2682,15 +2719,5 @@ public class NHM extends JFrame {
         contentPanel.add(Panel3, "panel3");
 
         setContentPane(contentPanel);
-    }
-
-    public static void main(String[] args) {
-        // Ejecutar la aplicación en el subprocess de la interfaz gráfica
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new NHM(); // Crear una instancia de la aplicación
-            }
-        });
     }
 }
