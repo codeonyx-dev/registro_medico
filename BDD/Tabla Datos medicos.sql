@@ -149,3 +149,9 @@ CREATE TABLE `datospersonales` (
   `Fuma` varchar(80) DEFAULT NULL,
   `NCigarrillos_diarios` varchar(80) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE estadistica_pacientes(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATE,
+    cantidad_pacientes varchar(100)
+);

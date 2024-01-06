@@ -105,7 +105,7 @@ public class Inicio extends JFrame {
         // Se conecta la bdd
         Connection conexion = Conexion.getConexion();
         if (conexion != null) {
-          
+
           try {
             String sql = "SELECT * FROM usuarios WHERE nombre_usuario = ? AND contrasena = ?  ";
             // Crear la consulta
@@ -141,7 +141,11 @@ public class Inicio extends JFrame {
 
     // Botón cambio de Tema
     final JLabel cambio_tema = Elementos.crearJLabel(10, 10, 40, 40, "", false);
-    cambio_tema.setIcon(new ImageIcon(getClass().getResource("/imagen/Claro.png")));
+    try {
+      cambio_tema.setIcon(new ImageIcon(getClass().getResource("/imagen/Claro.png")));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     Panel.add(cambio_tema);
     // Fondo
     final JLabel fondo = Elementos.crearJLabel(0, 0, 400, 425, "", false);

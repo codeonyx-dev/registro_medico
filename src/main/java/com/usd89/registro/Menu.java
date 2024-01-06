@@ -55,10 +55,34 @@ public class Menu extends JFrame {
         });
 
         // BOTONES CON JLabel PARA CREAR HACERLOS DINÁMICOS
+        // Botón Nueva Historia Medica
+        final JLabel graficaButton = new JLabel("ESTADÍSTICAS", Elementos.botonImagen(Inicio.Tema,"pequeno.0"), SwingConstants.CENTER);
+        graficaButton.setBounds(280, 110, 280, 67);
+        graficaButton.setFont(new Font("Roboto Black", 1, 22));
+        graficaButton.setForeground(Elementos.colores(Inicio.Tema));
+        graficaButton.setVerticalTextPosition(SwingConstants.CENTER);
+        graficaButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        Panel.add(graficaButton);
+
+        graficaButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                Grafica ngm = new Grafica();
+                ngm.setVisible(true);
+                dispose();
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                graficaButton.setIcon(Elementos.botonImagen(Inicio.Tema,"pequeno.1"));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                graficaButton.setIcon(Elementos.botonImagen(Inicio.Tema,"pequeno.0"));
+            }
+        });
 
         // Botón Nueva Historia Medica
         final JLabel nhmButton = new JLabel("NUEVA HISTORIA MEDICA", Elementos.botonImagen(Inicio.Tema,"grande.0"), SwingConstants.CENTER);
-        nhmButton.setBounds(247, 137, 335, 67);
+        nhmButton.setBounds(247, 177, 335, 67);
         nhmButton.setFont(new Font("Roboto Black", 1, 22));
         nhmButton.setForeground(Elementos.colores(Inicio.Tema));
         nhmButton.setVerticalTextPosition(SwingConstants.CENTER);
@@ -83,7 +107,7 @@ public class Menu extends JFrame {
 
         // Botón Búsqueda Historia Medica
         final JLabel bhmButton = new JLabel("BUSCAR HISTORIA MEDICA", Elementos.botonImagen(Inicio.Tema,"gigante.0"), SwingConstants.CENTER);
-        bhmButton.setBounds(234, 208, 354, 67);
+        bhmButton.setBounds(234, 248, 354, 67);
         bhmButton.setFont(new Font("Roboto Black", 1, 22));
         bhmButton.setForeground(Elementos.colores(Inicio.Tema));
         bhmButton.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -107,7 +131,7 @@ public class Menu extends JFrame {
 
         // Botón Gestión de Usuario
         final JLabel usButton = new JLabel("GESTION DE USUARIO", Elementos.botonImagen(Inicio.Tema,"mediano.0"), SwingConstants.CENTER);
-        usButton.setBounds(260, 280, 308, 67);
+        usButton.setBounds(260, 320, 308, 67);
         usButton.setFont(new Font("Roboto Black", 1, 22));
         usButton.setForeground(Elementos.colores(Inicio.Tema));
         usButton.setVerticalTextPosition(SwingConstants.CENTER);
@@ -134,11 +158,12 @@ public class Menu extends JFrame {
         } else {
             nhmButton.setBounds(247, 208, 335, 67);
             bhmButton.setBounds(234, 280, 354, 67);
+            graficaButton.setBounds(280, 145, 280, 67);
         }
 
         // Botón Cerrar sesión
         final JLabel csButton = new JLabel("CERRAR SESIÓN", Elementos.botonImagen(Inicio.Tema,"pequeno.0"), SwingConstants.CENTER);
-        csButton.setBounds(280, 350, 280, 67);
+        csButton.setBounds(280, 380, 280, 67);
         csButton.setFont(new Font("Roboto Black", 1, 22));
         csButton.setForeground(Elementos.colores(Inicio.Tema));
         csButton.setVerticalTextPosition(SwingConstants.CENTER);

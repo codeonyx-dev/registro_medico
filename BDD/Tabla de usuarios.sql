@@ -13,6 +13,6 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `usuarios` (`id`, `nombre_usuario`, `contrasena`, `nivel_acceso`, `Nombre`, `Apellido`, `cedula`, `telefono`) VALUES
-(2, 'usuario2', 'contrasena2', 'modificacion', 'Reimond', 'Caldera', '5713593', '04126559653'),
-(3, 'admin', 'contrasena3', 'administrador', 'Raimond', 'Caldera', '11455950', '04126854641');
+(1, 'admin', 'contrasena3', 'administrador', 'Nombre', 'Apellido', '123', '123');
+
 

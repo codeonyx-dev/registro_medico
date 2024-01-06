@@ -1,5 +1,10 @@
 ## Versions
 
+### 1.3
+- Se termino la ventana grafica
+- Se agrego a la ventana de registro una funcion para que guarde los pacientes registrado cada dia
+- Se limpio el codigo de borrando lineas innecesaria
+
 ### 1.2.2
 - Se arreglo un bug que había a la hora de seleccionar un pais en la ventana de actualización
 - Se organizo de una forma optima los datos, para a la hora de imprimir el documento se vea organizado
