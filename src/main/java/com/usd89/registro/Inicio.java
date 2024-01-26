@@ -15,14 +15,18 @@ import com.usd89.DatabaseConnection.Conexion;
 public class Inicio extends JFrame {
   static String Tema = "Oscuro";
   static String nivel_acceso = "lectura";
+  static String UsuarioNombre = "";
   static JTextField Usuario;
   static JPasswordField Contraseña;
+  int xMouse, yMouse;
 
   public Inicio() {
     setLayout(null);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setUndecorated(true);
     setSize(400, 425);
+    ImageIcon icono = new ImageIcon(getClass().getResource("/imagen/Icono.png"));
+    setIconImage(icono.getImage());
     setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 20));
     setLocationRelativeTo(null);
 
@@ -118,6 +122,7 @@ public class Inicio extends JFrame {
             if (!usuario.isEmpty() && !clave.isEmpty()) {
               if (resultado.next()) {
                 nivel_acceso = resultado.getString("nivel_acceso");
+                UsuarioNombre = resultado.getString("nombre_usuario");
                 new Menu().setVisible(true);
                 dispose();
               } else {
@@ -139,6 +144,43 @@ public class Inicio extends JFrame {
       }
     });
 
+    // Acción para activar el enter
+    Contraseña.addKeyListener(new KeyListener() {
+
+      @Override
+      public void keyTyped(KeyEvent e) {
+      }
+
+      @Override
+      public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+          // Acción que quieres realizar al presionar Enter
+          btnInicio.doClick(); // Simula un clic en el botón
+        }
+      }
+
+      @Override
+      public void keyReleased(KeyEvent e) {
+      }
+    });
+    Usuario.addKeyListener(new KeyListener() {
+
+      @Override
+      public void keyTyped(KeyEvent e) {
+      }
+
+      @Override
+      public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+          // Acción que quieres realizar al presionar Enter
+          btnInicio.doClick(); // Simula un clic en el botón
+        }
+      }
+
+      @Override
+      public void keyReleased(KeyEvent e) {
+      }
+    });
     // Botón cambio de Tema
     final JLabel cambio_tema = Elementos.crearJLabel(10, 10, 40, 40, "", false);
     try {
@@ -147,11 +189,29 @@ public class Inicio extends JFrame {
       e.printStackTrace();
     }
     Panel.add(cambio_tema);
+
+    JLabel Encabezado = new JLabel();
+    Encabezado.setBounds(0, 0, getWidth(), 20);
+    Encabezado.addMouseMotionListener(new MouseMotionAdapter() {
+      public void mouseDragged(MouseEvent e) {
+        int x = e.getXOnScreen();
+        int y = e.getYOnScreen();
+        setLocation(x - xMouse, y - yMouse);     
+      }
+    });
+    Encabezado.addMouseListener(new MouseAdapter() {
+      public void mousePressed(MouseEvent e) {
+        xMouse = e.getX();
+        yMouse = e.getY();
+      }
+    });
+    Panel.add(Encabezado);
     // Fondo
     final JLabel fondo = Elementos.crearJLabel(0, 0, 400, 425, "", false);
     fondo.setIcon((new ImageIcon(getClass().getResource("/imagen/Fondos/" + Inicio.Tema + "/fondo-Inicio.png"))));
     Panel.add(fondo);
 
+    fondo.setFocusable(true);
     cambio_tema.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         if (Tema == "Oscuro") {
@@ -172,6 +232,8 @@ public class Inicio extends JFrame {
         }
       }
     });
+
+    Panel.requestFocusInWindow();
   }
 
   public static void main(String[] args) {

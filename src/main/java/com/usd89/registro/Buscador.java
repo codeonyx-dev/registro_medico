@@ -21,6 +21,7 @@ public class Buscador extends JFrame {
     JComboBox<String> BuscarPor = new JComboBox<String>(
             new String[] { "Nombre", "N° de historia medica", "Cédula del paciente", "Estado" });
     static String ID;
+    int xMouse, yMouse;
 
     public void buscar() {
         String campo = BuscadorText.getText();
@@ -104,6 +105,8 @@ public class Buscador extends JFrame {
         setSize(1120, 720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
+        ImageIcon icono = new ImageIcon(getClass().getResource("/imagen/Icono.png"));
+        setIconImage(icono.getImage());
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 20));
         setLocationRelativeTo(null);
         setVisible(true);
@@ -348,6 +351,23 @@ public class Buscador extends JFrame {
                 BuscarButton.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
             }
         });
+
+        JLabel Encabezado = new JLabel();
+        Encabezado.setBounds(0, 0, getWidth(), 20);
+        Encabezado.addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                setLocation(x - xMouse, y - yMouse);
+            }
+        });
+        Encabezado.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                xMouse = e.getX();
+                yMouse = e.getY();
+            }
+        });
+        Panel.add(Encabezado);
 
         JLabel Fondo = new JLabel();
         Fondo.setBounds(0, 0, 1120, 720);

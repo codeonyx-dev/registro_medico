@@ -6,12 +6,15 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.*;
 
 public class Menu extends JFrame {
+    int xMouse, yMouse;
 
     public Menu() {
         setSize(800, 450);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
+        ImageIcon icono = new ImageIcon(getClass().getResource("/imagen/Icono.png"));
+        setIconImage(icono.getImage());
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 20));
         setLocationRelativeTo(null);
 
@@ -56,7 +59,8 @@ public class Menu extends JFrame {
 
         // BOTONES CON JLabel PARA CREAR HACERLOS DINÁMICOS
         // Botón Nueva Historia Medica
-        final JLabel graficaButton = new JLabel("ESTADÍSTICAS", Elementos.botonImagen(Inicio.Tema,"pequeno.0"), SwingConstants.CENTER);
+        final JLabel graficaButton = new JLabel("ESTADÍSTICAS", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
+                SwingConstants.CENTER);
         graficaButton.setBounds(280, 110, 280, 67);
         graficaButton.setFont(new Font("Roboto Black", 1, 22));
         graficaButton.setForeground(Elementos.colores(Inicio.Tema));
@@ -72,16 +76,17 @@ public class Menu extends JFrame {
             }
 
             public void mouseEntered(MouseEvent e) {
-                graficaButton.setIcon(Elementos.botonImagen(Inicio.Tema,"pequeno.1"));
+                graficaButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
             }
 
             public void mouseExited(MouseEvent e) {
-                graficaButton.setIcon(Elementos.botonImagen(Inicio.Tema,"pequeno.0"));
+                graficaButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
             }
         });
 
         // Botón Nueva Historia Medica
-        final JLabel nhmButton = new JLabel("NUEVA HISTORIA MEDICA", Elementos.botonImagen(Inicio.Tema,"grande.0"), SwingConstants.CENTER);
+        final JLabel nhmButton = new JLabel("NUEVA HISTORIA MEDICA", Elementos.botonImagen(Inicio.Tema, "grande.0"),
+                SwingConstants.CENTER);
         nhmButton.setBounds(247, 177, 335, 67);
         nhmButton.setFont(new Font("Roboto Black", 1, 22));
         nhmButton.setForeground(Elementos.colores(Inicio.Tema));
@@ -97,16 +102,17 @@ public class Menu extends JFrame {
             }
 
             public void mouseEntered(MouseEvent e) {
-                nhmButton.setIcon(Elementos.botonImagen(Inicio.Tema,"grande.1"));
+                nhmButton.setIcon(Elementos.botonImagen(Inicio.Tema, "grande.1"));
             }
 
             public void mouseExited(MouseEvent e) {
-                nhmButton.setIcon(Elementos.botonImagen(Inicio.Tema,"grande.0"));
+                nhmButton.setIcon(Elementos.botonImagen(Inicio.Tema, "grande.0"));
             }
         });
 
         // Botón Búsqueda Historia Medica
-        final JLabel bhmButton = new JLabel("BUSCAR HISTORIA MEDICA", Elementos.botonImagen(Inicio.Tema,"gigante.0"), SwingConstants.CENTER);
+        final JLabel bhmButton = new JLabel("BUSCAR HISTORIA MEDICA", Elementos.botonImagen(Inicio.Tema, "gigante.0"),
+                SwingConstants.CENTER);
         bhmButton.setBounds(234, 248, 354, 67);
         bhmButton.setFont(new Font("Roboto Black", 1, 22));
         bhmButton.setForeground(Elementos.colores(Inicio.Tema));
@@ -121,16 +127,17 @@ public class Menu extends JFrame {
             }
 
             public void mouseEntered(MouseEvent e) {
-                bhmButton.setIcon(Elementos.botonImagen(Inicio.Tema,"gigante.1"));
+                bhmButton.setIcon(Elementos.botonImagen(Inicio.Tema, "gigante.1"));
             }
 
             public void mouseExited(MouseEvent e) {
-                bhmButton.setIcon(Elementos.botonImagen(Inicio.Tema,"gigante.0"));
+                bhmButton.setIcon(Elementos.botonImagen(Inicio.Tema, "gigante.0"));
             }
         });
 
         // Botón Gestión de Usuario
-        final JLabel usButton = new JLabel("GESTION DE USUARIO", Elementos.botonImagen(Inicio.Tema,"mediano.0"), SwingConstants.CENTER);
+        final JLabel usButton = new JLabel("GESTION DE USUARIO", Elementos.botonImagen(Inicio.Tema, "mediano.0"),
+                SwingConstants.CENTER);
         usButton.setBounds(260, 320, 308, 67);
         usButton.setFont(new Font("Roboto Black", 1, 22));
         usButton.setForeground(Elementos.colores(Inicio.Tema));
@@ -145,11 +152,11 @@ public class Menu extends JFrame {
             }
 
             public void mouseEntered(MouseEvent e) {
-                usButton.setIcon(Elementos.botonImagen(Inicio.Tema,"mediano.1"));
+                usButton.setIcon(Elementos.botonImagen(Inicio.Tema, "mediano.1"));
             }
 
             public void mouseExited(MouseEvent e) {
-                usButton.setIcon(Elementos.botonImagen(Inicio.Tema,"mediano.0"));
+                usButton.setIcon(Elementos.botonImagen(Inicio.Tema, "mediano.0"));
             }
         });
 
@@ -162,7 +169,8 @@ public class Menu extends JFrame {
         }
 
         // Botón Cerrar sesión
-        final JLabel csButton = new JLabel("CERRAR SESIÓN", Elementos.botonImagen(Inicio.Tema,"pequeno.0"), SwingConstants.CENTER);
+        final JLabel csButton = new JLabel("CERRAR SESIÓN", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
+                SwingConstants.CENTER);
         csButton.setBounds(280, 380, 280, 67);
         csButton.setFont(new Font("Roboto Black", 1, 22));
         csButton.setForeground(Elementos.colores(Inicio.Tema));
@@ -172,22 +180,39 @@ public class Menu extends JFrame {
 
         csButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                Inicio.nivel_acceso="lectura";
+                Inicio.nivel_acceso = "lectura";
                 Inicio.Usuario.setText("");
                 Inicio.Contraseña.setText("");
                 dispose();
                 new Inicio().setVisible(true);
-                
+
             }
 
             public void mouseEntered(MouseEvent e) {
-                csButton.setIcon(Elementos.botonImagen(Inicio.Tema,"pequeno.1"));
+                csButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
             }
 
             public void mouseExited(MouseEvent e) {
-                csButton.setIcon(Elementos.botonImagen(Inicio.Tema,"pequeno.0"));
+                csButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
             }
         });
+
+        JLabel Encabezado = new JLabel();
+        Encabezado.setBounds(0, 0, getWidth(), 20);
+        Encabezado.addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                setLocation(x - xMouse, y - yMouse);
+            }
+        });
+        Encabezado.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                xMouse = e.getX();
+                yMouse = e.getY();
+            }
+        });
+        Panel.add(Encabezado);
 
         // FONDO
         JLabel fondo = new JLabel();

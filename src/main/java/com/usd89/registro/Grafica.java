@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.RoundRectangle2D;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,6 +28,7 @@ import com.toedter.calendar.JCalendar;
 import com.usd89.DatabaseConnection.Conexion;
 
 public class Grafica extends JFrame {
+    int xMouse, yMouse;
 
     public Grafica() {
 
@@ -34,6 +36,8 @@ public class Grafica extends JFrame {
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
+        ImageIcon icono = new ImageIcon(getClass().getResource("/imagen/Icono.png"));
+        setIconImage(icono.getImage());
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 20));
         setLocationRelativeTo(null);
 
@@ -83,7 +87,6 @@ public class Grafica extends JFrame {
         laber_buscadorFecha.setFont(new Font("Arial", 3, 20));
         Panel.add(laber_buscadorFecha);
 
-
         JCalendar calendario = new JCalendar();
         calendario.setFont(new Font("Arial", 3, 12));
         calendario.setBounds(1020, 120, 250, 200);
@@ -123,7 +126,8 @@ public class Grafica extends JFrame {
         panelGrafica.setBounds(20, 20, 990, 450);
         Panel.add(panelGrafica);
 
-        final JLabel ObtenerFecha = new JLabel("OBTENER ESTADÍSTICA", Elementos.botonImagen(Inicio.Tema, "mediano.0"),SwingConstants.CENTER);
+        final JLabel ObtenerFecha = new JLabel("OBTENER ESTADÍSTICA", Elementos.botonImagen(Inicio.Tema, "mediano.0"),
+                SwingConstants.CENTER);
         ObtenerFecha.setBounds(995, 340, 308, 67);
         ObtenerFecha.setFont(new Font("Roboto Black", 1, 22));
         ObtenerFecha.setForeground(Elementos.colores(Inicio.Tema));
@@ -143,7 +147,8 @@ public class Grafica extends JFrame {
                     // Convertir la fecha seleccionada a tipo Date
                     Date fecha = dateFormat.parse(fechaSeleccionada);
 
-                    // Obtener el día de la semana de la fecha seleccionada (1 = domingo, 2 = lunes,..., 7 = sábado)
+                    // Obtener el día de la semana de la fecha seleccionada (1 = domingo, 2 =
+                    // lunes,..., 7 = sábado)
                     Calendar cal = Calendar.getInstance();
                     cal.setTime(fecha);
                     int diaSemana = cal.get(Calendar.DAY_OF_WEEK);
@@ -152,7 +157,8 @@ public class Grafica extends JFrame {
                     if (diaSemana == Calendar.SUNDAY) {
                         cal.add(Calendar.DATE, -6); // Retroceder 6 días para obtener el lunes de la misma semana
                     } else {
-                        cal.add(Calendar.DATE, -(diaSemana - Calendar.MONDAY)); // Retroceder para obtener el lunes de la semana
+                        cal.add(Calendar.DATE, -(diaSemana - Calendar.MONDAY)); // Retroceder para obtener el lunes de
+                                                                                // la semana
                     }
                     Date fechaLunes = cal.getTime();
 
@@ -175,8 +181,10 @@ public class Grafica extends JFrame {
                         pacientesPorFecha.put(fechaBD, cantidad);
                     }
 
-                    // Mostrar la cantidad de pacientes para cada día de la semana con el nombre del día
-                    SimpleDateFormat sdfOutput = new SimpleDateFormat("EEEE yyyy-MM-dd"); // Formato para mostrar el día de la semana
+                    // Mostrar la cantidad de pacientes para cada día de la semana con el nombre del
+                    // día
+                    SimpleDateFormat sdfOutput = new SimpleDateFormat("EEEE yyyy-MM-dd"); // Formato para mostrar el día
+                                                                                          // de la semana
                     cal.setTime(fechaLunes);
                     while (!cal.getTime().after(fechaDomingo)) {
                         Date fechaActual = cal.getTime();
@@ -197,39 +205,54 @@ public class Grafica extends JFrame {
                 ObtenerFecha.setIcon(Elementos.botonImagen(Inicio.Tema, "mediano.0"));
             }
 
-            
         });
         Panel.add(ObtenerFecha);
 
-        final JLabel volverButton = new JLabel("VOLVER AL INICIO", Elementos.botonImagen(Inicio.Tema, "pequeno.0"), SwingConstants.CENTER);
+        final JLabel volverButton = new JLabel("VOLVER AL INICIO", Elementos.botonImagen(Inicio.Tema, "pequeno.0"),
+                SwingConstants.CENTER);
         volverButton.setBounds(1000, 400, 308, 67);
         volverButton.setFont(new Font("Roboto Black", 1, 22));
         volverButton.setForeground(Elementos.colores(Inicio.Tema));
         volverButton.setVerticalTextPosition(SwingConstants.CENTER);
         volverButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        
+
         volverButton.addMouseListener(new MouseAdapter() {
-        public void mouseClicked(MouseEvent e) {
-            Menu menu = new Menu();
-            menu.setVisible(true);
-            dispose();
-        }
-        
-        public void mouseEntered(MouseEvent e) {
-            volverButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
-        }
-        
-        public void mouseExited(MouseEvent e) {
-            volverButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
-        }
-        
+            public void mouseClicked(MouseEvent e) {
+                Menu menu = new Menu();
+                menu.setVisible(true);
+                dispose();
+            }
+
+            public void mouseEntered(MouseEvent e) {
+                volverButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                volverButton.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.0"));
+            }
+
         });
         Panel.add(volverButton);
-
+        JLabel Encabezado = new JLabel();
+        Encabezado.setBounds(0, 0, getWidth(), 20);
+        Encabezado.addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                setLocation(x - xMouse, y - yMouse);
+            }
+        });
+        Encabezado.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                xMouse = e.getX();
+                yMouse = e.getY();
+            }
+        });
+        Panel.add(Encabezado);
         JLabel Fondo = new JLabel();
         Fondo.setBounds(0, 0, 1300, 500);
         Panel.add(Fondo);
         Fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Oscuro/Estadistica-Oscuro.png")));
-        
+
     }
 }

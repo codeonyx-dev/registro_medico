@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.RoundRectangle2D;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,6 +20,7 @@ import com.usd89.DatabaseConnection.Conexion;
 
 public class GestionUsuarios extends JFrame {
     String id;
+    int xMouse, yMouse;
 
     public DefaultTableModel CargarTabla() {
         String[] columnas = { "Nombre", "Apellido", "Cédula", "Telefono", "Usuario" };
@@ -48,6 +50,8 @@ public class GestionUsuarios extends JFrame {
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
+        ImageIcon icono = new ImageIcon(getClass().getResource("/imagen/Icono.png"));
+        setIconImage(icono.getImage());
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 20));
         setLocationRelativeTo(null);
 
@@ -100,9 +104,10 @@ public class GestionUsuarios extends JFrame {
         });
         nombreField.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyTyped(KeyEvent evt){
+            public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                if (!(Character.isAlphabetic(c) || c == ' ' || c == KeyEvent.VK_BACK_SPACE
+                        || c == KeyEvent.VK_DELETE)) {
                     evt.consume();
                 }
             }
@@ -117,14 +122,14 @@ public class GestionUsuarios extends JFrame {
         });
         apellidoField.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyTyped(KeyEvent evt){
+            public void keyTyped(KeyEvent evt) {
                 char c = evt.getKeyChar();
-                if (!(Character.isAlphabetic(c)|| c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE || c == ' ')) {
+                if (!(Character.isAlphabetic(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE
+                        || c == ' ')) {
                     evt.consume();
                 }
             }
         });
-
 
         final JTextField cedulaField = Elementos.crearJTextField(14, 194, 260, 29, "", true);
         Panel.add(cedulaField);
@@ -176,7 +181,6 @@ public class GestionUsuarios extends JFrame {
                 }
             }
         });
-        
 
         final JTextField contrasenaField = Elementos.crearJTextField(14, 387, 260, 29, "", true);
         Panel.add(contrasenaField);
@@ -264,7 +268,8 @@ public class GestionUsuarios extends JFrame {
         Panel.add(buttonLimpiar);
         buttonLimpiar.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                JTextField[] textField = {nombreField,apellidoField,cedulaField,telefonofield,contrasenaField,usuarioField};
+                JTextField[] textField = { nombreField, apellidoField, cedulaField, telefonofield, contrasenaField,
+                        usuarioField };
                 for (JTextField JTextField : textField) {
                     JTextField.setText("");
                     JTextField.setBackground(Color.white);
@@ -280,7 +285,7 @@ public class GestionUsuarios extends JFrame {
                 buttonLimpiar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
             }
         });
-        
+
         // Añadir
         final JLabel buttonAgregar = Elementos.crearJLabel(10, 440, 210, 60, "AGREGAR", false);
         buttonAgregar.setIcon(Elementos.botonImagen(Inicio.Tema, "muypequeno.0"));
@@ -445,9 +450,10 @@ public class GestionUsuarios extends JFrame {
 
                     if (filaActualizada > 0) {
                         JOptionPane.showMessageDialog(null,
-                                "Se ha actualizado los datos del Usuario con la cedula " + cedulaField.getText()+ "\nNota: La cedula y el usuario no se pueden modificar para prevenir conflicto a la hora de ver los registros");
+                                "Se ha actualizado los datos del Usuario con la cedula " + cedulaField.getText()
+                                        + "\nNota: La cedula y el usuario no se pueden modificar para prevenir conflicto a la hora de ver los registros");
                     } else {
-                        JOptionPane.showMessageDialog(null,"No se encontró ningún usuario con ID " + id);
+                        JOptionPane.showMessageDialog(null, "No se encontró ningún usuario con ID " + id);
                     }
                     conexion.close();
                     tabla.setModel(CargarTabla());
@@ -466,6 +472,23 @@ public class GestionUsuarios extends JFrame {
             }
         });
 
+        JLabel Encabezado = new JLabel();
+        Encabezado.setBounds(0, 0, getWidth(), 20);
+        Encabezado.addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                setLocation(x - xMouse, y - yMouse);
+            }
+        });
+        Encabezado.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                xMouse = e.getX();
+                yMouse = e.getY();
+            }
+        });
+        Panel.add(Encabezado);
+
         // FONDO
         JLabel fondo = new JLabel();
         fondo.setBounds(0, 0, 680, 560);
@@ -478,6 +501,7 @@ public class GestionUsuarios extends JFrame {
         }
 
     }
+
     public static void main(String[] args) {
         GestionUsuarios m = new GestionUsuarios();
         m.setVisible(true);
