@@ -501,9 +501,4 @@ public class GestionUsuarios extends JFrame {
         }
 
     }
-
-    public static void main(String[] args) {
-        GestionUsuarios m = new GestionUsuarios();
-        m.setVisible(true);
-    }
 }

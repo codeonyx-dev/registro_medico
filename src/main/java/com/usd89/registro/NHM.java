@@ -15,6 +15,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.RoundRectangle2D;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,12 +24,12 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Random;
 
 public class NHM extends JFrame {
+    int xMouse, yMouse;
 
     // Función para generar un número aleatorio único
     public String generarNumeroHistoriaUnico() {
@@ -69,6 +70,8 @@ public class NHM extends JFrame {
         setSize(1120, 720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
+        ImageIcon icono = new ImageIcon(getClass().getResource("/imagen/Icono.png"));
+        setIconImage(icono.getImage());
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 20));
         setLocationRelativeTo(null);
 
@@ -80,6 +83,24 @@ public class NHM extends JFrame {
         JPanel Panel1 = new JPanel();
         JPanel Panel2 = new JPanel();
         JPanel Panel3 = new JPanel();
+        JLabel Encabezado = new JLabel();
+        Encabezado.setBounds(0, 0, getWidth(), 20);
+        Encabezado.addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                setLocation(x - xMouse, y - yMouse);
+            }
+        });
+        Encabezado.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                xMouse = e.getX();
+                yMouse = e.getY();
+            }
+        });
+        Panel1.add(Encabezado);
+        Panel2.add(Encabezado);
+        Panel3.add(Encabezado);    
 
         add(contentPanel, BorderLayout.CENTER);
         setVisible(true);
@@ -340,7 +361,8 @@ public class NHM extends JFrame {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     Pais pais = (Pais) combo_Pais.getSelectedItem();
-                    DefaultComboBoxModel<String> modelEstado = new DefaultComboBoxModel(estado.mostrarEstados(pais.getId()));
+                    DefaultComboBoxModel<String> modelEstado = new DefaultComboBoxModel(
+                            estado.mostrarEstados(pais.getId()));
                     combo_Estado.setModel(modelEstado);
                     if (pais.getNombre().equals("Venezuela")) {
                         texto_Municipio.setVisible(false);
@@ -357,7 +379,8 @@ public class NHM extends JFrame {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     Estados estados = (Estados) combo_Estado.getSelectedItem();
-                    DefaultComboBoxModel<String> modelMunicipio = new DefaultComboBoxModel(Municipio.mostrarMunicipios(estados.getId()));
+                    DefaultComboBoxModel<String> modelMunicipio = new DefaultComboBoxModel(
+                            Municipio.mostrarMunicipios(estados.getId()));
                     Combo_municipio.setModel(modelMunicipio);
                 }
             }
@@ -571,7 +594,7 @@ public class NHM extends JFrame {
         final JLabel label_CarnetPrenatal = Elementos.crearJLabel(36, 500, 180, 20, "Carnet prenatal:", false);
         Panel1.add(label_CarnetPrenatal);
 
-        final JComboBox<String> combo_Carnet_prenatal = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Carnet_prenatal = new JComboBox<String>(new String[] { "No","Si" });
         combo_Carnet_prenatal.setBounds(216, 500, 40, 20);
         Panel1.add(combo_Carnet_prenatal);
 
@@ -584,21 +607,21 @@ public class NHM extends JFrame {
         final JLabel label_patologiaEmbarazo = Elementos.crearJLabel(36, 530, 180, 20, "Patologia embarazo:", false);
         Panel1.add(label_patologiaEmbarazo);
 
-        final JComboBox<String> combo_patologiaEmbarazo = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_patologiaEmbarazo = new JComboBox<String>(new String[] { "No","Si" });
         combo_patologiaEmbarazo.setBounds(216, 530, 40, 20);
         Panel1.add(combo_patologiaEmbarazo);
 
         final JLabel label_patologiaParto = Elementos.crearJLabel(36, 560, 180, 20, "Patologia parto:", false);
         Panel1.add(label_patologiaParto);
 
-        final JComboBox<String> combo_patologiaParto = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_patologiaParto = new JComboBox<String>(new String[] { "No","Si" });
         combo_patologiaParto.setBounds(216, 560, 40, 20);
         Panel1.add(combo_patologiaParto);
 
         final JLabel label_patologiaPuerperio = Elementos.crearJLabel(36, 590, 180, 20, "Patologia puerperio:", false);
         Panel1.add(label_patologiaPuerperio);
 
-        final JComboBox<String> combo_patologiaPuerperio = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_patologiaPuerperio = new JComboBox<String>(new String[] { "No","Si" });
         combo_patologiaPuerperio.setBounds(216, 590, 40, 20);
         Panel1.add(combo_patologiaPuerperio);
 
@@ -620,21 +643,21 @@ public class NHM extends JFrame {
         final JLabel label_MadreFamilia = Elementos.crearJLabel(790, 550, 80, 20, "Madre:", false);
         Panel1.add(label_MadreFamilia);
 
-        final JComboBox<String> combo_MadreFamilia = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_MadreFamilia = new JComboBox<String>(new String[] { "No","Si" });
         combo_MadreFamilia.setBounds(845, 550, 40, 20);
         Panel1.add(combo_MadreFamilia);
 
         final JLabel label_PadreFamilia = Elementos.crearJLabel(790, 580, 80, 20, "Padre:", false);
         Panel1.add(label_PadreFamilia);
 
-        final JComboBox<String> combo_PadreFamilia = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_PadreFamilia = new JComboBox<String>(new String[] { "No","Si" });
         combo_PadreFamilia.setBounds(845, 580, 40, 20);
         Panel1.add(combo_PadreFamilia);
 
         final JLabel label_HermanoFamilia = Elementos.crearJLabel(900, 550, 80, 20, "Hermano:", false);
         Panel1.add(label_HermanoFamilia);
 
-        final JComboBox<String> combo_HermanoFamilia = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_HermanoFamilia = new JComboBox<String>(new String[] { "No","Si" });
         combo_HermanoFamilia.setBounds(980, 550, 40, 20);
         Panel1.add(combo_HermanoFamilia);
 
@@ -708,15 +731,16 @@ public class NHM extends JFrame {
                         texto_Representante_ci,
                         texto_Representante_Telefono,
                         texto_Hrs_fuera_de_casa
-                        
+
                 };
                 for (final JTextField JTextField : textFieldNames) {
                     JTextField.setText("");
                 }
                 combo_Pais.setSelectedIndex(0);
                 combo_Estado.setSelectedIndex(0);
-                
+
             }
+
             public void mouseEntered(MouseEvent e) {
                 limpiarD_Button.setIcon(Elementos.botonImagen(Inicio.Tema, "pequeno.1"));
             }
@@ -759,9 +783,9 @@ public class NHM extends JFrame {
                 };
                 JComponent[] nuevoArrayComponentes = new JComponent[Componentes.length + 1];
                 System.arraycopy(Componentes, 0, nuevoArrayComponentes, 0, Componentes.length);
-                if(texto_Municipio.isVisible()){
+                if (texto_Municipio.isVisible()) {
                     nuevoArrayComponentes[Componentes.length] = texto_Municipio;
-                }else{
+                } else {
                     nuevoArrayComponentes[Componentes.length] = Combo_municipio;
                 }
                 Componentes = nuevoArrayComponentes;
@@ -934,7 +958,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Forces.getWidth();
         Panel2.add(label_Forces);
 
-        final JComboBox<String> combo_Forces = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Forces = new JComboBox<String>(new String[] { "No","Si" });
         combo_Forces.setBounds(fila_x2 + 5, 95, 50, 20);
         fila_x2 += combo_Forces.getWidth();
         Panel2.add(combo_Forces);
@@ -943,7 +967,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Cesarea.getWidth();
         Panel2.add(label_Cesarea);
 
-        final JComboBox<String> combo_Cesarea = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Cesarea = new JComboBox<String>(new String[] { "No","Si" });
         combo_Cesarea.setBounds(fila_x2 + 35, 95, 50, 20);
         fila_x2 += combo_Cesarea.getWidth();
         Panel2.add(combo_Cesarea);
@@ -952,7 +976,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Parto.getWidth();
         Panel2.add(label_Parto);
 
-        final JComboBox<String> combo_Parto = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Parto = new JComboBox<String>(new String[] { "No","Si" });
         combo_Parto.setBounds(fila_x2 + 65, 95, 50, 20);
         fila_x2 += combo_Parto.getWidth();
         Panel2.add(combo_Parto);
@@ -1049,7 +1073,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Asfixia.getWidth();
         Panel2.add(label_Asfixia);
 
-        final JComboBox<String> combo_Asfixia = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Asfixia = new JComboBox<String>(new String[] { "No","Si" });
         combo_Asfixia.setBounds(fila_x2 + 35, 125, 50, 20);
         fila_x2 += combo_Asfixia.getWidth();
         Panel2.add(combo_Asfixia);
@@ -1058,7 +1082,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Reanimacion.getWidth();
         Panel2.add(label_Reanimacion);
 
-        final JComboBox<String> combo_Reanimacion = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Reanimacion = new JComboBox<String>(new String[] { "No","Si" });
         combo_Reanimacion.setBounds(fila_x2 + 65, 125, 50, 20);
         fila_x2 += combo_Reanimacion.getWidth();
         Panel2.add(combo_Reanimacion);
@@ -1067,7 +1091,7 @@ public class NHM extends JFrame {
         fila_x2 += label_PatologiasRN.getWidth();
         Panel2.add(label_PatologiasRN);
 
-        final JComboBox<String> combo_PatologiasRN = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_PatologiasRN = new JComboBox<String>(new String[] { "No","Si" });
         combo_PatologiasRN.setBounds(fila_x2 + 95, 125, 50, 20);
         fila_x2 += combo_PatologiasRN.getWidth();
         Panel2.add(combo_PatologiasRN);
@@ -1131,7 +1155,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Alergia.getWidth();
         Panel2.add(label_Alergia);
 
-        final JComboBox<String> combo_Alergia = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Alergia = new JComboBox<String>(new String[] { "No","Si" });
         combo_Alergia.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Alergia.getWidth();
         Panel2.add(combo_Alergia);
@@ -1142,7 +1166,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Asma.getWidth();
         Panel2.add(label_Asma);
 
-        final JComboBox<String> combo_Asma = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Asma = new JComboBox<String>(new String[] { "No","Si" });
         combo_Asma.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Asma.getWidth();
         Panel2.add(combo_Asma);
@@ -1153,7 +1177,7 @@ public class NHM extends JFrame {
         fila_x2 += label_TBC.getWidth();
         Panel2.add(label_TBC);
 
-        final JComboBox<String> combo_TBC = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_TBC = new JComboBox<String>(new String[] { "No","Si" });
         combo_TBC.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_TBC.getWidth();
         Panel2.add(combo_TBC);
@@ -1164,7 +1188,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Cardiopatia.getWidth();
         Panel2.add(label_Cardiopatia);
 
-        final JComboBox<String> combo_Cardiopatia = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Cardiopatia = new JComboBox<String>(new String[] { "No","Si" });
         combo_Cardiopatia.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Cardiopatia.getWidth();
         Panel2.add(combo_Cardiopatia);
@@ -1175,7 +1199,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Hipertension.getWidth();
         Panel2.add(label_Hipertension);
 
-        final JComboBox<String> combo_Hipertension = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Hipertension = new JComboBox<String>(new String[] { "No","Si" });
         combo_Hipertension.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Hipertension.getWidth();
         Panel2.add(combo_Hipertension);
@@ -1186,7 +1210,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Varice.getWidth();
         Panel2.add(label_Varice);
 
-        final JComboBox<String> combo_Varice = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Varice = new JComboBox<String>(new String[] { "No","Si" });
         combo_Varice.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Varice.getWidth();
         Panel2.add(combo_Varice);
@@ -1197,7 +1221,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Desnutricion.getWidth();
         Panel2.add(label_Desnutricion);
 
-        final JComboBox<String> combo_Desnutricion = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Desnutricion = new JComboBox<String>(new String[] { "No","Si" });
         combo_Desnutricion.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Desnutricion.getWidth();
         Panel2.add(combo_Desnutricion);
@@ -1209,7 +1233,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Diabetes.getWidth();
         Panel2.add(label_Diabetes);
 
-        final JComboBox<String> combo_Diabetes = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Diabetes = new JComboBox<String>(new String[] { "No","Si" });
         combo_Diabetes.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Diabetes.getWidth();
         Panel2.add(combo_Diabetes);
@@ -1220,7 +1244,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Obesidad.getWidth();
         Panel2.add(label_Obesidad);
 
-        final JComboBox<String> combo_Obesidad = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Obesidad = new JComboBox<String>(new String[] { "No","Si" });
         combo_Obesidad.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Obesidad.getWidth();
         Panel2.add(combo_Obesidad);
@@ -1231,7 +1255,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Gastropatia.getWidth();
         Panel2.add(label_Gastropatia);
 
-        final JComboBox<String> combo_Gastropatia = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Gastropatia = new JComboBox<String>(new String[] { "No","Si" });
         combo_Gastropatia.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Gastropatia.getWidth();
         Panel2.add(combo_Gastropatia);
@@ -1242,7 +1266,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Neurologica.getWidth();
         Panel2.add(label_Neurologica);
 
-        final JComboBox<String> combo_Neurologica = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Neurologica = new JComboBox<String>(new String[] { "No","Si" });
         combo_Neurologica.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Neurologica.getWidth();
         Panel2.add(combo_Neurologica);
@@ -1253,7 +1277,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Enf_Renal.getWidth();
         Panel2.add(label_Enf_Renal);
 
-        final JComboBox<String> combo_Enf_Renal = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Enf_Renal = new JComboBox<String>(new String[] { "No","Si" });
         combo_Enf_Renal.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Enf_Renal.getWidth();
         Panel2.add(combo_Enf_Renal);
@@ -1264,7 +1288,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Cancer.getWidth();
         Panel2.add(label_Cancer);
 
-        final JComboBox<String> combo_Cancer = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Cancer = new JComboBox<String>(new String[] { "No","Si" });
         combo_Cancer.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Cancer.getWidth();
         Panel2.add(combo_Cancer);
@@ -1275,7 +1299,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Alcohol.getWidth();
         Panel2.add(label_Alcohol);
 
-        final JComboBox<String> combo_Alcohol = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Alcohol = new JComboBox<String>(new String[] { "No","Si" });
         combo_Alcohol.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Alcohol.getWidth();
         Panel2.add(combo_Alcohol);
@@ -1287,7 +1311,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Drogas.getWidth();
         Panel2.add(label_Drogas);
 
-        final JComboBox<String> combo_Drogas = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Drogas = new JComboBox<String>(new String[] { "No","Si" });
         combo_Drogas.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Drogas.getWidth();
         Panel2.add(combo_Drogas);
@@ -1298,7 +1322,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Sífilis.getWidth();
         Panel2.add(label_Sífilis);
 
-        final JComboBox<String> combo_Sífilis = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Sífilis = new JComboBox<String>(new String[] { "No","Si" });
         combo_Sífilis.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Sífilis.getWidth();
         Panel2.add(combo_Sífilis);
@@ -1309,7 +1333,7 @@ public class NHM extends JFrame {
         fila_x2 += label_SIDA.getWidth();
         Panel2.add(label_SIDA);
 
-        final JComboBox<String> combo_SIDA = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_SIDA = new JComboBox<String>(new String[] { "No","Si" });
         combo_SIDA.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_SIDA.getWidth();
         Panel2.add(combo_SIDA);
@@ -1320,7 +1344,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Artritis.getWidth();
         Panel2.add(label_Artritis);
 
-        final JComboBox<String> combo_Artritis = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Artritis = new JComboBox<String>(new String[] { "No","Si" });
         combo_Artritis.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Artritis.getWidth();
         Panel2.add(combo_Artritis);
@@ -1331,7 +1355,7 @@ public class NHM extends JFrame {
         fila_x2 += label_otros.getWidth();
         Panel2.add(label_otros);
 
-        final JComboBox<String> combo_otros = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_otros = new JComboBox<String>(new String[] { "No","Si" });
         combo_otros.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_otros.getWidth();
         Panel2.add(combo_otros);
@@ -1343,7 +1367,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Padre.getWidth();
         Panel2.add(label_Padre);
 
-        final JComboBox<String> combo_Padre = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Padre = new JComboBox<String>(new String[] { "No","Si" });
         combo_Padre.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Padre.getWidth();
         Panel2.add(combo_Padre);
@@ -1354,7 +1378,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Madre.getWidth();
         Panel2.add(label_Madre);
 
-        final JComboBox<String> combo_Madre = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Madre = new JComboBox<String>(new String[] { "No","Si" });
         combo_Madre.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Madre.getWidth();
         Panel2.add(combo_Madre);
@@ -1365,7 +1389,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Hermanos.getWidth();
         Panel2.add(label_Hermanos);
 
-        final JComboBox<String> combo_Hermanos = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Hermanos = new JComboBox<String>(new String[] { "No","Si" });
         combo_Hermanos.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Hermanos.getWidth();
         Panel2.add(combo_Hermanos);
@@ -1376,7 +1400,7 @@ public class NHM extends JFrame {
         fila_x2 += label_Otros.getWidth();
         Panel2.add(label_Otros);
 
-        final JComboBox<String> combo_Otros = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Otros = new JComboBox<String>(new String[] { "No","Si" });
         combo_Otros.setBounds(fila_x2, fila_y, 50, 20);
         fila_x2 += combo_Otros.getWidth();
         Panel2.add(combo_Otros);
@@ -1548,7 +1572,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Dispareunia.getWidth();
         Panel3.add(label_Dispareunia);
 
-        final JComboBox<String> combo_Dispareunia = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Dispareunia = new JComboBox<String>(new String[] { "No","Si" });
         combo_Dispareunia.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Dispareunia.getWidth();
         Panel3.add(combo_Dispareunia);
@@ -1560,7 +1584,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Anticoncepcion.getWidth();
         Panel3.add(label_Anticoncepcion);
 
-        final JComboBox<String> combo_Anticoncepcion = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Anticoncepcion = new JComboBox<String>(new String[] { "No","Si" });
         combo_Anticoncepcion.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Anticoncepcion.getWidth();
         Panel3.add(combo_Anticoncepcion);
@@ -1578,7 +1602,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Menopausia.getWidth();
         Panel3.add(label_Menopausia);
 
-        final JComboBox<String> combo_Menopausia = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Menopausia = new JComboBox<String>(new String[] { "No","Si" });
         combo_Menopausia.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Menopausia.getWidth();
         Panel3.add(combo_Menopausia);
@@ -1589,7 +1613,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Gesta.getWidth();
         Panel3.add(label_Gesta);
 
-        final JComboBox<String> combo_Gesta = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Gesta = new JComboBox<String>(new String[] { "No","Si" });
         combo_Gesta.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Gesta.getWidth();
         Panel3.add(combo_Gesta);
@@ -1600,7 +1624,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Partos.getWidth();
         Panel3.add(label_Partos);
 
-        final JComboBox<String> combo_Partos = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Partos = new JComboBox<String>(new String[] { "No","Si" });
         combo_Partos.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Partos.getWidth();
         Panel3.add(combo_Partos);
@@ -1611,7 +1635,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Cesarea2.getWidth();
         Panel3.add(label_Cesarea2);
 
-        final JComboBox<String> combo_Cesarea2 = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Cesarea2 = new JComboBox<String>(new String[] { "No","Si" });
         combo_Cesarea2.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Cesarea2.getWidth();
         Panel3.add(combo_Cesarea2);
@@ -1623,7 +1647,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Aborto.getWidth();
         Panel3.add(label_Aborto);
 
-        final JComboBox<String> combo_Aborto = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Aborto = new JComboBox<String>(new String[] { "No","Si" });
         combo_Aborto.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Aborto.getWidth();
         Panel3.add(combo_Aborto);
@@ -1739,7 +1763,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Alergia2.getWidth();
         Panel3.add(label_Alergia2);
 
-        final JComboBox<String> combo_Alergia2 = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Alergia2 = new JComboBox<String>(new String[] { "No", "Si" });
         combo_Alergia2.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Alergia2.getWidth();
         Panel3.add(combo_Alergia2);
@@ -1750,7 +1774,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Asma2.getWidth();
         Panel3.add(label_Asma2);
 
-        final JComboBox<String> combo_Asma2 = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Asma2 = new JComboBox<String>(new String[] { "No", "Si" });
         combo_Asma2.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Asma2.getWidth();
         Panel3.add(combo_Asma2);
@@ -1761,7 +1785,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Neumonia.getWidth();
         Panel3.add(label_Neumonia);
 
-        final JComboBox<String> combo_Neumonia = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Neumonia = new JComboBox<String>(new String[] { "No","Si" });
         combo_Neumonia.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Neumonia.getWidth();
         Panel3.add(combo_Neumonia);
@@ -1772,7 +1796,7 @@ public class NHM extends JFrame {
         fila_x3 += label_TBC2.getWidth();
         Panel3.add(label_TBC2);
 
-        final JComboBox<String> combo_TBC2 = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_TBC2 = new JComboBox<String>(new String[] { "No","Si" });
         combo_TBC2.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_TBC2.getWidth();
         Panel3.add(combo_TBC2);
@@ -1783,7 +1807,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Cardiopatia2.getWidth();
         Panel3.add(label_Cardiopatia2);
 
-        final JComboBox<String> combo_Cardiopatia2 = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Cardiopatia2 = new JComboBox<String>(new String[] { "No","Si" });
         combo_Cardiopatia2.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Cardiopatia2.getWidth();
         Panel3.add(combo_Cardiopatia2);
@@ -1794,7 +1818,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Hipertension2.getWidth();
         Panel3.add(label_Hipertension2);
 
-        final JComboBox<String> combo_Hipertension2 = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Hipertension2 = new JComboBox<String>(new String[] { "No","Si" });
         combo_Hipertension2.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Hipertension2.getWidth();
         Panel3.add(combo_Hipertension2);
@@ -1806,7 +1830,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Hiperlipidemias.getWidth();
         Panel3.add(label_Hiperlipidemias);
 
-        final JComboBox<String> combo_Hiperlipidemias = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Hiperlipidemias = new JComboBox<String>(new String[] { "No","Si" });
         combo_Hiperlipidemias.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Hiperlipidemias.getWidth();
         Panel3.add(combo_Hiperlipidemias);
@@ -1817,7 +1841,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Varices.getWidth();
         Panel3.add(label_Varices);
 
-        final JComboBox<String> combo_Varices = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Varices = new JComboBox<String>(new String[] { "No","Si" });
         combo_Varices.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Varices.getWidth();
         Panel3.add(combo_Varices);
@@ -1829,7 +1853,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Hepatopatia.getWidth();
         Panel3.add(label_Hepatopatia);
 
-        final JComboBox<String> combo_Hepatopatia = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Hepatopatia = new JComboBox<String>(new String[] { "No","Si" });
         combo_Hepatopatia.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Hepatopatia.getWidth();
         Panel3.add(combo_Hepatopatia);
@@ -1840,7 +1864,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Desnutricion2.getWidth();
         Panel3.add(label_Desnutricion2);
 
-        final JComboBox<String> combo_Desnutricion2 = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Desnutricion2 = new JComboBox<String>(new String[] { "No","Si" });
         combo_Desnutricion2.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Desnutricion2.getWidth();
         Panel3.add(combo_Desnutricion2);
@@ -1851,7 +1875,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Diabetes2.getWidth();
         Panel3.add(label_Diabetes2);
 
-        final JComboBox<String> combo_Diabetes2 = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Diabetes2 = new JComboBox<String>(new String[] { "No","Si" });
         combo_Diabetes2.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Diabetes2.getWidth();
         Panel3.add(combo_Diabetes2);
@@ -1862,7 +1886,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Obesidad2.getWidth();
         Panel3.add(label_Obesidad2);
 
-        final JComboBox<String> combo_Obesidad2 = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Obesidad2 = new JComboBox<String>(new String[] { "No","Si" });
         combo_Obesidad2.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Obesidad2.getWidth();
         Panel3.add(combo_Obesidad2);
@@ -1874,7 +1898,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Gastroenteritis.getWidth();
         Panel3.add(label_Gastroenteritis);
 
-        final JComboBox<String> combo_Gastroenteritis = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Gastroenteritis = new JComboBox<String>(new String[] { "No","Si" });
         combo_Gastroenteritis.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Gastroenteritis.getWidth();
         Panel3.add(combo_Gastroenteritis);
@@ -1885,7 +1909,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Encoprexis.getWidth();
         Panel3.add(label_Encoprexis);
 
-        final JComboBox<String> combo_Encoprexis = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Encoprexis = new JComboBox<String>(new String[] { "No","Si" });
         combo_Encoprexis.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Encoprexis.getWidth();
         Panel3.add(combo_Encoprexis);
@@ -1896,7 +1920,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Enf_Renal2.getWidth();
         Panel3.add(label_Enf_Renal2);
 
-        final JComboBox<String> combo_Enf_Renal2 = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Enf_Renal2 = new JComboBox<String>(new String[] { "No","Si" });
         combo_Enf_Renal2.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Enf_Renal2.getWidth();
         Panel3.add(combo_Enf_Renal2);
@@ -1907,7 +1931,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Enuresis.getWidth();
         Panel3.add(label_Enuresis);
 
-        final JComboBox<String> combo_Enuresis = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Enuresis = new JComboBox<String>(new String[] { "No","Si" });
         combo_Enuresis.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Enuresis.getWidth();
         Panel3.add(combo_Enuresis);
@@ -1919,7 +1943,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Cancer2.getWidth();
         Panel3.add(label_Cancer2);
 
-        final JComboBox<String> combo_Cancer2 = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Cancer2 = new JComboBox<String>(new String[] { "No","Si" });
         combo_Cancer2.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Cancer2.getWidth();
         Panel3.add(combo_Cancer2);
@@ -1930,7 +1954,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Tromboembolica.getWidth();
         Panel3.add(label_Tromboembolica);
 
-        final JComboBox<String> combo_Tromboembolica = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Tromboembolica = new JComboBox<String>(new String[] { "No","Si" });
         combo_Tromboembolica.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Tromboembolica.getWidth();
         Panel3.add(combo_Tromboembolica);
@@ -1941,7 +1965,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Tumor_Mamario.getWidth();
         Panel3.add(label_Tumor_Mamario);
 
-        final JComboBox<String> combo_Tumor_Mamario = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Tumor_Mamario = new JComboBox<String>(new String[] { "No","Si" });
         combo_Tumor_Mamario.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Tumor_Mamario.getWidth();
         Panel3.add(combo_Tumor_Mamario);
@@ -1952,7 +1976,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Meningitis.getWidth();
         Panel3.add(label_Meningitis);
 
-        final JComboBox<String> combo_Meningitis = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Meningitis = new JComboBox<String>(new String[] { "No","Si" });
         combo_Meningitis.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Meningitis.getWidth();
         Panel3.add(combo_Meningitis);
@@ -1963,7 +1987,7 @@ public class NHM extends JFrame {
         fila_x3 += label_TCraneoencefal.getWidth();
         Panel3.add(label_TCraneoencefal);
 
-        final JComboBox<String> combo_TCraneoencefal = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_TCraneoencefal = new JComboBox<String>(new String[] { "No","Si" });
         combo_TCraneoencefal.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_TCraneoencefal.getWidth();
         Panel3.add(combo_TCraneoencefal);
@@ -1974,7 +1998,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Enf_Eruptivas.getWidth();
         Panel3.add(label_Enf_Eruptivas);
 
-        final JComboBox<String> combo_Enf_Eruptivas = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Enf_Eruptivas = new JComboBox<String>(new String[] { "No","Si" });
         combo_Enf_Eruptivas.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Enf_Eruptivas.getWidth();
         Panel3.add(combo_Enf_Eruptivas);
@@ -1985,7 +2009,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Dengue.getWidth();
         Panel3.add(label_Dengue);
 
-        final JComboBox<String> combo_Dengue = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Dengue = new JComboBox<String>(new String[] { "No","Si" });
         combo_Dengue.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Dengue.getWidth();
         Panel3.add(combo_Dengue);
@@ -1997,7 +2021,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Hospitalizacion.getWidth();
         Panel3.add(label_Hospitalizacion);
 
-        final JComboBox<String> combo_Hospitalizacion = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Hospitalizacion = new JComboBox<String>(new String[] { "No","Si" });
         combo_Hospitalizacion.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Hospitalizacion.getWidth();
         Panel3.add(combo_Hospitalizacion);
@@ -2010,7 +2034,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Interv_Quirurgica.getWidth();
         Panel3.add(label_Interv_Quirurgica);
 
-        final JComboBox<String> combo_Interv_Quirurgica = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Interv_Quirurgica = new JComboBox<String>(new String[] { "No","Si" });
         combo_Interv_Quirurgica.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Interv_Quirurgica.getWidth();
         Panel3.add(combo_Interv_Quirurgica);
@@ -2021,7 +2045,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Accidentes.getWidth();
         Panel3.add(label_Accidentes);
 
-        final JComboBox<String> combo_Accidentes = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Accidentes = new JComboBox<String>(new String[] { "No","Si" });
         combo_Accidentes.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Accidentes.getWidth();
         Panel3.add(combo_Accidentes);
@@ -2032,7 +2056,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Artritis2.getWidth();
         Panel3.add(label_Artritis2);
 
-        final JComboBox<String> combo_Artritis2 = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Artritis2 = new JComboBox<String>(new String[] { "No","Si" });
         combo_Artritis2.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Artritis2.getWidth();
         Panel3.add(combo_Artritis2);
@@ -2043,7 +2067,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Enf_TS.getWidth();
         Panel3.add(label_Enf_TS);
 
-        final JComboBox<String> combo_Enf_TS = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Enf_TS = new JComboBox<String>(new String[] { "No","Si" });
         combo_Enf_TS.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Enf_TS.getWidth();
         Panel3.add(combo_Enf_TS);
@@ -2055,7 +2079,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Enf_Infec_Tran.getWidth();
         Panel3.add(label_Enf_Infec_Tran);
 
-        final JComboBox<String> combo_Enf_Infec_Tran = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Enf_Infec_Tran = new JComboBox<String>(new String[] { "No","Si" });
         combo_Enf_Infec_Tran.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Enf_Infec_Tran.getWidth();
         Panel3.add(combo_Enf_Infec_Tran);
@@ -2066,7 +2090,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Enf_Laboral.getWidth();
         Panel3.add(label_Enf_Laboral);
 
-        final JComboBox<String> combo_Enf_Laboral = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Enf_Laboral = new JComboBox<String>(new String[] { "No","Si" });
         combo_Enf_Laboral.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Enf_Laboral.getWidth();
         Panel3.add(combo_Enf_Laboral);
@@ -2088,7 +2112,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Alcohol2.getWidth();
         Panel3.add(label_Alcohol2);
 
-        final JComboBox<String> combo_Alcohol2 = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Alcohol2 = new JComboBox<String>(new String[] { "No","Si" });
         combo_Alcohol2.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Alcohol2.getWidth();
         Panel3.add(combo_Alcohol2);
@@ -2099,7 +2123,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Drogas2.getWidth();
         Panel3.add(label_Drogas2);
 
-        final JComboBox<String> combo_Drogas2 = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Drogas2 = new JComboBox<String>(new String[] { "No","Si" });
         combo_Drogas2.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Drogas2.getWidth();
         Panel3.add(combo_Drogas2);
@@ -2110,7 +2134,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Insecticidas.getWidth();
         Panel3.add(label_Insecticidas);
 
-        final JComboBox<String> combo_Insecticidas = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Insecticidas = new JComboBox<String>(new String[] { "No","Si" });
         combo_Insecticidas.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Insecticidas.getWidth();
         Panel3.add(combo_Insecticidas);
@@ -2121,7 +2145,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Deporte.getWidth();
         Panel3.add(label_Deporte);
 
-        final JComboBox<String> combo_Deporte = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Deporte = new JComboBox<String>(new String[] { "No","Si" });
         combo_Deporte.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Deporte.getWidth();
         Panel3.add(combo_Deporte);
@@ -2133,7 +2157,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Sedentarismo.getWidth();
         Panel3.add(label_Sedentarismo);
 
-        final JComboBox<String> combo_Sedentarismo = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Sedentarismo = new JComboBox<String>(new String[] { "No","Si" });
         combo_Sedentarismo.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Sedentarismo.getWidth();
         Panel3.add(combo_Sedentarismo);
@@ -2144,7 +2168,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Sueno.getWidth();
         Panel3.add(label_Sueno);
 
-        final JComboBox<String> combo_Sueno = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Sueno = new JComboBox<String>(new String[] { "No","Si" });
         combo_Sueno.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Sueno.getWidth();
         Panel3.add(combo_Sueno);
@@ -2155,7 +2179,7 @@ public class NHM extends JFrame {
         fila_x3 += label_ChuparDedo.getWidth();
         Panel3.add(label_ChuparDedo);
 
-        final JComboBox<String> combo_ChuparDedo = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_ChuparDedo = new JComboBox<String>(new String[] { "No","Si" });
         combo_ChuparDedo.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_ChuparDedo.getWidth();
         Panel3.add(combo_ChuparDedo);
@@ -2166,7 +2190,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Onicofagia.getWidth();
         Panel3.add(label_Onicofagia);
 
-        final JComboBox<String> combo_Onicofagia = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Onicofagia = new JComboBox<String>(new String[] { "No","Si" });
         combo_Onicofagia.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Onicofagia.getWidth();
         Panel3.add(combo_Onicofagia);
@@ -2178,7 +2202,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Micciones.getWidth();
         Panel3.add(label_Micciones);
 
-        final JComboBox<String> combo_Micciones = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Micciones = new JComboBox<String>(new String[] { "No","Si" });
         combo_Micciones.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Micciones.getWidth();
         Panel3.add(combo_Micciones);
@@ -2189,7 +2213,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Evacuaciones.getWidth();
         Panel3.add(label_Evacuaciones);
 
-        final JComboBox<String> combo_Evacuaciones = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Evacuaciones = new JComboBox<String>(new String[] { "No","Si" });
         combo_Evacuaciones.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Evacuaciones.getWidth();
         Panel3.add(combo_Evacuaciones);
@@ -2200,7 +2224,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Estres.getWidth();
         Panel3.add(label_Estres);
 
-        final JComboBox<String> combo_Estres = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Estres = new JComboBox<String>(new String[] { "No","Si" });
         combo_Estres.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Estres.getWidth();
         Panel3.add(combo_Estres);
@@ -2212,7 +2236,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Metales_Pensados.getWidth();
         Panel3.add(label_Metales_Pensados);
 
-        final JComboBox<String> combo_Metales_Pensados = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Metales_Pensados = new JComboBox<String>(new String[] { "No","Si" });
         combo_Metales_Pensados.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Metales_Pensados.getWidth();
         Panel3.add(combo_Metales_Pensados);
@@ -2224,7 +2248,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Alimentacion.getWidth();
         Panel3.add(label_Alimentacion);
 
-        final JComboBox<String> combo_Alimentacion = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Alimentacion = new JComboBox<String>(new String[] { "No","Si" });
         combo_Alimentacion.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Alimentacion.getWidth();
         Panel3.add(combo_Alimentacion);
@@ -2235,7 +2259,7 @@ public class NHM extends JFrame {
         fila_x3 += label_Fuma.getWidth();
         Panel3.add(label_Fuma);
 
-        final JComboBox<String> combo_Fuma = new JComboBox<String>(new String[] { "Si", "No" });
+        final JComboBox<String> combo_Fuma = new JComboBox<String>(new String[] { "No","Si" });
         combo_Fuma.setBounds(fila_x3, fila_y3, 50, 20);
         fila_x3 += combo_Fuma.getWidth();
         Panel3.add(combo_Fuma);
@@ -2294,8 +2318,12 @@ public class NHM extends JFrame {
 
         GuardarButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
+                String textoIngresado = JOptionPane.showInputDialog(null,"Ingrese las observaciones del paciente"); 
+                String Observacion = ""; 
+                if (textoIngresado != null && !textoIngresado.isEmpty()) {
+                    Observacion = textoIngresado; 
+                } 
                 try {
-                
                     JComponent[] componentes = {
                             text_apellido_familiar,
                             text_ci_jefe_familia,
@@ -2448,23 +2476,30 @@ public class NHM extends JFrame {
                     };
                     JComponent[] nuevoArrayComponentes = new JComponent[componentes.length + 1];
                     System.arraycopy(componentes, 0, nuevoArrayComponentes, 0, componentes.length);
-                    if(texto_Municipio.isVisible()){
+                    if (texto_Municipio.isVisible()) {
                         nuevoArrayComponentes[componentes.length] = texto_Municipio;
-                    }else{
+                    } else {
                         nuevoArrayComponentes[componentes.length] = Combo_municipio;
                     }
                     componentes = nuevoArrayComponentes;
 
-                    String sql = "INSERT INTO datospersonales (apellido_familiar, ci_jefe_familia, Numero_de_Historia, ci_tipo, Ci_cedula, apellido, nombre, estadoCivil, Ocupacion, estudio, anosAprobados, Analfabeta, sexo, NFecha, LugarNacimiento, Estado, Pais, Direccion, Telefono, Religion, Establecimiento, Municipio, Parroquia, Comunidad, Madre_N_A, Madre_Ocupacion, Padre_N_A, Padre_Ocupacion, Representante, Representante_N, Representante_tipo_ci, Representante_ci, Representante_Telefono, Carnet_prenatal, patologiaEmbarazo, patologiaParto, patologiaPuerperio, NConsultasPrenatales, Hrs_fuera_de_casa, MadreFamilia, PadreFamilia, HermanoFamilia, OtrosFamilia, Edad_Gestacional, sem, Forceps, Cesarea, Parto, ApgarMin, Reanimacion, EgresoRN, Exclusiva, Mixta, Ablactacion, Peso_al_nacer, Talla, Circunferencia, Asfixia, PatologiasRN, Alergia, Asma, TBC, Cardiopatia, Hipertension, Varice, Desnutricion, Diabetes, Obesidad, Gastropatia, Neurologica, Enf_Renal, Cancer, Alcohol, Drogas, Sifilis, SIDA, Artritis, otros_1, Padre, Madre, Hermanos, Otros_2, Menarquia, Ciclo_menstrual, PRSexual, FrecuenciaRSexual, N_Parejas, Dispareunia, Anticoncepcion, AC_DIU, Menopausia, Gesta, Partos, Cesarea2, Aborto, E1erparto, F_Uparto, F_UAborto, Curetaje, N_de_Hijos, Vivos, Muertos, RN_de_mayor_peso, Alergia2, Asma2, Neumonia, TBC2, Cardiopatia2, Hipertension2, Hiperlipidemias, Varices, Hepatopatia, Desnutricion2, Diabetes2, Obesidad2, Gastroenteritis, Encoprexis, Enf_Renal2, Enuresis, Cancer2, Tromboembolica, Tumor_Mamario, Meningitis, TCraneoencefal, Enf_Eruptivas, Dengue, Hospitalizacion, Interv_Quirurgica, Accidentes, Artritis2, Enf_TS, Enf_Infec_Tran, Enf_Laboral, Otros_3, Alcohol2, Drogas2, Insecticidas, Deportes, Sedentarismo, Sueno, ChuparDedo, Onicofagia, Micciones, Evacuaciones, Estres, Metales_Pensados, Alimentacion, Fuma, NCigarrillos_diarios)"
+                    String sql = "INSERT INTO datospersonales (RegistradoPor,FechaRegistro,apellido_familiar, ci_jefe_familia, Numero_de_Historia, ci_tipo, Ci_cedula, apellido, nombre, estadoCivil, Ocupacion, estudio, anosAprobados, Analfabeta, sexo, NFecha, LugarNacimiento, Estado, Pais, Direccion, Telefono, Religion, Establecimiento, Municipio, Parroquia, Comunidad, Madre_N_A, Madre_Ocupacion, Padre_N_A, Padre_Ocupacion, Representante, Representante_N, Representante_tipo_ci, Representante_ci, Representante_Telefono, Carnet_prenatal, patologiaEmbarazo, patologiaParto, patologiaPuerperio, NConsultasPrenatales, Hrs_fuera_de_casa, MadreFamilia, PadreFamilia, HermanoFamilia, OtrosFamilia, Edad_Gestacional, sem, Forceps, Cesarea, Parto, ApgarMin, Reanimacion, EgresoRN, Exclusiva, Mixta, Ablactacion, Peso_al_nacer, Talla, Circunferencia, Asfixia, PatologiasRN, Alergia, Asma, TBC, Cardiopatia, Hipertension, Varice, Desnutricion, Diabetes, Obesidad, Gastropatia, Neurologica, Enf_Renal, Cancer, Alcohol, Drogas, Sifilis, SIDA, Artritis, otros_1, Padre, Madre, Hermanos, Otros_2, Menarquia, Ciclo_menstrual, PRSexual, FrecuenciaRSexual, N_Parejas, Dispareunia, Anticoncepcion, AC_DIU, Menopausia, Gesta, Partos, Cesarea2, Aborto, E1erparto, F_Uparto, F_UAborto, Curetaje, N_de_Hijos, Vivos, Muertos, RN_de_mayor_peso, Alergia2, Asma2, Neumonia, TBC2, Cardiopatia2, Hipertension2, Hiperlipidemias, Varices, Hepatopatia, Desnutricion2, Diabetes2, Obesidad2, Gastroenteritis, Encoprexis, Enf_Renal2, Enuresis, Cancer2, Tromboembolica, Tumor_Mamario, Meningitis, TCraneoencefal, Enf_Eruptivas, Dengue, Hospitalizacion, Interv_Quirurgica, Accidentes, Artritis2, Enf_TS, Enf_Infec_Tran, Enf_Laboral, Otros_3, Alcohol2, Drogas2, Insecticidas, Deportes, Sedentarismo, Sueno, ChuparDedo, Onicofagia, Micciones, Evacuaciones, Estres, Metales_Pensados, Alimentacion, Fuma, NCigarrillos_diarios,Observacion)"
                             +
-                            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
                     Connection conexion = Conexion.getConexion();
 
                     PreparedStatement statement;
                     statement = conexion.prepareStatement(sql);
+                    statement.setString(1, Inicio.UsuarioNombre);
+                    // Obtener la fecha actual
+                    Date fechaActual = new Date();
+                    // Formatear la fecha en dd/MM/yyyy
+                    DateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+                    String fechaFormateada = formatoFecha.format(fechaActual);
+                    statement.setString(2, fechaFormateada);
 
-                    int index = 1; // indice para los marcadores de posición
+                    int index = 3; // indice para los marcadores de posición
                     for (JComponent componente : componentes) {
                         if (componente instanceof JTextField) {
                             String valor = ((JTextField) componente).getText().toString();
@@ -2485,10 +2520,13 @@ public class NHM extends JFrame {
                             index++;
                         }
                     }
+                    statement.setString(152, Observacion);
+
                     statement.executeUpdate();
                     new Menu().setVisible(true);
                     dispose();
-                    JOptionPane.showMessageDialog(null, "Se a guardado con éxito", "Completado",JOptionPane.INFORMATION_MESSAGE, null);
+                    JOptionPane.showMessageDialog(null, "Se a guardado con éxito", "Completado",
+                            JOptionPane.INFORMATION_MESSAGE, null);
                 } catch (SQLException e1) {
                     JOptionPane.showMessageDialog(null, "Se a producido un error \n" + "Código de error:" + e1, "ERROR",
                             JOptionPane.ERROR_MESSAGE, null);
@@ -2502,7 +2540,7 @@ public class NHM extends JFrame {
                     PreparedStatement statement;
 
                     statement = conexion.prepareStatement(sql1);
-                    
+
                     LocalDate fechaActual = LocalDate.now();
                     DateTimeFormatter Formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                     String formato = fechaActual.format(Formato);
@@ -2512,7 +2550,7 @@ public class NHM extends JFrame {
                     String cantidadPacientes = "0";
                     if (resultado.next()) {
                         cantidadPacientes = resultado.getString("cantidad_pacientes");
-                    }else{
+                    } else {
                         String sql3 = "INSERT INTO estadistica_pacientes (fecha, cantidad_pacientes) VALUES (?,?)";
                         PreparedStatement statement2;
                         statement2 = conexion.prepareStatement(sql3);
@@ -2523,7 +2561,6 @@ public class NHM extends JFrame {
 
                     int cantidad = Integer.parseInt(cantidadPacientes);
                     cantidad++;
-
 
                     String sql2 = "UPDATE estadistica_pacientes set cantidad_pacientes = ? WHERE fecha = ?";
                     PreparedStatement pst = conexion.prepareStatement(sql2);
