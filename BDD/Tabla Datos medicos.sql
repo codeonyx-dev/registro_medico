@@ -1,7 +1,11 @@
 CREATE TABLE `datospersonales` (
+  `RegistradoPor` varchar(100) DEFAULT NULL,
+  `FechaRegistro` date DEFAULT NULL,
+  `ModificadoPor` varchar(100) DEFAULT NULL,
+  `FechaModificacion` date DEFAULT NULL,
   `apellido_familiar` varchar(80) DEFAULT NULL,
   `ci_jefe_familia` varchar(80) DEFAULT NULL,
-  `Numero_de_Historia` varchar(80) DEFAULT NULL,
+  `Numero_de_Historia` varchar(80) NOT NULL,
   `ci_tipo` varchar(80) DEFAULT NULL,
   `Ci_cedula` varchar(80) DEFAULT NULL,
   `apellido` varchar(80) DEFAULT NULL,
@@ -147,11 +151,20 @@ CREATE TABLE `datospersonales` (
   `Metales_Pensados` varchar(80) DEFAULT NULL,
   `Alimentacion` varchar(80) DEFAULT NULL,
   `Fuma` varchar(80) DEFAULT NULL,
-  `NCigarrillos_diarios` varchar(80) DEFAULT NULL
+  `NCigarrillos_diarios` varchar(80) DEFAULT NULL,
+  `Observacion` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE estadistica_pacientes(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    fecha DATE,
-    cantidad_pacientes varchar(100)
-);
+CREATE TABLE `estadistica_pacientes` (
+  `id` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `cantidad_pacientes` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `estadistica_pacientes`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `estadistica_pacientes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+COMMIT;
+
