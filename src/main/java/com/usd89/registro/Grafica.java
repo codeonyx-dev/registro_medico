@@ -83,7 +83,6 @@ public class Grafica extends JFrame {
 
         JLabel laber_buscadorFecha = new JLabel("Buscar la fecha:");
         laber_buscadorFecha.setBounds(1020, 80, 200, 30);
-        laber_buscadorFecha.setForeground(Color.white);
         laber_buscadorFecha.setFont(new Font("Arial", 3, 20));
         Panel.add(laber_buscadorFecha);
 
@@ -97,28 +96,13 @@ public class Grafica extends JFrame {
         JFreeChart grafico_barra = ChartFactory.createBarChart(
                 "Frecuencia de pacientes semanales",
                 "Días de la semana",
-                "Frecuencia de pacientes",
+                "",
                 datos,
                 PlotOrientation.VERTICAL,
                 true,
                 true,
                 false);
-        grafico_barra.setBackgroundPaint(new Color(0, 62, 88));
-
-        TextTitle title = grafico_barra.getTitle();
-        if (title != null) {
-            title.setPaint(Color.white); // Cambia el color del título a azul
-        }
-        // Cambiar el color del texto del eje X (horizontal)
-        CategoryPlot plot = (CategoryPlot) grafico_barra.getPlot();
-        CategoryAxis domainAxis = plot.getDomainAxis();
-        domainAxis.setLabelPaint(Color.white); // Cambia el color del texto del eje X a rojo
-        domainAxis.setTickLabelPaint(Color.white); // Cambia el color de las etiquetas del eje X a verde
-
-        // Cambiar el color del texto del eje Y (vertical)
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setLabelPaint(Color.white); // Cambia el color del texto del eje Y a naranja
-        rangeAxis.setTickLabelPaint(Color.white); // Cambia el color de las etiquetas del eje Y a magenta
+        
 
         ChartPanel panelGrafica = new ChartPanel(grafico_barra);
         panelGrafica.setMouseWheelEnabled(true);
@@ -126,8 +110,7 @@ public class Grafica extends JFrame {
         panelGrafica.setBounds(20, 20, 990, 450);
         Panel.add(panelGrafica);
 
-        final JLabel ObtenerFecha = new JLabel("OBTENER ESTADÍSTICA", Elementos.botonImagen(Inicio.Tema, "mediano.0"),
-                SwingConstants.CENTER);
+        final JLabel ObtenerFecha = new JLabel("OBTENER ESTADÍSTICA", Elementos.botonImagen(Inicio.Tema, "mediano.0"),SwingConstants.CENTER);
         ObtenerFecha.setBounds(995, 340, 308, 67);
         ObtenerFecha.setFont(new Font("Roboto Black", 1, 22));
         ObtenerFecha.setForeground(Elementos.colores(Inicio.Tema));
@@ -147,8 +130,7 @@ public class Grafica extends JFrame {
                     // Convertir la fecha seleccionada a tipo Date
                     Date fecha = dateFormat.parse(fechaSeleccionada);
 
-                    // Obtener el día de la semana de la fecha seleccionada (1 = domingo, 2 =
-                    // lunes,..., 7 = sábado)
+                    // Obtener el día de la semana de la fecha seleccionada (1 = domingo, 2 = lunes,..., 7 = sábado)
                     Calendar cal = Calendar.getInstance();
                     cal.setTime(fecha);
                     int diaSemana = cal.get(Calendar.DAY_OF_WEEK);
@@ -158,7 +140,6 @@ public class Grafica extends JFrame {
                         cal.add(Calendar.DATE, -6); // Retroceder 6 días para obtener el lunes de la misma semana
                     } else {
                         cal.add(Calendar.DATE, -(diaSemana - Calendar.MONDAY)); // Retroceder para obtener el lunes de
-                                                                                // la semana
                     }
                     Date fechaLunes = cal.getTime();
 
@@ -181,15 +162,13 @@ public class Grafica extends JFrame {
                         pacientesPorFecha.put(fechaBD, cantidad);
                     }
 
-                    // Mostrar la cantidad de pacientes para cada día de la semana con el nombre del
-                    // día
-                    SimpleDateFormat sdfOutput = new SimpleDateFormat("EEEE yyyy-MM-dd"); // Formato para mostrar el día
-                                                                                          // de la semana
+                    // Mostrar la cantidad de pacientes para cada día de la semana con el nombre del día
+                    SimpleDateFormat sdfOutput = new SimpleDateFormat("EEEE\nyyyy-MM-dd"); // Formato para mostrar el día de la semana
                     cal.setTime(fechaLunes);
                     while (!cal.getTime().after(fechaDomingo)) {
                         Date fechaActual = cal.getTime();
                         Integer cantidadPacientes = pacientesPorFecha.getOrDefault(fechaActual, 0);
-                        datos.setValue(cantidadPacientes, sdfOutput.format(fechaActual), "Pacientes");
+                        datos.setValue(cantidadPacientes, sdfOutput.format(fechaActual), "");
                         cal.add(Calendar.DATE, 1); // Avanzar al siguiente día
                     }
                 } catch (Exception ex) {
@@ -215,7 +194,6 @@ public class Grafica extends JFrame {
         volverButton.setForeground(Elementos.colores(Inicio.Tema));
         volverButton.setVerticalTextPosition(SwingConstants.CENTER);
         volverButton.setHorizontalTextPosition(SwingConstants.CENTER);
-
         volverButton.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 Menu menu = new Menu();
@@ -249,10 +227,47 @@ public class Grafica extends JFrame {
             }
         });
         Panel.add(Encabezado);
-        JLabel Fondo = new JLabel();
-        Fondo.setBounds(0, 0, 1300, 500);
-        Panel.add(Fondo);
-        Fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Oscuro/Estadistica-Oscuro.png")));
 
+        JLabel fondo = new JLabel();
+        fondo.setBounds(0, 0, 1300, 500);
+        Panel.add(fondo);
+        if (Inicio.Tema == "Oscuro") {
+            fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Oscuro/Estadistica.png")));
+            grafico_barra.setBackgroundPaint(new Color(0, 62, 88));
+            laber_buscadorFecha.setForeground(Color.white);
+
+            TextTitle title = grafico_barra.getTitle();
+            if (title != null) {
+                title.setPaint(Color.white); // Cambia el color del título a azul
+            }
+            // Cambiar el color del texto del eje X (horizontal)
+            CategoryPlot plot = (CategoryPlot) grafico_barra.getPlot();
+            CategoryAxis domainAxis = plot.getDomainAxis();
+            domainAxis.setLabelPaint(Color.white); // Cambia el color del texto del eje X a rojo
+            domainAxis.setTickLabelPaint(Color.white); // Cambia el color de las etiquetas del eje X a verde
+    
+            // Cambiar el color del texto del eje Y (vertical)
+            NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+            rangeAxis.setLabelPaint(Color.white); // Cambia el color del texto del eje Y a naranja
+            rangeAxis.setTickLabelPaint(Color.white); // Cambia el color de las etiquetas del eje Y a magenta   
+        } else {
+            fondo.setIcon(new ImageIcon(getClass().getResource("/imagen/Fondos/Claro/Estadistica.png")));
+            laber_buscadorFecha.setForeground(Color.black);
+            grafico_barra.setBackgroundPaint(new Color(143, 224, 250));
+            TextTitle title = grafico_barra.getTitle();
+            if (title != null) {
+                title.setPaint(Color.black); // Cambia el color del título a azul
+            }
+            // Cambiar el color del texto del eje X (horizontal)
+            CategoryPlot plot = (CategoryPlot) grafico_barra.getPlot();
+            CategoryAxis domainAxis = plot.getDomainAxis();
+            domainAxis.setLabelPaint(Color.black); // Cambia el color del texto del eje X a rojo
+            domainAxis.setTickLabelPaint(Color.black); // Cambia el color de las etiquetas del eje X a verde
+    
+            // Cambiar el color del texto del eje Y (vertical)
+            NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+            rangeAxis.setLabelPaint(Color.black); // Cambia el color del texto del eje Y a naranja
+            rangeAxis.setTickLabelPaint(Color.black); // Cambia el color de las etiquetas del eje Y a magenta
+        }
     }
 }

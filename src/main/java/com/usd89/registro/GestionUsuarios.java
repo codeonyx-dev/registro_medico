@@ -182,8 +182,10 @@ public class GestionUsuarios extends JFrame {
             }
         });
 
-        final JTextField contrasenaField = Elementos.crearJTextField(14, 387, 260, 29, "", true);
-        Panel.add(contrasenaField);
+        JPasswordField contrasenaField = new JPasswordField("");
+        contrasenaField.setBounds(14, 387, 220, 29);
+        contrasenaField.setFont(new Font("Roboto", 1, 15));
+        contrasenaField.setBorder(BorderFactory.createLineBorder(new Color(73, 176, 213)));
         contrasenaField.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 contrasenaField.setBackground(Color.white);
@@ -198,6 +200,28 @@ public class GestionUsuarios extends JFrame {
                 }
             }
         });
+
+        final JLabel btnMostrar = Elementos.crearJLabel(235, 387, 40, 29,"", true);
+        btnMostrar.setIcon(new ImageIcon(Elementos.class.getResource("/imagen/visible_off.png")));
+        btnMostrar.addMouseListener(new MouseAdapter() {
+            int Visible = 0;
+
+            public void mouseClicked(MouseEvent e) {
+                if (Visible == 1) {
+                    contrasenaField.setEchoChar((char) 0);
+                    btnMostrar.setIcon(new ImageIcon(Elementos.class.getResource("/imagen/visible_on.png")));
+                    Visible=0;
+                } else {
+                    contrasenaField.setEchoChar(('•'));
+                    btnMostrar.setIcon(new ImageIcon(Elementos.class.getResource("/imagen/visible_off.png")));
+                    Visible = 1;
+                }
+            }
+        });
+        Panel.add(btnMostrar);
+        Panel.add(contrasenaField);
+        
+
 
         // TABLA DE DATOS
         final JTable tabla = new JTable(CargarTabla());
@@ -296,6 +320,7 @@ public class GestionUsuarios extends JFrame {
         Panel.add(buttonAgregar);
         buttonAgregar.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
+                String contrasena = new String(contrasenaField.getPassword());
                 int comprobar = 0;
                 nombreField.setBackground(
                         usuarioField.getText().isEmpty() ? new Color(255, 102, 102) : new Color(255, 255, 255));
@@ -311,7 +336,7 @@ public class GestionUsuarios extends JFrame {
                 comprobar += usuarioField.getText().isEmpty() ? 1 : 0;
                 contrasenaField.setBackground(
                         usuarioField.getText().isEmpty() ? new Color(255, 102, 102) : new Color(255, 255, 255));
-                comprobar += contrasenaField.getText().isEmpty() ? 1 : 0;
+                comprobar += contrasena.isEmpty() ? 1 : 0;
 
                 if (comprobar == 0) {
                     String[] privilegios = { "lectura", "modificacion", "administrador" };
@@ -342,7 +367,7 @@ public class GestionUsuarios extends JFrame {
                                     conexion.prepareStatement(sql);
                                     PreparedStatement consultaStatement = conexion.prepareStatement(sql);
                                     consultaStatement.setString(1, usuarioField.getText().toString().toLowerCase());
-                                    consultaStatement.setString(2, contrasenaField.getText().toString());
+                                    consultaStatement.setString(2, contrasena);
                                     consultaStatement.setString(3, nombreField.getText().toString());
                                     consultaStatement.setString(4, apellidoField.getText().toString());
                                     consultaStatement.setString(5, cedulaField.getText().toString());
@@ -440,7 +465,8 @@ public class GestionUsuarios extends JFrame {
                 try {
                     String sql = "UPDATE usuarios SET contrasena=?, Nombre=?, Apellido=?, telefono=? WHERE id=?";
                     PreparedStatement consultasStatement = conexion.prepareStatement(sql);
-                    consultasStatement.setString(1, contrasenaField.getText());
+                    String contrasena = new String(contrasenaField.getPassword());
+                    consultasStatement.setString(1, contrasena);
                     consultasStatement.setString(2, nombreField.getText());
                     consultasStatement.setString(3, apellidoField.getText());
                     consultasStatement.setString(4, telefonofield.getText());
